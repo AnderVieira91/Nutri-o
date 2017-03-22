@@ -72,9 +72,31 @@ public class Crianca {
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "crianca")
 	private List<Bioquimico> bioquimico = new LinkedList<Bioquimico>();
-	
+
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "crianca")
 	private List<HabitoAlimentar> habitoAlimentar = new LinkedList<HabitoAlimentar>();
+
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "crianca")
+	private List<Recordatorio> recordatorio = new LinkedList<Recordatorio>();
+	
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "crianca")
+	private List<Orientacao> orientecao = new LinkedList<Orientacao>();
+
+	public List<Orientacao> getOrientecao() {
+		return orientecao;
+	}
+
+	public void setOrientecao(List<Orientacao> orientecao) {
+		this.orientecao = orientecao;
+	}
+
+	public List<Recordatorio> getRecordatorio() {
+		return recordatorio;
+	}
+
+	public void setRecordatorio(List<Recordatorio> recordatorio) {
+		this.recordatorio = recordatorio;
+	}
 
 	public List<HabitoAlimentar> getHabitoAlimentar() {
 		return habitoAlimentar;
