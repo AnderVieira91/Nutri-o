@@ -7,27 +7,24 @@ import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.SpinnerListModel;
-import javax.swing.SpinnerModel;
 import javax.swing.border.EmptyBorder;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 import edu.fatec.sjc.model.Crianca;
 import edu.fatec.sjc.repository.CriancaRepositorio;
-import javax.swing.JList;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
+import edu.fatec.sjc.tela.TelaPrincipal.CriancaPadrao;
 
 public class TelaCadastro extends JFrame {
 
@@ -100,13 +97,12 @@ public class TelaCadastro extends JFrame {
 
 		JLabel lblSexo = new JLabel("Sexo:");
 		final JComboBox cBSexo = new JComboBox();
-		cBSexo.setModel(new DefaultComboBoxModel(new String[] {"M", "F"}));
-		
+		cBSexo.setModel(new DefaultComboBoxModel(new String[] { "M", "F" }));
+
 		textTelefone = new JTextField();
 		textTelefone.setColumns(10);
 
 		lblTelefone = new JLabel("Telefone:");
-
 
 		JButton btnCadastrar = new JButton("Cadastrar");
 		btnCadastrar.addMouseListener(new MouseAdapter() {
@@ -136,85 +132,79 @@ public class TelaCadastro extends JFrame {
 				crianca.setNascimento(nascimento);
 				crianca.setSexo(sexo);
 				crianca.setTelefone(telefone);
-				
+
 				criancaRepo.save(crianca);
-				if(crianca.getId() == null){
-					 JOptionPane.showMessageDialog(null, "Usuário não salvo.\nPreencha todos os campos.");
+				if (crianca.getId() == null) {
+					JOptionPane.showMessageDialog(null, "Usuário não salvo.\nPreencha todos os campos.");
+				} else {
+					CriancaPadrao.crianca = crianca;
 				}
 			}
 		});
 
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
-		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-						.addComponent(lblNome)
-						.addComponent(lblPai)
-						.addComponent(lblMe)
-						.addComponent(lblMotivo)
-						.addComponent(lblNascimento)
-						.addComponent(lblSexo)
-						.addComponent(lblTelefone))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
-							.addComponent(textMotivo, GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE)
-							.addComponent(textMae)
-							.addComponent(textPai)
-							.addComponent(textNome)
-							.addComponent(textNascimento, GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
-							.addComponent(textTelefone, GroupLayout.PREFERRED_SIZE, 220, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addComponent(cBSexo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addGap(25)))
-					.addContainerGap(38, Short.MAX_VALUE))
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addContainerGap(187, Short.MAX_VALUE)
-					.addComponent(btnCadastrar)
-					.addGap(168))
-		);
-		gl_contentPane.setVerticalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblNome)
-						.addComponent(textNome, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(textPai, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+		gl_contentPane.setHorizontalGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_contentPane.createSequentialGroup().addContainerGap()
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING).addComponent(lblNome)
+								.addComponent(lblPai)
+								.addComponent(lblMe).addComponent(lblMotivo).addComponent(lblNascimento)
+								.addComponent(lblSexo).addComponent(lblTelefone))
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
+										.addComponent(textMotivo, GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE)
+										.addComponent(textMae).addComponent(textPai).addComponent(textNome)
+										.addComponent(textNascimento, GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+										.addComponent(textTelefone, GroupLayout.PREFERRED_SIZE, 220,
+												GroupLayout.PREFERRED_SIZE))
+								.addGroup(gl_contentPane.createSequentialGroup()
+										.addComponent(cBSexo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+												GroupLayout.PREFERRED_SIZE)
+										.addGap(25)))
+						.addContainerGap(38, Short.MAX_VALUE))
+				.addGroup(gl_contentPane.createSequentialGroup().addContainerGap(187, Short.MAX_VALUE)
+						.addComponent(btnCadastrar).addGap(168)));
+		gl_contentPane.setVerticalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING).addGroup(gl_contentPane
+				.createSequentialGroup()
+				.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE).addComponent(lblNome).addComponent(
+						textNome, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+				.addPreferredGap(ComponentPlacement.RELATED)
+				.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(textPai, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+								GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblPai))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(textMae, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+				.addPreferredGap(ComponentPlacement.UNRELATED)
+				.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(textMae, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+								GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblMe))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(textMotivo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+				.addPreferredGap(ComponentPlacement.RELATED)
+				.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(textMotivo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+								GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblMotivo))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(textNascimento, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+				.addPreferredGap(ComponentPlacement.RELATED)
+				.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(textNascimento, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+								GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblNascimento))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+				.addPreferredGap(ComponentPlacement.RELATED)
+				.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblSexo)
-								.addComponent(cBSexo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addGap(2)))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(textTelefone, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE).addComponent(lblSexo)
+										.addComponent(cBSexo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+												GroupLayout.PREFERRED_SIZE))
+								.addGap(2)))
+				.addPreferredGap(ComponentPlacement.RELATED)
+				.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(textTelefone, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+								GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblTelefone))
-					.addPreferredGap(ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
-					.addComponent(btnCadastrar)
-					.addContainerGap())
-		);
+				.addPreferredGap(ComponentPlacement.RELATED, 17, Short.MAX_VALUE).addComponent(btnCadastrar)
+				.addContainerGap()));
 		contentPane.setLayout(gl_contentPane);
 	}
-	
+
 	public CriancaRepositorio getCriancaRepo() {
 		return criancaRepo;
 	}

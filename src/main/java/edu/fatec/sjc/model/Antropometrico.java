@@ -71,7 +71,7 @@ public class Antropometrico {
 	private Double areaMuscularPolegar;
 
 	@Column(name = "ANT_DATA", unique = false, nullable = false)
-	private Date data;
+	private Date data = new Date();
 
 	@ManyToOne
 	@JoinColumn(name = "CRI_ID")

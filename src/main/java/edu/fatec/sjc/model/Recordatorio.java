@@ -32,7 +32,7 @@ public class Recordatorio {
 	private String refeicao;
 
 	@Column(name = "REC_DATA", unique = false, nullable = false)
-	private Date data;
+	private Date data = new Date();
 
 	@ManyToOne
 	@JoinColumn(name = "CRI_ID")

@@ -35,7 +35,7 @@ public class HabitoIntestinal {
 	private String melena;
 
 	@Column(name = "HAB_INT_DATA", unique = false, nullable = false)
-	private Date data;
+	private Date data = new Date();
 
 	@ManyToOne
 	@JoinColumn(name = "CRI_ID")

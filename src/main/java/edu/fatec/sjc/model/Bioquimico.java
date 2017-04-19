@@ -110,7 +110,7 @@ public class Bioquimico {
 	private Double potassio;
 
 	@Column(name = "BIO_DATA", unique = false, nullable = false)
-	private Date data;
+	private Date data = new Date();
 
 	@ManyToOne
 	@JoinColumn(name = "CRI_ID")

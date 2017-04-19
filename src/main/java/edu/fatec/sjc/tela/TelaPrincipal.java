@@ -2,13 +2,12 @@ package edu.fatec.sjc.tela;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import edu.fatec.sjc.model.Crianca;
 
 public class TelaPrincipal extends JFrame {
 
@@ -45,6 +44,10 @@ public class TelaPrincipal extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
+	}
+	
+	public static class CriancaPadrao{
+		public static Crianca crianca;
 	}
 
 }

@@ -32,7 +32,7 @@ public class Orientacao {
 	private String hora;
 	
 	@Column(name = "ORI_DATA", unique = false, nullable = false)
-	private Date data;
+	private Date data = new Date();
 	
 	@ManyToOne
 	@JoinColumn(name = "CRI_ID")

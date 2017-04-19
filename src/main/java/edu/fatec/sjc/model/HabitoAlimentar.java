@@ -38,7 +38,7 @@ public class HabitoAlimentar {
 	private Long numero;
 
 	@Column(name = "HAB_ALI_DATA", unique = false, nullable = false)
-	private Date data;
+	private Date data = new Date();
 
 	@ManyToOne
 	@JoinColumn(name = "CRI_ID")
