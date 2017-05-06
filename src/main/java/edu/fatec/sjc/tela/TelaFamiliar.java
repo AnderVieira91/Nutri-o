@@ -87,34 +87,46 @@ public class TelaFamiliar extends JFrame {
 
 		lblDoencas = new JLabel("");
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
-		gl_contentPane.setHorizontalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING).addGroup(gl_contentPane
-				.createSequentialGroup()
-				.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPane.createSequentialGroup().addGap(162).addComponent(lblCriancaNome))
-						.addGroup(
-								gl_contentPane
-										.createSequentialGroup().addContainerGap()
-										.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-												.addComponent(lblParentesco).addComponent(lblDoena))
-										.addPreferredGap(ComponentPlacement.RELATED)
-										.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-												.addComponent(cBParentesco, GroupLayout.PREFERRED_SIZE,
-														GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-												.addComponent(textDoenca, GroupLayout.PREFERRED_SIZE, 305,
-														GroupLayout.PREFERRED_SIZE)
-												.addComponent(lblDoencas)))
-						.addGroup(gl_contentPane.createSequentialGroup().addGap(168).addComponent(btnAdicionar)))
-				.addContainerGap(47, Short.MAX_VALUE)));
-		gl_contentPane.setVerticalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING).addGroup(gl_contentPane
-				.createSequentialGroup().addComponent(lblCriancaNome).addGap(18)
-				.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE).addComponent(lblDoena).addComponent(
-						textDoenca, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-				.addPreferredGap(ComponentPlacement.RELATED)
-				.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE).addComponent(lblParentesco)
-						.addComponent(cBParentesco, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-								GroupLayout.PREFERRED_SIZE))
-				.addPreferredGap(ComponentPlacement.RELATED).addComponent(btnAdicionar).addGap(60)
-				.addComponent(lblDoencas).addContainerGap(65, Short.MAX_VALUE)));
+		gl_contentPane.setHorizontalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(162)
+							.addComponent(lblCriancaNome))
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addContainerGap()
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblParentesco)
+								.addComponent(lblDoena))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+								.addComponent(cBParentesco, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(textDoenca, GroupLayout.PREFERRED_SIZE, 305, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblDoencas)))
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(168)
+							.addComponent(btnAdicionar)))
+					.addContainerGap(45, Short.MAX_VALUE))
+		);
+		gl_contentPane.setVerticalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addComponent(lblCriancaNome)
+					.addGap(18)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(textDoenca, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblDoena))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblParentesco)
+						.addComponent(cBParentesco, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(btnAdicionar)
+					.addGap(60)
+					.addComponent(lblDoencas)
+					.addContainerGap(79, Short.MAX_VALUE))
+		);
 		contentPane.setLayout(gl_contentPane);
 	}
 
