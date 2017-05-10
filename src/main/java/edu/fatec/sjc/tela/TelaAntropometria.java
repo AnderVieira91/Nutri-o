@@ -160,159 +160,189 @@ public class TelaAntropometria extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 
-				if (CriancaPadrao.crianca.getId() != null) {
-					
-					Antropometrico antro = new Antropometrico();
-					antro.setAlteracaoPesoRecente(Double.valueOf(txtAlteracaoPesoRecente.getText().replaceAll(",", ".")));
-					antro.setAreaMuscularPolegar(Double.valueOf(txtAreaMuscularPolegar.getText().replaceAll(",", ".")));
-					antro.setCircunferenciaAbdominal(Double.valueOf(txtCircunferenciaAbdominal.getText().replaceAll(",", ".")));
-					antro.setCircunferenciaCoxa(Double.valueOf(txtCircunferenciaCoxa.getText().replaceAll(",", ".")));
-					antro.setCircunferenciaPanturrilha(Double.valueOf(txtCircunferenciaPanturrilha.getText().replaceAll(",", ".")));
-					antro.setCircunferenciaPescoco(Double.valueOf(txtCircunferenciaPescoco.getText().replaceAll(",", ".")));
-					antro.setDobraCutaneaBicibital(Double.valueOf(txtDobraCutaneaBicibital.getText().replaceAll(",", ".")));
-					antro.setDobraCutaneaSubescalar(Double.valueOf(txtDobraCutaneaSubescalar.getText().replaceAll(",", ".")));
-					antro.setDobraCutaneaSupraIliaca(Double.valueOf(txtDobraCutaneaSupraIliaca.getText().replaceAll(",", ".")));
-					antro.setDobraCutaneaTricipital(Double.valueOf(txtDobraCutaneaTricipital.getText().replaceAll(",", ".")));
-					antro.setEstatura(Double.valueOf(txtEstatura.getText().replaceAll(",", ".")));
-					antro.setPerimetroCraniano(Double.valueOf(txtPerimetroCraniano.getText().replaceAll(",", ".")));
-					antro.setPerimetroToracico(Double.valueOf(txtPerimetroToracico.getText().replaceAll(",", ".")));
-					antro.setPesoAtual(Double.valueOf(txtPesoAtual.getText().replaceAll(",", ".")));
-					antro.setPesoEstimado(Double.valueOf(txtPesoEstimado.getText().replaceAll(",", ".")));
-					antro.setPesoHabitual(Double.valueOf(txtPesoHabitual.getText().replaceAll(",", ".")));
-					antro.setCrianca(CriancaPadrao.crianca);
-					
-					antroRepo.save(antro);
-					
-					if (antro.getId() == null) {
-						JOptionPane.showMessageDialog(null, "Dados antropométricos não salvos.\nPreencha todos os campos.");
-					}
-				}
+				cadastrar();
+
 			}
 		});
-		
+
 		JLabel lblNomeCrianca = new JLabel(CriancaPadrao.crianca.getNome());
 		lblNomeCrianca.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
-		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-						.addComponent(btnSalvar)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-									.addComponent(lblDobraCutneaSupra)
-									.addComponent(lblDobraCutneaSubescalar)
-									.addComponent(lblCircunfernciaPanturrilha)
-									.addComponent(lblAlteraoDePeso))
-								.addComponent(lblPesoHabitual)
-								.addComponent(lblPesoAtual)
-								.addComponent(lblPesoEstimado)
-								.addComponent(lblEstatura)
-								.addComponent(lblPerimetroCraniano)
-								.addComponent(lblPermetroTorcico)
-								.addComponent(lblCircunfernciaAbdominal)
-								.addComponent(lblCircunfernciaCoxa)
-								.addComponent(lblCircunfernciaPescoo)
-								.addComponent(lblDobraCutneaTricipital)
-								.addComponent(lblDobraCuttneaBicibital)
+		gl_contentPane
+				.setHorizontalGroup(
+						gl_contentPane
+								.createParallelGroup(
+										Alignment.TRAILING)
+								.addGroup(gl_contentPane.createSequentialGroup().addContainerGap()
+										.addGroup(gl_contentPane
+												.createParallelGroup(Alignment.TRAILING).addComponent(
+														btnSalvar)
+												.addGroup(gl_contentPane.createSequentialGroup().addGroup(gl_contentPane
+														.createParallelGroup(Alignment.LEADING)
+														.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+																.addComponent(lblDobraCutneaSupra)
+																.addComponent(lblDobraCutneaSubescalar)
+																.addComponent(lblCircunfernciaPanturrilha)
+																.addComponent(lblAlteraoDePeso))
+														.addComponent(lblPesoHabitual).addComponent(lblPesoAtual)
+														.addComponent(lblPesoEstimado).addComponent(lblEstatura)
+														.addComponent(lblPerimetroCraniano)
+														.addComponent(lblPermetroTorcico)
+														.addComponent(lblCircunfernciaAbdominal)
+														.addComponent(lblCircunfernciaCoxa)
+														.addComponent(lblCircunfernciaPescoo)
+														.addComponent(lblDobraCutneaTricipital)
+														.addComponent(lblDobraCuttneaBicibital)
+														.addComponent(lblreaMuscularDo))
+														.addPreferredGap(ComponentPlacement.UNRELATED)
+														.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+																.addComponent(txtPesoHabitual,
+																		GroupLayout.PREFERRED_SIZE,
+																		GroupLayout.DEFAULT_SIZE,
+																		GroupLayout.PREFERRED_SIZE)
+																.addComponent(txtPesoAtual, GroupLayout.PREFERRED_SIZE,
+																		GroupLayout.DEFAULT_SIZE,
+																		GroupLayout.PREFERRED_SIZE)
+																.addComponent(txtPesoEstimado,
+																		GroupLayout.PREFERRED_SIZE,
+																		GroupLayout.DEFAULT_SIZE,
+																		GroupLayout.PREFERRED_SIZE)
+																.addComponent(txtEstatura, GroupLayout.PREFERRED_SIZE,
+																		GroupLayout.DEFAULT_SIZE,
+																		GroupLayout.PREFERRED_SIZE)
+																.addComponent(txtPerimetroCraniano,
+																		GroupLayout.PREFERRED_SIZE,
+																		GroupLayout.DEFAULT_SIZE,
+																		GroupLayout.PREFERRED_SIZE)
+																.addComponent(txtPerimetroToracico,
+																		GroupLayout.PREFERRED_SIZE,
+																		GroupLayout.DEFAULT_SIZE,
+																		GroupLayout.PREFERRED_SIZE)
+																.addComponent(txtAlteracaoPesoRecente,
+																		GroupLayout.PREFERRED_SIZE,
+																		GroupLayout.DEFAULT_SIZE,
+																		GroupLayout.PREFERRED_SIZE)
+																.addComponent(txtCircunferenciaAbdominal,
+																		GroupLayout.PREFERRED_SIZE,
+																		GroupLayout.DEFAULT_SIZE,
+																		GroupLayout.PREFERRED_SIZE)
+																.addComponent(txtCircunferenciaCoxa,
+																		GroupLayout.PREFERRED_SIZE,
+																		GroupLayout.DEFAULT_SIZE,
+																		GroupLayout.PREFERRED_SIZE)
+																.addComponent(txtCircunferenciaPanturrilha,
+																		GroupLayout.PREFERRED_SIZE,
+																		GroupLayout.DEFAULT_SIZE,
+																		GroupLayout.PREFERRED_SIZE)
+																.addComponent(txtCircunferenciaPescoco,
+																		GroupLayout.PREFERRED_SIZE,
+																		GroupLayout.DEFAULT_SIZE,
+																		GroupLayout.PREFERRED_SIZE)
+																.addComponent(txtDobraCutaneaTricipital,
+																		GroupLayout.PREFERRED_SIZE,
+																		GroupLayout.DEFAULT_SIZE,
+																		GroupLayout.PREFERRED_SIZE)
+																.addComponent(txtDobraCutaneaSubescalar,
+																		GroupLayout.PREFERRED_SIZE,
+																		GroupLayout.DEFAULT_SIZE,
+																		GroupLayout.PREFERRED_SIZE)
+																.addComponent(txtDobraCutaneaBicibital,
+																		GroupLayout.PREFERRED_SIZE,
+																		GroupLayout.DEFAULT_SIZE,
+																		GroupLayout.PREFERRED_SIZE)
+																.addComponent(txtDobraCutaneaSupraIliaca,
+																		GroupLayout.PREFERRED_SIZE,
+																		GroupLayout.DEFAULT_SIZE,
+																		GroupLayout.PREFERRED_SIZE)
+																.addComponent(txtAreaMuscularPolegar,
+																		GroupLayout.PREFERRED_SIZE,
+																		GroupLayout.DEFAULT_SIZE,
+																		GroupLayout.PREFERRED_SIZE))))
+										.addContainerGap(137, Short.MAX_VALUE))
+								.addGroup(gl_contentPane.createSequentialGroup().addContainerGap(136, Short.MAX_VALUE)
+										.addComponent(lblNomeCrianca).addGap(155)));
+		gl_contentPane.setVerticalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup().addComponent(lblNomeCrianca)
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+								.addComponent(txtPesoHabitual, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+										GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblPesoHabitual))
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+								.addComponent(txtPesoAtual, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+										GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblPesoAtual))
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+								.addComponent(txtPesoEstimado, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+										GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblPesoEstimado))
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+								.addComponent(txtEstatura, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+										GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblEstatura))
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+								.addComponent(txtPerimetroCraniano, GroupLayout.PREFERRED_SIZE,
+										GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblPerimetroCraniano))
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+								.addComponent(txtPerimetroToracico, GroupLayout.PREFERRED_SIZE,
+										GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblPermetroTorcico))
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE).addComponent(lblAlteraoDePeso)
+								.addComponent(txtAlteracaoPesoRecente, GroupLayout.PREFERRED_SIZE,
+										GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+								.addComponent(txtCircunferenciaAbdominal, GroupLayout.PREFERRED_SIZE,
+										GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblCircunfernciaAbdominal))
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+								.addComponent(txtCircunferenciaCoxa, GroupLayout.PREFERRED_SIZE,
+										GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblCircunfernciaCoxa))
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblCircunfernciaPanturrilha).addComponent(txtCircunferenciaPanturrilha,
+										GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+										GroupLayout.PREFERRED_SIZE))
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+								.addComponent(txtCircunferenciaPescoco, GroupLayout.PREFERRED_SIZE,
+										GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblCircunfernciaPescoo))
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+								.addComponent(txtDobraCutaneaTricipital, GroupLayout.PREFERRED_SIZE,
+										GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblDobraCutneaTricipital))
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblDobraCutneaSubescalar).addComponent(txtDobraCutaneaSubescalar,
+										GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+										GroupLayout.PREFERRED_SIZE))
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+								.addComponent(txtDobraCutaneaBicibital, GroupLayout.PREFERRED_SIZE,
+										GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblDobraCuttneaBicibital))
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addGroup(
+								gl_contentPane.createParallelGroup(Alignment.BASELINE).addComponent(lblDobraCutneaSupra)
+										.addComponent(txtDobraCutaneaSupraIliaca, GroupLayout.PREFERRED_SIZE,
+												GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+								.addComponent(txtAreaMuscularPolegar, GroupLayout.PREFERRED_SIZE,
+										GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 								.addComponent(lblreaMuscularDo))
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addComponent(txtPesoHabitual, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(txtPesoAtual, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(txtPesoEstimado, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(txtEstatura, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(txtPerimetroCraniano, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(txtPerimetroToracico, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(txtAlteracaoPesoRecente, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(txtCircunferenciaAbdominal, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(txtCircunferenciaCoxa, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(txtCircunferenciaPanturrilha, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(txtCircunferenciaPescoco, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(txtDobraCutaneaTricipital, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(txtDobraCutaneaSubescalar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(txtDobraCutaneaBicibital, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(txtDobraCutaneaSupraIliaca, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(txtAreaMuscularPolegar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
-					.addContainerGap(137, Short.MAX_VALUE))
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addContainerGap(136, Short.MAX_VALUE)
-					.addComponent(lblNomeCrianca)
-					.addGap(155))
-		);
-		gl_contentPane.setVerticalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addComponent(lblNomeCrianca)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(txtPesoHabitual, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblPesoHabitual))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(txtPesoAtual, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblPesoAtual))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(txtPesoEstimado, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblPesoEstimado))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(txtEstatura, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblEstatura))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(txtPerimetroCraniano, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblPerimetroCraniano))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(txtPerimetroToracico, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblPermetroTorcico))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblAlteraoDePeso)
-						.addComponent(txtAlteracaoPesoRecente, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(txtCircunferenciaAbdominal, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblCircunfernciaAbdominal))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(txtCircunferenciaCoxa, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblCircunfernciaCoxa))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblCircunfernciaPanturrilha)
-						.addComponent(txtCircunferenciaPanturrilha, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(txtCircunferenciaPescoco, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblCircunfernciaPescoo))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(txtDobraCutaneaTricipital, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblDobraCutneaTricipital))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblDobraCutneaSubescalar)
-						.addComponent(txtDobraCutaneaSubescalar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(txtDobraCutaneaBicibital, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblDobraCuttneaBicibital))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblDobraCutneaSupra)
-						.addComponent(txtDobraCutaneaSupraIliaca, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(txtAreaMuscularPolegar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblreaMuscularDo))
-					.addPreferredGap(ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
-					.addComponent(btnSalvar))
-		);
+						.addPreferredGap(ComponentPlacement.RELATED, 13, Short.MAX_VALUE).addComponent(btnSalvar)));
 		contentPane.setLayout(gl_contentPane);
 	}
 
@@ -322,5 +352,36 @@ public class TelaAntropometria extends JFrame {
 
 	public AntropometricoRepositorio getAntroRepo() {
 		return antroRepo;
+	}
+
+	private void cadastrar() {
+		if (CriancaPadrao.crianca.getId() != null) {
+
+			Antropometrico antro = new Antropometrico();
+			antro.setAlteracaoPesoRecente(Double.valueOf(txtAlteracaoPesoRecente.getText().replaceAll(",", ".")));
+			antro.setAreaMuscularPolegar(Double.valueOf(txtAreaMuscularPolegar.getText().replaceAll(",", ".")));
+			antro.setCircunferenciaAbdominal(Double.valueOf(txtCircunferenciaAbdominal.getText().replaceAll(",", ".")));
+			antro.setCircunferenciaCoxa(Double.valueOf(txtCircunferenciaCoxa.getText().replaceAll(",", ".")));
+			antro.setCircunferenciaPanturrilha(
+					Double.valueOf(txtCircunferenciaPanturrilha.getText().replaceAll(",", ".")));
+			antro.setCircunferenciaPescoco(Double.valueOf(txtCircunferenciaPescoco.getText().replaceAll(",", ".")));
+			antro.setDobraCutaneaBicibital(Double.valueOf(txtDobraCutaneaBicibital.getText().replaceAll(",", ".")));
+			antro.setDobraCutaneaSubescalar(Double.valueOf(txtDobraCutaneaSubescalar.getText().replaceAll(",", ".")));
+			antro.setDobraCutaneaSupraIliaca(Double.valueOf(txtDobraCutaneaSupraIliaca.getText().replaceAll(",", ".")));
+			antro.setDobraCutaneaTricipital(Double.valueOf(txtDobraCutaneaTricipital.getText().replaceAll(",", ".")));
+			antro.setEstatura(Double.valueOf(txtEstatura.getText().replaceAll(",", ".")));
+			antro.setPerimetroCraniano(Double.valueOf(txtPerimetroCraniano.getText().replaceAll(",", ".")));
+			antro.setPerimetroToracico(Double.valueOf(txtPerimetroToracico.getText().replaceAll(",", ".")));
+			antro.setPesoAtual(Double.valueOf(txtPesoAtual.getText().replaceAll(",", ".")));
+			antro.setPesoEstimado(Double.valueOf(txtPesoEstimado.getText().replaceAll(",", ".")));
+			antro.setPesoHabitual(Double.valueOf(txtPesoHabitual.getText().replaceAll(",", ".")));
+			antro.setCrianca(CriancaPadrao.crianca);
+
+			antroRepo.save(antro);
+
+			if (antro.getId() == null) {
+				JOptionPane.showMessageDialog(null, "Dados antropométricos não salvos.\nPreencha todos os campos.");
+			}
+		}
 	}
 }

@@ -32,7 +32,7 @@ public class HabitoIntestinal {
 	private String bristol;
 
 	@Column(name = "HAB_INT_MELENA", unique = false, length = 30, nullable = false)
-	private String melena;
+	private boolean melena;
 
 	@Column(name = "HAB_INT_DATA", unique = false, nullable = false)
 	private Date data = new Date();
@@ -73,11 +73,11 @@ public class HabitoIntestinal {
 		this.bristol = bristol;
 	}
 
-	public String getMelena() {
+	public boolean getMelena() {
 		return melena;
 	}
 
-	public void setMelena(String melena) {
+	public void setMelena(boolean melena) {
 		this.melena = melena;
 	}
 

@@ -130,7 +130,7 @@ public class TelaFamiliar extends JFrame {
 		contentPane.setLayout(gl_contentPane);
 	}
 
-	public void adicionarDoenca() {
+	private void adicionarDoenca() {
 		Familiar familiar = new Familiar();
 		familiar.setDoenca(textDoenca.getText());
 		familiar.setParentesco(cBParentesco.getSelectedItem().toString());

@@ -42,7 +42,7 @@ public class TelaCadastro extends JFrame {
 	private JTextField textNascimento;
 	private JTextField textTelefone;
 	private JLabel lblTelefone;
-
+	private JComboBox cBSexo;
 	/**
 	 * Launch the application.
 	 */
@@ -96,7 +96,7 @@ public class TelaCadastro extends JFrame {
 		JLabel lblNascimento = new JLabel("Nascimento:");
 
 		JLabel lblSexo = new JLabel("Sexo:");
-		final JComboBox cBSexo = new JComboBox();
+		cBSexo = new JComboBox();
 		cBSexo.setModel(new DefaultComboBoxModel(new String[] { "M", "F" }));
 
 		textTelefone = new JTextField();
@@ -108,37 +108,7 @@ public class TelaCadastro extends JFrame {
 		btnCadastrar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-
-				String nome = textNome.getText().toUpperCase();
-				String pai = textPai.getText().toUpperCase();
-				String mae = textMae.getText().toUpperCase();
-				String motivo = textMotivo.getText().toUpperCase();
-				Long telefone = Long.valueOf(textTelefone.getText());
-				String sexo = cBSexo.getSelectedItem().toString();
-				Date nascimento = new Date(0L);
-				try {
-					Date nascimentoB = (Date) sdf.parse(textNascimento.getText());
-					nascimento = nascimentoB;
-				} catch (ParseException e1) {
-					e1.printStackTrace();
-				}
-
-				Crianca crianca = new Crianca();
-				crianca.setNome(nome);
-				crianca.setMae(mae);
-				crianca.setPai(pai);
-				crianca.setMotivo(motivo);
-				crianca.setNascimento(nascimento);
-				crianca.setSexo(sexo);
-				crianca.setTelefone(telefone);
-
-				criancaRepo.save(crianca);
-				if (crianca.getId() == null) {
-					JOptionPane.showMessageDialog(null, "Usuário não salvo.\nPreencha todos os campos.");
-				} else {
-					CriancaPadrao.crianca = crianca;
-				}
+				cadastrar();
 			}
 		});
 
@@ -211,5 +181,39 @@ public class TelaCadastro extends JFrame {
 
 	public void setCriancaRepo(CriancaRepositorio criancaRepo) {
 		this.criancaRepo = criancaRepo;
+	}
+
+	private void cadastrar() {
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
+		String nome = textNome.getText().toUpperCase();
+		String pai = textPai.getText().toUpperCase();
+		String mae = textMae.getText().toUpperCase();
+		String motivo = textMotivo.getText().toUpperCase();
+		Long telefone = Long.valueOf(textTelefone.getText());
+		String sexo = cBSexo.getSelectedItem().toString();
+		Date nascimento = new Date(0L);
+		try {
+			Date nascimentoB = (Date) sdf.parse(textNascimento.getText());
+			nascimento = nascimentoB;
+		} catch (ParseException e1) {
+			e1.printStackTrace();
+		}
+
+		Crianca crianca = new Crianca();
+		crianca.setNome(nome);
+		crianca.setMae(mae);
+		crianca.setPai(pai);
+		crianca.setMotivo(motivo);
+		crianca.setNascimento(nascimento);
+		crianca.setSexo(sexo);
+		crianca.setTelefone(telefone);
+
+		criancaRepo.save(crianca);
+		if (crianca.getId() == null) {
+			JOptionPane.showMessageDialog(null, "Usuário não salvo.\nPreencha todos os campos.");
+		} else {
+			CriancaPadrao.crianca = crianca;
+		}
 	}
 }

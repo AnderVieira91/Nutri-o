@@ -252,47 +252,7 @@ public class TelaBioquimico extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 
-				if (CriancaPadrao.crianca.getId() != null) {
-
-					Bioquimico bioquimico = new Bioquimico();
-
-					bioquimico.setAcidoFolico(Double.valueOf(textAcidoFolico.getText()));
-					bioquimico.setAcidoUrico(Double.valueOf(textAcidoUrico.getText()));
-					bioquimico.setAlbumina(Double.valueOf(textAlbumina.getText()));
-					bioquimico.setCalcio(Double.valueOf(textCalcio.getText()));
-					bioquimico.setChcm(Double.valueOf(textChcm.getText()));
-					bioquimico.setCreatinina(Double.valueOf(textCreatinina.getText()));
-					bioquimico.setCreatininaUrina(Double.valueOf(textCreatininaUrina.getText()));
-					bioquimico.setDhl(Double.valueOf(textDhl.getText()));
-					bioquimico.setFerretina(Double.valueOf(textFerretina.getText()));
-					bioquimico.setFerro(Double.valueOf(textFerro.getText()));
-					bioquimico.setGlicemia(Double.valueOf(textGlicemia.getText()));
-					bioquimico.setHcm(Double.valueOf(textHcm.getText()));
-					bioquimico.setHematocrito(Double.valueOf(textHematocrito.getText()));
-					bioquimico.setHemoglobina(Double.valueOf(textHemoglobina.getText()));
-					bioquimico.setInsulenimia(Double.valueOf(textInsulenimia.getText()));
-					bioquimico.setLeucocito(Double.valueOf(textLeucocito.getText()));
-					bioquimico.setLinfocito(Double.valueOf(textLinfocito.getText()));
-					bioquimico.setNeutrofilo(Double.valueOf(textNeutrofilo.getText()));
-					bioquimico.setPcr(Double.valueOf(textPcr.getText()));
-					bioquimico.setPlaqueta(Double.valueOf(textPlaqueta.getText()));
-					bioquimico.setPotassio(Double.valueOf(textPotassio.getText()));
-					bioquimico.setPreAlbumina(Double.valueOf(textPreAlbumina.getText()));
-					bioquimico.setProteinasTotais(Double.valueOf(textProteinasTotais.getText()));
-					bioquimico.setRdw(Double.valueOf(textRdw.getText()));
-					bioquimico.setSodio(Double.valueOf(textSodio.getText()));
-					bioquimico.setT4Livre(Double.valueOf(textT4Livre.getText()));
-					bioquimico.setTgo(Double.valueOf(textTgo.getText()));
-					bioquimico.setTgp(Double.valueOf(textTgp.getText()));
-					bioquimico.setVcm(Double.valueOf(textVcm.getText()));
-					bioquimico.setCrianca(CriancaPadrao.crianca);
-
-					bioquimicoRepo.save(bioquimico);
-
-					if (bioquimico.getId() == null) {
-						JOptionPane.showMessageDialog(null, "Dados bioquímicos não salvos.\nPreencha todos os campos.");
-					}
-				}
+				cadastrar();
 
 			}
 		});
@@ -681,5 +641,49 @@ public class TelaBioquimico extends JFrame {
 
 	public void setBioquimicoRepo(BioquimicoRepositorio bioquimicoRepo) {
 		this.bioquimicoRepo = bioquimicoRepo;
+	}
+
+	private void cadastrar() {
+		if (CriancaPadrao.crianca.getId() != null) {
+
+			Bioquimico bioquimico = new Bioquimico();
+
+			bioquimico.setAcidoFolico(Double.valueOf(textAcidoFolico.getText()));
+			bioquimico.setAcidoUrico(Double.valueOf(textAcidoUrico.getText()));
+			bioquimico.setAlbumina(Double.valueOf(textAlbumina.getText()));
+			bioquimico.setCalcio(Double.valueOf(textCalcio.getText()));
+			bioquimico.setChcm(Double.valueOf(textChcm.getText()));
+			bioquimico.setCreatinina(Double.valueOf(textCreatinina.getText()));
+			bioquimico.setCreatininaUrina(Double.valueOf(textCreatininaUrina.getText()));
+			bioquimico.setDhl(Double.valueOf(textDhl.getText()));
+			bioquimico.setFerretina(Double.valueOf(textFerretina.getText()));
+			bioquimico.setFerro(Double.valueOf(textFerro.getText()));
+			bioquimico.setGlicemia(Double.valueOf(textGlicemia.getText()));
+			bioquimico.setHcm(Double.valueOf(textHcm.getText()));
+			bioquimico.setHematocrito(Double.valueOf(textHematocrito.getText()));
+			bioquimico.setHemoglobina(Double.valueOf(textHemoglobina.getText()));
+			bioquimico.setInsulenimia(Double.valueOf(textInsulenimia.getText()));
+			bioquimico.setLeucocito(Double.valueOf(textLeucocito.getText()));
+			bioquimico.setLinfocito(Double.valueOf(textLinfocito.getText()));
+			bioquimico.setNeutrofilo(Double.valueOf(textNeutrofilo.getText()));
+			bioquimico.setPcr(Double.valueOf(textPcr.getText()));
+			bioquimico.setPlaqueta(Double.valueOf(textPlaqueta.getText()));
+			bioquimico.setPotassio(Double.valueOf(textPotassio.getText()));
+			bioquimico.setPreAlbumina(Double.valueOf(textPreAlbumina.getText()));
+			bioquimico.setProteinasTotais(Double.valueOf(textProteinasTotais.getText()));
+			bioquimico.setRdw(Double.valueOf(textRdw.getText()));
+			bioquimico.setSodio(Double.valueOf(textSodio.getText()));
+			bioquimico.setT4Livre(Double.valueOf(textT4Livre.getText()));
+			bioquimico.setTgo(Double.valueOf(textTgo.getText()));
+			bioquimico.setTgp(Double.valueOf(textTgp.getText()));
+			bioquimico.setVcm(Double.valueOf(textVcm.getText()));
+			bioquimico.setCrianca(CriancaPadrao.crianca);
+
+			bioquimicoRepo.save(bioquimico);
+
+			if (bioquimico.getId() == null) {
+				JOptionPane.showMessageDialog(null, "Dados bioquímicos não salvos.\nPreencha todos os campos.");
+			}
+		}
 	}
 }
