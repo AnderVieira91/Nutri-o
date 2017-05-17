@@ -27,19 +27,19 @@ public class Crianca {
 	@Column(name = "CRI_ID")
 	private Long id;
 
-	@Column(name = "CRI_NOME", unique = false, length = 30, nullable = false)
+	@Column(name = "CRI_NOME", unique = false, length = 80, nullable = false)
 	private String nome;
 
-	@Column(name = "CRI_PAI", unique = false, length = 30, nullable = false)
+	@Column(name = "CRI_PAI", unique = false, length = 80, nullable = false)
 	private String pai;
 
-	@Column(name = "CRI_MAE", unique = false, length = 30, nullable = false)
+	@Column(name = "CRI_MAE", unique = false, length = 80, nullable = false)
 	private String mae;
 
 	@Column(name = "CRI_NASCIMENTO", unique = false, nullable = false)
 	private Date nascimento;
 
-	@Column(name = "CRI_MOTIVO", unique = false, length = 30, nullable = false)
+	@Column(name = "CRI_MOTIVO", unique = false, length = 80, nullable = false)
 	private String motivo;
 
 	@Column(name = "CRI_TELEFONE", unique = false, length = 11, nullable = false)

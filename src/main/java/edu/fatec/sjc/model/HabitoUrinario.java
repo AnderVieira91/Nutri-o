@@ -28,8 +28,8 @@ public class HabitoUrinario {
 	@Column(name = "HAB_URI_FREQUENCIA_MEDIDA", unique = false, length = 30, nullable = false)
 	private String frequencia;
 
-	@Column(name = "HAB_URI_HEMATURIA", unique = false, length = 30, nullable = false)
-	private String hematuria;
+	@Column(name = "HAB_URI_HEMATURIA", unique = false, nullable = false)
+	private boolean hematuria;
 
 	@Column(name = "HAB_URI_DATA", unique = false, nullable = false)
 	private Date data = new Date();
@@ -42,11 +42,11 @@ public class HabitoUrinario {
 		return id;
 	}
 
-	public String getHematuria() {
+	public boolean getHematuria() {
 		return hematuria;
 	}
 
-	public void setHematuria(String hematuria) {
+	public void setHematuria(boolean hematuria) {
 		this.hematuria = hematuria;
 	}
 
