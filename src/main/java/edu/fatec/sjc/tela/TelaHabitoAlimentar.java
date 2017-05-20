@@ -150,7 +150,7 @@ public class TelaHabitoAlimentar extends JFrame {
 	}
 
 	public void setAlimentarRepo(HabitoAlimentarRepositorio alimentarRepo) {
-		alimentarRepo = alimentarRepo;
+		this.alimentarRepo = alimentarRepo;
 	}
 
 	private void adicionar() {

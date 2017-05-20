@@ -137,7 +137,7 @@ public class TelaHabitoIntestinal extends JFrame {
 
 			intestinal.setBristol(textBristol.getText());
 			intestinal.setCrianca(CriancaPadrao.crianca);
-			intestinal.setFrequencia(textFrequencia.getText());
+			intestinal.setFrequencia(cBFrequencia.getSelectedItem().toString());
 			intestinal.setMelena(checkMelena.isSelected());
 			intestinal.setNumero(Long.valueOf(textFrequencia.getText()));
 
@@ -149,4 +149,13 @@ public class TelaHabitoIntestinal extends JFrame {
 
 		}
 	}
+	
+	public HabitoIntestinalRepositorio getIntestinalRepo() {
+		return intestinalRepo;
+	}
+
+	public void setIntestinalRepo(HabitoIntestinalRepositorio intestinalRepo) {
+		this.intestinalRepo = intestinalRepo;
+	}
+
 }
