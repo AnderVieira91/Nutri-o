@@ -31,7 +31,7 @@ public class HabitoIntestinal {
 	@Column(name = "HAB_INT_BRISTOL", unique = false, length = 30, nullable = false)
 	private String bristol;
 
-	@Column(name = "HAB_INT_MELENA", unique = false, length = 30, nullable = false)
+	@Column(name = "HAB_INT_MELENA", unique = false, nullable = false)
 	private boolean melena;
 
 	@Column(name = "HAB_INT_DATA", unique = false, nullable = false)
