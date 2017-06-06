@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>edu.fatec.sjc</groupId>
-	<artifactId>Atividade02</artifactId>
+	<artifactId>Nutricao</artifactId>
 	<version>1.0</version>
 	<packaging>jar</packaging>
 
@@ -62,6 +62,21 @@
 			<version>${mysql.version}</version>
 		</dependency>
 	</dependencies>
+	
+	
+	<build>
+    <finalName>Nutricao</finalName>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 </project>
 
 
