@@ -37,7 +37,7 @@ public class TelaHabitoAlimentar extends JFrame {
 	private JTextField textHorario;
 	private JTextField textFrequencia;
 	private JComboBox cBFrequencia;
-	JComboBox cBRefeicao;
+	private JComboBox cBRefeicao;
 
 	/**
 	 * Launch the application.

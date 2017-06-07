@@ -2,6 +2,8 @@ package edu.fatec.sjc.tela;
 
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -15,24 +17,26 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import edu.fatec.sjc.model.Crianca;
 import edu.fatec.sjc.model.Remedio;
 import edu.fatec.sjc.repository.CriancaRepositorio;
 import edu.fatec.sjc.repository.RemedioRepositorio;
 import edu.fatec.sjc.tela.TelaPrincipal.CriancaPadrao;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 public class TelaRemedio extends JFrame {
 
 	/**
 	 * 
 	 */
+	@Autowired
+	private CriancaRepositorio criancaRepo;
+	@Autowired
+	private RemedioRepositorio remedioRepo;
 	private List<Remedio> remedios;
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private CriancaRepositorio criancaRepo;
-	private RemedioRepositorio remedioRepo;
 	private JTextField textRemedio;
 	private JLabel lblRemedios;
 
