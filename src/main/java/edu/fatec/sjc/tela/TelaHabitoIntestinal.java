@@ -60,7 +60,7 @@ public class TelaHabitoIntestinal extends JFrame {
 	 * Create the frame.
 	 */
 	public TelaHabitoIntestinal() {
-		setTitle("Hábito intestinal");
+		setTitle("Hábito Intestinal");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 407, 197);
 		contentPane = new JPanel();

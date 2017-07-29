@@ -58,7 +58,7 @@ public class TelaRecordatorio extends JFrame {
 	 * Create the frame.
 	 */
 	public TelaRecordatorio() {
-		setTitle("Orientação");
+		setTitle("Recordatório");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 489, 300);
 		contentPane = new JPanel();

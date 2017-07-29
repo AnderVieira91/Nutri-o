@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.text.Normalizer;
 
 public class Bula {
 
@@ -14,16 +15,18 @@ public class Bula {
 	private static final String PARAMS = "hddLetra=&txtMedicamento=dipirona&txtEmpresa=&txtNuExpediente=&txtDataPublicacaoI=&"
 			+ "txtDataPublicacaoF=&txtPageSize=10&btnPesquisar=";
 	private static final String METHOD_POST = "POST";
-	private static final String METHOD_GET = "GET";
-	private static final String METHOD_PUT = "PUT";
-	private static final String METHOD_DELETE = "DELETE";
 	private static final String URL = "http://www.anvisa.gov.br/datavisa/fila_bula/frmResultado.asp";
 	private static final String CONTENT_TYPE = "application/x-www-form-urlencoded";
 	private static final String USER_AGENT = "Mozzilla/5.0";
 
-	public static String sendAbstractMethodRequest(Object params) throws IOException {
+	public static String sendAbstractMethodRequest(String remedio) throws IOException {
+
+		String a = Normalizer.normalize(remedio, Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "");
+		String r = a.replaceAll(" ", "+").toLowerCase();
 
 		URL obj = new URL(URL);
+		String params = "hddLetra=&txtMedicamento=" + r + "&txtEmpresa=&txtNuExpediente=&txtDataPublicacaoI=&"
+				+ "txtDataPublicacaoF=&txtPageSize=100&btnPesquisar=";
 
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
@@ -42,9 +45,8 @@ public class Bula {
 		con.setRequestProperty("Connection", "keep-alive");
 		con.setRequestProperty("Upgrade-Insecure-Requests", "1");
 
-		
 		con.setDoOutput(true);
-		
+
 		if (params != null) {
 			byte[] postData = params.toString().getBytes(StandardCharsets.UTF_8);
 			int postDataLength = postData.length;
@@ -64,10 +66,11 @@ public class Bula {
 			response.append(inputLine);
 		}
 		in.close();
-		
-		String s = String.valueOf(response).replace(new String("frmVisualizarBula.asp?pNuTransacao="), new String("http://www.anvisa.gov.br/datavisa/fila_bula/frmVisualizarBula.asp?pNuTransacao="));
+
+		String s = String.valueOf(response).replace(new String("frmVisualizarBula.asp?pNuTransacao="),
+				new String("http://www.anvisa.gov.br/datavisa/fila_bula/frmVisualizarBula.asp?pNuTransacao="));
 
 		return s;
 	}
-
+	
 }

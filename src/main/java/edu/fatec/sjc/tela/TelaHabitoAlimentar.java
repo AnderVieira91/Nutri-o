@@ -59,7 +59,7 @@ public class TelaHabitoAlimentar extends JFrame {
 	 * Create the frame.
 	 */
 	public TelaHabitoAlimentar() {
-		setTitle("Hábito alimentar");
+		setTitle("Hábito Alimentar");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 226);
 		contentPane = new JPanel();

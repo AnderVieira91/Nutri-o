@@ -58,7 +58,7 @@ public class TelaHabitoUrinario extends JFrame {
 	 * Create the frame.
 	 */
 	public TelaHabitoUrinario() {
-		setTitle("Hábito urinário");
+		setTitle("Hábito Urinário");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 451, 188);
 		contentPane = new JPanel();
