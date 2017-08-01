@@ -22,7 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import edu.fatec.sjc.model.Familiar;
 import edu.fatec.sjc.repository.FamiliarRepositorio;
-import edu.fatec.sjc.tela.TelaPrincipal.CriancaPadrao;
+import edu.fatec.sjc.tela.Padrao.CriancaPadrao;
 
 public class TelaFamiliar extends JFrame {
 	/**
@@ -58,7 +58,7 @@ public class TelaFamiliar extends JFrame {
 	 */
 	public TelaFamiliar() {
 		setTitle("Histórico Familiar");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

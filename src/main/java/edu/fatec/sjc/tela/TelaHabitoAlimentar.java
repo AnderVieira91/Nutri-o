@@ -2,6 +2,8 @@ package edu.fatec.sjc.tela;
 
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
@@ -20,9 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import edu.fatec.sjc.model.HabitoAlimentar;
 import edu.fatec.sjc.repository.HabitoAlimentarRepositorio;
-import edu.fatec.sjc.tela.TelaPrincipal.CriancaPadrao;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import edu.fatec.sjc.tela.Padrao.CriancaPadrao;
 
 public class TelaHabitoAlimentar extends JFrame {
 
@@ -60,7 +60,7 @@ public class TelaHabitoAlimentar extends JFrame {
 	 */
 	public TelaHabitoAlimentar() {
 		setTitle("Hábito Alimentar");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 226);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

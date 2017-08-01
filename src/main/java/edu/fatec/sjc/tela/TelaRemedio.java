@@ -23,7 +23,7 @@ import edu.fatec.sjc.model.Crianca;
 import edu.fatec.sjc.model.Remedio;
 import edu.fatec.sjc.repository.CriancaRepositorio;
 import edu.fatec.sjc.repository.RemedioRepositorio;
-import edu.fatec.sjc.tela.TelaPrincipal.CriancaPadrao;
+import edu.fatec.sjc.tela.Padrao.CriancaPadrao;
 
 public class TelaRemedio extends JFrame {
 
@@ -61,7 +61,7 @@ public class TelaRemedio extends JFrame {
 	 */
 	public TelaRemedio() {
 		setTitle("Remédio");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

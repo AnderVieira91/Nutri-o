@@ -24,7 +24,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import edu.fatec.sjc.model.Crianca;
 import edu.fatec.sjc.repository.CriancaRepositorio;
-import edu.fatec.sjc.tela.TelaPrincipal.CriancaPadrao;
+import edu.fatec.sjc.tela.Padrao.CriancaPadrao;
 
 public class TelaCadastro extends JFrame {
 
@@ -43,6 +43,7 @@ public class TelaCadastro extends JFrame {
 	private JTextField textTelefone;
 	private JLabel lblTelefone;
 	private JComboBox cBSexo;
+
 	/**
 	 * Launch the application.
 	 */
@@ -63,8 +64,9 @@ public class TelaCadastro extends JFrame {
 	 * Create the frame.
 	 */
 	public TelaCadastro() {
+
 		setTitle("Cadastro de criança");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 455, 280);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

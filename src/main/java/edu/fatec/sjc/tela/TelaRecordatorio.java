@@ -22,7 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import edu.fatec.sjc.model.Recordatorio;
 import edu.fatec.sjc.repository.RecordatorioRepositorio;
-import edu.fatec.sjc.tela.TelaPrincipal.CriancaPadrao;
+import edu.fatec.sjc.tela.Padrao.CriancaPadrao;
 
 public class TelaRecordatorio extends JFrame {
 
@@ -59,7 +59,7 @@ public class TelaRecordatorio extends JFrame {
 	 */
 	public TelaRecordatorio() {
 		setTitle("Recordatório");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 489, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
