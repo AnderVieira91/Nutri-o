@@ -4,6 +4,6 @@ import edu.fatec.sjc.model.Crianca;
 
 public class Padrao {
 	public static class CriancaPadrao {
-		public static Crianca crianca;
+		public static Crianca crianca = new Crianca();
 	}
 }

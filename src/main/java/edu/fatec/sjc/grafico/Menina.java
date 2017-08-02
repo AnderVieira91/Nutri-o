@@ -1,5 +1,12 @@
 package edu.fatec.sjc.grafico;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.ZoneId;
+import java.util.Date;
+
 public class Menina {
 	private double[] perimetroCefalicoMinimo = { 31.5, 34.2, 35.8, 37.1, 38.1, 38.9, 39.6, 40.2, 40.7, 41.2, 41.5, 41.9,
 			42.2, 42.4, 42.7, 42.9, 43.1, 43.3, 43.5, 43.6, 43.8, 44, 44.1, 44.3, 44.4 };
@@ -24,13 +31,13 @@ public class Menina {
 
 	private double[] alturaMaxima2a5Anos = { 92.9, 93.1, 94.1, 95.0, 96.0, 96.9, 97.7, 98.6, 99.4, 100.3, 101.1, 101.9,
 			102.7, 103.4, 104.2, 105.0, 105.7, 106.4, 107.2, 107.9, 108.6, 109.3, 110.0, 110.7, 111.3, 112.0, 112.7,
-			113.3, 114.0, 114.6, 115.2, 115.9, 116.5, 117.1, 117.7, 118.3, 118.9};
-	
-	public double[] getAlturaMax2a5Anos(){
+			113.3, 114.0, 114.6, 115.2, 115.9, 116.5, 117.1, 117.7, 118.3, 118.9 };
+
+	public double[] getAlturaMax2a5Anos() {
 		return alturaMaxima2a5Anos;
 	}
-	
-	public double[] getAlturaMin2a5Anos(){
+
+	public double[] getAlturaMin2a5Anos() {
 		return alturaMinima2a5Anos;
 	}
 
@@ -56,13 +63,6 @@ public class Menina {
 
 	public double[] getPerimetroMaximo() {
 		return perimetroCefalicoMaximo;
-	}
-
-	public static void main(String[] args) {
-		Menina m = new Menina();
-
-	
-
 	}
 
 }
