@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -109,7 +111,8 @@ public class Bioquimico {
 	@Column(name = "BIO_POTASSIO", unique = false, length = 10, nullable = false)
 	private Double potassio;
 
-	@Column(name = "BIO_DATA", unique = false, nullable = false)
+	@Temporal(TemporalType.DATE)
+	@Column(name = "BIO_DATA")
 	private Date data = new Date();
 
 	@ManyToOne

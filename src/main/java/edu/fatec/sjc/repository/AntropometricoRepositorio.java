@@ -9,6 +9,6 @@ import edu.fatec.sjc.model.Crianca;
 
 public interface AntropometricoRepositorio extends CrudRepository<Antropometrico, Long> {
 	
-	public List<Antropometrico> findByCriancaOderByDataAsc(Crianca crianca);
-
+	public List<Antropometrico> findByCrianca(Crianca crianca);
+	
 }

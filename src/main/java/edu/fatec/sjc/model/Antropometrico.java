@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -69,8 +71,9 @@ public class Antropometrico {
 
 	@Column(name = "ANT_AREA_MUSCULAR_POLEGAR", unique = false, length = 5, nullable = false)
 	private Double areaMuscularPolegar;
-
-	@Column(name = "ANT_DATA", unique = false, nullable = false)
+	
+	@Temporal(TemporalType.DATE)
+	@Column(name = "ANT_DATA")
 	private Date data = new Date();
 
 	@ManyToOne

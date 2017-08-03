@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -31,7 +33,8 @@ public class Orientacao {
 	@Column(name = "ORI_HORARIO", unique = false, length = 5, nullable = false)
 	private String hora;
 	
-	@Column(name = "ORI_DATA", unique = false, nullable = false)
+	@Temporal(TemporalType.DATE)
+	@Column(name = "ORI_DATA")
 	private Date data = new Date();
 	
 	@ManyToOne

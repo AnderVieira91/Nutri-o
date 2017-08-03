@@ -18,10 +18,11 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import edu.fatec.sjc.model.HabitoAlimentar;
-import edu.fatec.sjc.repository.HabitoAlimentarRepositorio;
+import edu.fatec.sjc.service.HabitoAlimentarService;
 import edu.fatec.sjc.tela.Padrao.CriancaPadrao;
 
 public class TelaHabitoAlimentar extends JFrame {
@@ -29,8 +30,7 @@ public class TelaHabitoAlimentar extends JFrame {
 	/**
 	 * 
 	 */
-	@Autowired
-	private HabitoAlimentarRepositorio alimentarRepo;
+	private HabitoAlimentarService habitoAlimentarService;
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textAlimento;
@@ -145,17 +145,12 @@ public class TelaHabitoAlimentar extends JFrame {
 		contentPane.setLayout(gl_contentPane);
 	}
 
-	public HabitoAlimentarRepositorio getAlimentarRepo() {
-		return alimentarRepo;
-	}
-
-	public void setAlimentarRepo(HabitoAlimentarRepositorio alimentarRepo) {
-		this.alimentarRepo = alimentarRepo;
-	}
-
 	private void adicionar() {
 		if (CriancaPadrao.crianca.getId() != null) {
-
+			
+			ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+			habitoAlimentarService = (HabitoAlimentarService) context.getBean("habitoAlimentarService");
+			
 			HabitoAlimentar alimentar = new HabitoAlimentar();
 			alimentar.setCrianca(CriancaPadrao.crianca);
 			alimentar.setAlimento(textAlimento.getText());
@@ -164,7 +159,7 @@ public class TelaHabitoAlimentar extends JFrame {
 			alimentar.setNumero(Long.valueOf(textFrequencia.getText()));
 			alimentar.setRefeicao(cBRefeicao.getSelectedItem().toString());
 
-			alimentarRepo.save(alimentar);
+			alimentar = habitoAlimentarService.salvarHabAli(alimentar);
 
 			if (alimentar.getId() == null) {
 				JOptionPane.showMessageDialog(null, "Dados do Hábito alimentar não salvos.\nPreencha todos os campos.");

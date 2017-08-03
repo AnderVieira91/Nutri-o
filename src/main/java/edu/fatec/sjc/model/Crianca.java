@@ -14,6 +14,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -36,7 +38,8 @@ public class Crianca {
 	@Column(name = "CRI_MAE", unique = false, length = 80, nullable = false)
 	private String mae;
 
-	@Column(name = "CRI_NASCIMENTO", unique = false, nullable = false)
+	@Temporal(TemporalType.DATE)
+	@Column(name = "CRI_NASCIMENTO")
 	private Date nascimento;
 
 	@Column(name = "CRI_MOTIVO", unique = false, length = 80, nullable = false)
@@ -194,7 +197,7 @@ public class Crianca {
 		this.mae = mae;
 	}
 
-	public Date getNascimento() {
+	public java.util.Date getNascimento() {
 		return nascimento;
 	}
 

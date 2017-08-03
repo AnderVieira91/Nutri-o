@@ -17,12 +17,12 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import edu.fatec.sjc.model.Crianca;
 import edu.fatec.sjc.model.Remedio;
-import edu.fatec.sjc.repository.CriancaRepositorio;
-import edu.fatec.sjc.repository.RemedioRepositorio;
+import edu.fatec.sjc.service.RemedioService;
 import edu.fatec.sjc.tela.Padrao.CriancaPadrao;
 
 public class TelaRemedio extends JFrame {
@@ -30,10 +30,7 @@ public class TelaRemedio extends JFrame {
 	/**
 	 * 
 	 */
-	@Autowired
-	private CriancaRepositorio criancaRepo;
-	@Autowired
-	private RemedioRepositorio remedioRepo;
+	private RemedioService remedioService;
 	private List<Remedio> remedios;
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -109,35 +106,23 @@ public class TelaRemedio extends JFrame {
 		contentPane.setLayout(gl_contentPane);
 	}
 
-	public CriancaRepositorio getCriancaRepo() {
-		return criancaRepo;
-	}
-
-	public void setCriancaRepo(CriancaRepositorio criancaRepo) {
-		this.criancaRepo = criancaRepo;
-	}
-
-	public RemedioRepositorio getRemedioRepo() {
-		return remedioRepo;
-	}
-
-	public void setRemedioRepo(RemedioRepositorio remedioRepo) {
-		this.remedioRepo = remedioRepo;
-	}
 
 	private void adicionar() {
-
+		
+		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+		remedioService = (RemedioService) context.getBean("remedioService");
+		
 		List<Crianca> crianca = new LinkedList<Crianca>();
 		crianca.add(CriancaPadrao.crianca);
 		String remedio = textRemedio.getText().toUpperCase();
 
-		Remedio r = remedioRepo.findByNome(remedio);
+		Remedio r = remedioService.buscarNome(remedio);
 		if (r.getId() == null) {
 			r.setNome(remedio);
 		}
 
 		r.setCriancas(crianca);
-		remedioRepo.save(r);
+		remedioService.salvarRemedio(r);
 
 		remedios.add(r);
 

@@ -20,10 +20,11 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import edu.fatec.sjc.model.HabitoIntestinal;
-import edu.fatec.sjc.repository.HabitoIntestinalRepositorio;
+import edu.fatec.sjc.service.HabitoIntestinalService;
 import edu.fatec.sjc.tela.Padrao.CriancaPadrao;
 
 public class TelaHabitoIntestinal extends JFrame {
@@ -31,8 +32,7 @@ public class TelaHabitoIntestinal extends JFrame {
 	/**
 	 * 
 	 */
-	@Autowired
-	private HabitoIntestinalRepositorio intestinalRepo;
+	private HabitoIntestinalService habitoIntestinalService;
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textFrequencia;
@@ -133,6 +133,10 @@ public class TelaHabitoIntestinal extends JFrame {
 
 	private void cadastrar() {
 		if (CriancaPadrao.crianca.getId() != null) {
+			
+			ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+			habitoIntestinalService = (HabitoIntestinalService) context.getBean("habitoIntestinalService");
+			
 			HabitoIntestinal intestinal = new HabitoIntestinal();
 
 			intestinal.setBristol(textBristol.getText());
@@ -141,21 +145,13 @@ public class TelaHabitoIntestinal extends JFrame {
 			intestinal.setMelena(checkMelena.isSelected());
 			intestinal.setNumero(Long.valueOf(textFrequencia.getText()));
 
-			intestinalRepo.save(intestinal);
+			intestinal = habitoIntestinalService.salvarHabInt(intestinal);
 
 			if (intestinal.getId() == null) {
 				JOptionPane.showMessageDialog(null, "Dados Hábito intestinal não salvos.\nPreencha todos os campos.");
 			}
 
 		}
-	}
-	
-	public HabitoIntestinalRepositorio getIntestinalRepo() {
-		return intestinalRepo;
-	}
-
-	public void setIntestinalRepo(HabitoIntestinalRepositorio intestinalRepo) {
-		this.intestinalRepo = intestinalRepo;
 	}
 
 }

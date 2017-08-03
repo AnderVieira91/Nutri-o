@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -30,8 +32,9 @@ public class HabitoUrinario {
 
 	@Column(name = "HAB_URI_HEMATURIA", unique = false, nullable = false)
 	private boolean hematuria;
-
-	@Column(name = "HAB_URI_DATA", unique = false, nullable = false)
+	
+	@Temporal(TemporalType.DATE)
+	@Column(name = "HAB_URI_DATA")
 	private Date data = new Date();
 
 	@ManyToOne

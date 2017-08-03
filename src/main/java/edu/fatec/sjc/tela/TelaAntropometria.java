@@ -16,10 +16,13 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import edu.fatec.sjc.model.Antropometrico;
 import edu.fatec.sjc.repository.AntropometricoRepositorio;
+import edu.fatec.sjc.service.AntropometricoService;
+import edu.fatec.sjc.service.CriancaService;
 import edu.fatec.sjc.tela.Padrao.CriancaPadrao;
 
 public class TelaAntropometria extends JFrame {
@@ -27,8 +30,7 @@ public class TelaAntropometria extends JFrame {
 	/**
 	 * 
 	 */
-	@Autowired
-	private AntropometricoRepositorio antroRepo;
+	private AntropometricoService antropometricoService;
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField txtPesoHabitual;
@@ -346,16 +348,11 @@ public class TelaAntropometria extends JFrame {
 		contentPane.setLayout(gl_contentPane);
 	}
 
-	public void setAntroRepo(AntropometricoRepositorio antroRepo) {
-		this.antroRepo = antroRepo;
-	}
-
-	public AntropometricoRepositorio getAntroRepo() {
-		return antroRepo;
-	}
 
 	private void cadastrar() {
 		if (CriancaPadrao.crianca.getId() != null) {
+			ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+			antropometricoService = (AntropometricoService) context.getBean("antropometricoService");
 
 			Antropometrico antro = new Antropometrico();
 			antro.setAlteracaoPesoRecente(Double.valueOf(txtAlteracaoPesoRecente.getText().replaceAll(",", ".")));
@@ -377,7 +374,7 @@ public class TelaAntropometria extends JFrame {
 			antro.setPesoHabitual(Double.valueOf(txtPesoHabitual.getText().replaceAll(",", ".")));
 			antro.setCrianca(CriancaPadrao.crianca);
 
-			antroRepo.save(antro);
+			antro = antropometricoService.salvarAntropometrico(antro);
 
 			if (antro.getId() == null) {
 				JOptionPane.showMessageDialog(null, "Dados antropométricos não salvos.\nPreencha todos os campos.");

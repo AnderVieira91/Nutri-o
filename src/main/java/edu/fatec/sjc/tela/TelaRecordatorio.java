@@ -18,10 +18,11 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import edu.fatec.sjc.model.Recordatorio;
-import edu.fatec.sjc.repository.RecordatorioRepositorio;
+import edu.fatec.sjc.service.RecordatorioService;
 import edu.fatec.sjc.tela.Padrao.CriancaPadrao;
 
 public class TelaRecordatorio extends JFrame {
@@ -29,8 +30,7 @@ public class TelaRecordatorio extends JFrame {
 	/**
 	 * 
 	 */
-	@Autowired
-	private RecordatorioRepositorio recordarRepo;
+	private RecordatorioService recordatorioService;
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textAlimento;
@@ -148,25 +148,20 @@ public class TelaRecordatorio extends JFrame {
 		contentPane.setLayout(gl_contentPane);
 	}
 
-	public RecordatorioRepositorio getOrientacaoRepo() {
-		return recordarRepo;
-	}
-
-	public void RecordatorioRepositorio(RecordatorioRepositorio recordarRepo) {
-		this.recordarRepo = recordarRepo;
-	}
-
 	private void adicionar() {
 
 		if (CriancaPadrao.crianca.getId() != null) {
-
+			
+			ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+			recordatorioService = (RecordatorioService) context.getBean("recordatorioService");
+			
 			Recordatorio recordatorio = new Recordatorio();
 			recordatorio.setCrianca(CriancaPadrao.crianca);
 			recordatorio.setAlimento(textAlimento.getText());
 			recordatorio.setHorario(textHora.getText());
 			recordatorio.setRefeicao(cBRefeicao.getSelectedItem().toString());
 
-			recordarRepo.save(recordatorio);
+			recordatorio = recordatorioService.salvarRecordatorio(recordatorio);
 
 			if (recordatorio.getId() == null) {
 				JOptionPane.showMessageDialog(null, "Dados da orientação não salvos.\nPreencha todos os campos.");

@@ -9,6 +9,7 @@ import java.awt.event.MouseEvent;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
@@ -27,7 +28,8 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 
 import org.jfree.data.category.DefaultCategoryDataset;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import edu.fatec.sjc.grafico.Desenho;
 import edu.fatec.sjc.grafico.Grafico;
@@ -36,7 +38,8 @@ import edu.fatec.sjc.grafico.Menino;
 import edu.fatec.sjc.model.Antropometrico;
 import edu.fatec.sjc.model.Crianca;
 import edu.fatec.sjc.repository.AntropometricoRepositorio;
-import edu.fatec.sjc.repository.CriancaRepositorio;
+import edu.fatec.sjc.service.AntropometricoService;
+import edu.fatec.sjc.service.CriancaService;
 import edu.fatec.sjc.tela.Padrao.CriancaPadrao;
 
 public class TelaPrincipal extends JFrame {
@@ -45,10 +48,8 @@ public class TelaPrincipal extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	@Autowired
-	private CriancaRepositorio criancaRepo;
-	@Autowired
-	private AntropometricoRepositorio antroRepo;
+	private CriancaService criancaService;
+	private AntropometricoService antropometricoService;
 	private JPanel contentPane;
 	private JMenuBar menuBar;
 	private JMenuItem novoPaciente = new JMenuItem("Novo paciente");
@@ -266,22 +267,6 @@ public class TelaPrincipal extends JFrame {
 
 	}
 
-	public AntropometricoRepositorio getAntroRepo() {
-		return antroRepo;
-	}
-
-	public void setAntroRepo(AntropometricoRepositorio antroRepo) {
-		this.antroRepo = antroRepo;
-	}
-
-	public CriancaRepositorio getCriancaRepo() {
-		return criancaRepo;
-	}
-
-	public void setCriancaRepo(CriancaRepositorio criancaRepo) {
-		this.criancaRepo = criancaRepo;
-	}
-
 	private void cadastrar() {
 		TelaCadastro frame = new TelaCadastro();
 		frame.setVisible(true);
@@ -358,10 +343,14 @@ public class TelaPrincipal extends JFrame {
 	}
 
 	private void buscarCriancas() {
+		
+		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+		criancaService = (CriancaService) context.getBean("criancaService");
+		
 		int a = 0;
 		String nome = textBusca.getText().toUpperCase();
 		if (!nome.equals("") && nome != null) {
-			List<Crianca> criancas = criancaRepo.findByNomeIgnoreCaseContaining(nome);
+			List<Crianca> criancas = criancaService.buscarLista(nome);
 			String[] s = new String[criancas.size() + 1];
 			s[a++] = "Selecione o paciente";
 			for (Crianca c : criancas) {
@@ -374,14 +363,19 @@ public class TelaPrincipal extends JFrame {
 	}
 
 	private void setCrianca() {
+		
+		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+		criancaService = (CriancaService) context.getBean("criancaService");
+		
 		String a = listaBusca.getSelectedItem().toString();
 		String[] buscaId = a.split(" ");
 		Long id = Long.valueOf(buscaId[0].replaceAll("ID:", ""));
-		CriancaPadrao.crianca = criancaRepo.findById(id);
+		CriancaPadrao.crianca = criancaService.buscarId(id);
 		if (CriancaPadrao.crianca.getId() != null) {
 			lblCrianca.setText(CriancaPadrao.crianca.getNome());
 			LocalDate hoje = LocalDate.now();
-			LocalDate nascimento = CriancaPadrao.crianca.getNascimento().toInstant().atZone(ZoneId.systemDefault())
+			java.util.Date d = new Date(CriancaPadrao.crianca.getNascimento().getTime());
+			LocalDate nascimento = d.toInstant().atZone(ZoneId.systemDefault())
 					.toLocalDate();
 			p = Period.between(nascimento, hoje);
 			String idade = p.getYears() + " ANOS " + p.getMonths() + " MESES E " + p.getDays() + " DIAS";
@@ -391,7 +385,8 @@ public class TelaPrincipal extends JFrame {
 
 	private void perimetroCefalico() {
 		if (CriancaPadrao.crianca.getId() != null) {
-
+			ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+			antropometricoService = (AntropometricoService) context.getBean("antropometricoService");
 			if (CriancaPadrao.crianca.getSexo().equals("M")) {
 				if (p.getYears() < 2 || (p.getYears() == 2 && p.getMonths() == 0)) {
 					Menino m = new Menino();
@@ -400,13 +395,15 @@ public class TelaPrincipal extends JFrame {
 
 					Desenho desenho = new Desenho();
 					DefaultCategoryDataset ds = desenho.getDs(0, 2, min, max);
-					List<Antropometrico> antro = antroRepo.findByCriancaOderByDataAsc(CriancaPadrao.crianca);
+					List<Antropometrico> antro = antropometricoService.buscarCrianca(CriancaPadrao.crianca);
 					
 					LocalDate nascimento = CriancaPadrao.crianca.getNascimento().toInstant().atZone(ZoneId.systemDefault())
 							.toLocalDate();
 					
 					for(Antropometrico a : antro ){
-						LocalDate intervalo = a.getData().toInstant().atZone(ZoneId.systemDefault())
+						
+						java.util.Date d = new Date(a.getData().getTime());
+						LocalDate intervalo = d.toInstant().atZone(ZoneId.systemDefault())
 								.toLocalDate();
 						Period periodo = Period.between(nascimento, intervalo);
 						String data = p.getYears() + "/" + p.getMonths();
@@ -427,13 +424,14 @@ public class TelaPrincipal extends JFrame {
 
 					Desenho desenho = new Desenho();
 					DefaultCategoryDataset ds = desenho.getDs(0, 2, min, max);
-					List<Antropometrico> antro = antroRepo.findByCriancaOderByDataAsc(CriancaPadrao.crianca);
+					List<Antropometrico> antro = antropometricoService.buscarCrianca(CriancaPadrao.crianca);
 					
 					LocalDate nascimento = CriancaPadrao.crianca.getNascimento().toInstant().atZone(ZoneId.systemDefault())
 							.toLocalDate();
 					
 					for(Antropometrico a : antro ){
-						LocalDate intervalo = a.getData().toInstant().atZone(ZoneId.systemDefault())
+						java.util.Date d = new Date(a.getData().getTime());
+						LocalDate intervalo = d.toInstant().atZone(ZoneId.systemDefault())
 								.toLocalDate();
 						Period periodo = Period.between(nascimento, intervalo);
 						String data = p.getYears() + "/" + p.getMonths();

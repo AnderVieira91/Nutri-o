@@ -19,10 +19,11 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import edu.fatec.sjc.model.HabitoUrinario;
-import edu.fatec.sjc.repository.HabitoUrinarioRepositorio;
+import edu.fatec.sjc.service.HabitoUrinarioService;
 import edu.fatec.sjc.tela.Padrao.CriancaPadrao;
 
 public class TelaHabitoUrinario extends JFrame {
@@ -30,8 +31,7 @@ public class TelaHabitoUrinario extends JFrame {
 	/**
 	 * 
 	 */
-	@Autowired
-	private HabitoUrinarioRepositorio urinarioRepo;
+	private HabitoUrinarioService habitoUrinarioService;
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textFequencia;
@@ -115,6 +115,10 @@ public class TelaHabitoUrinario extends JFrame {
 
 	private void salvar() {
 		if (CriancaPadrao.crianca.getId() != null) {
+			
+			ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+			habitoUrinarioService = (HabitoUrinarioService) context.getBean("habitoUrinarioService");
+			
 			HabitoUrinario urinario = new HabitoUrinario();
 
 			urinario.setCrianca(CriancaPadrao.crianca);
@@ -122,21 +126,13 @@ public class TelaHabitoUrinario extends JFrame {
 			urinario.setNumero(Long.valueOf(textFequencia.getText()));
 			urinario.setHematuria(checkHematuria.isSelected());
 
-			urinarioRepo.save(urinario);
+			urinario = habitoUrinarioService.salvarHabUri(urinario);
 
 			if (urinario.getId() == null) {
 				JOptionPane.showMessageDialog(null, "Dados Hábito urinário não salvos.\nPreencha todos os campos.");
 			}
 		}
 
-	}
-
-	public HabitoUrinarioRepositorio getUrinarioRepo() {
-		return urinarioRepo;
-	}
-
-	public void setUrinarioRepo(HabitoUrinarioRepositorio urinarioRepo) {
-		this.urinarioRepo = urinarioRepo;
 	}
 
 }

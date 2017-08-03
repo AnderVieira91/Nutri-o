@@ -18,10 +18,11 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import edu.fatec.sjc.model.Orientacao;
-import edu.fatec.sjc.repository.OrientacaoRepositorio;
+import edu.fatec.sjc.service.OrientacaoService;
 import edu.fatec.sjc.tela.Padrao.CriancaPadrao;
 
 public class TelaOrientacao extends JFrame {
@@ -29,8 +30,7 @@ public class TelaOrientacao extends JFrame {
 	/**
 	 * 
 	 */
-	@Autowired
-	private OrientacaoRepositorio orientacaoRepo;
+	private OrientacaoService orientacaoService;
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textAlimento;
@@ -148,25 +148,20 @@ public class TelaOrientacao extends JFrame {
 		contentPane.setLayout(gl_contentPane);
 	}
 
-	public OrientacaoRepositorio getOrientacaoRepo() {
-		return orientacaoRepo;
-	}
-
-	public void setOrientacaoRepo(OrientacaoRepositorio orientacaoRepo) {
-		this.orientacaoRepo = orientacaoRepo;
-	}
-
 	private void adicionar() {
 
 		if (CriancaPadrao.crianca.getId() != null) {
-
+			
+			ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+			orientacaoService = (OrientacaoService) context.getBean("orientacaoService");
+			
 			Orientacao orientacao = new Orientacao();
 			orientacao.setCrianca(CriancaPadrao.crianca);
 			orientacao.setAlimento(textAlimento.getText());
 			orientacao.setHora(textHora.getText());
 			orientacao.setRefeicao(cBRefeicao.getSelectedItem().toString());
 
-			orientacaoRepo.save(orientacao);
+			orientacao = orientacaoService.salvarOrientacao(orientacao);
 
 			if (orientacao.getId() == null) {
 				JOptionPane.showMessageDialog(null, "Dados da orientação não salvos.\nPreencha todos os campos.");

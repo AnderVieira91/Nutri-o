@@ -18,18 +18,18 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import edu.fatec.sjc.model.Familiar;
-import edu.fatec.sjc.repository.FamiliarRepositorio;
+import edu.fatec.sjc.service.FamiliarService;
 import edu.fatec.sjc.tela.Padrao.CriancaPadrao;
 
 public class TelaFamiliar extends JFrame {
 	/**
 	 * 
 	 */
-	@Autowired
-	private FamiliarRepositorio familiarRepo;
+	private FamiliarService familiarService;
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textDoenca;
@@ -87,70 +87,58 @@ public class TelaFamiliar extends JFrame {
 
 		lblDoencas = new JLabel("");
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
-		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(162)
-							.addComponent(lblCriancaNome))
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addContainerGap()
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblParentesco)
+		gl_contentPane.setHorizontalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING).addGroup(gl_contentPane
+				.createSequentialGroup()
+				.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_contentPane.createSequentialGroup().addGap(162).addComponent(lblCriancaNome))
+						.addGroup(
+								gl_contentPane
+										.createSequentialGroup().addContainerGap()
+										.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+												.addComponent(lblParentesco).addComponent(lblDoena))
+										.addPreferredGap(ComponentPlacement.RELATED)
+										.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+												.addComponent(cBParentesco, GroupLayout.PREFERRED_SIZE,
+														GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+												.addComponent(textDoenca, GroupLayout.PREFERRED_SIZE, 305,
+														GroupLayout.PREFERRED_SIZE)
+												.addComponent(lblDoencas)))
+						.addGroup(gl_contentPane.createSequentialGroup().addGap(168).addComponent(btnAdicionar)))
+				.addContainerGap(45, Short.MAX_VALUE)));
+		gl_contentPane.setVerticalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup().addComponent(lblCriancaNome).addGap(18)
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+								.addComponent(textDoenca, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+										GroupLayout.PREFERRED_SIZE)
 								.addComponent(lblDoena))
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addComponent(cBParentesco, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(textDoenca, GroupLayout.PREFERRED_SIZE, 305, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblDoencas)))
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(168)
-							.addComponent(btnAdicionar)))
-					.addContainerGap(45, Short.MAX_VALUE))
-		);
-		gl_contentPane.setVerticalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addComponent(lblCriancaNome)
-					.addGap(18)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(textDoenca, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblDoena))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblParentesco)
-						.addComponent(cBParentesco, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(btnAdicionar)
-					.addGap(60)
-					.addComponent(lblDoencas)
-					.addContainerGap(79, Short.MAX_VALUE))
-		);
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE).addComponent(lblParentesco)
+								.addComponent(cBParentesco, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+										GroupLayout.PREFERRED_SIZE))
+						.addPreferredGap(ComponentPlacement.RELATED).addComponent(btnAdicionar).addGap(60)
+						.addComponent(lblDoencas).addContainerGap(79, Short.MAX_VALUE)));
 		contentPane.setLayout(gl_contentPane);
 	}
 
 	private void adicionarDoenca() {
-		Familiar familiar = new Familiar();
-		familiar.setDoenca(textDoenca.getText());
-		familiar.setParentesco(cBParentesco.getSelectedItem().toString());
-		familiar.setCrianca(CriancaPadrao.crianca);
-		familiarRepo.save(familiar);
+		if (CriancaPadrao.crianca.getId() != null) {
+			
+			ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+			familiarService = (FamiliarService) context.getBean("familiarService");
+			
+			Familiar familiar = new Familiar();
+			familiar.setDoenca(textDoenca.getText());
+			familiar.setParentesco(cBParentesco.getSelectedItem().toString());
+			familiar.setCrianca(CriancaPadrao.crianca);
+			familiar = familiarService.salvarFamiliar(familiar);
 
-		if (familiar.getId() == null) {
-			JOptionPane.showMessageDialog(null, "Dados bioquímicos não salvos.\nPreencha todos os campos.");
+			if (familiar.getId() == null) {
+				JOptionPane.showMessageDialog(null, "Dados bioquímicos não salvos.\nPreencha todos os campos.");
+			}
+
+			todasDoencas = todasDoencas + textDoenca.getText() + ", ";
+			lblDoencas.setText(todasDoencas);
 		}
-
-		todasDoencas = todasDoencas + textDoenca.getText() + ", ";
-		lblDoencas.setText(todasDoencas);
-	}
-
-	public FamiliarRepositorio getFamiliarRepo() {
-		return familiarRepo;
-	}
-
-	public void setFamiliarRepo(FamiliarRepositorio familiarRepo) {
-		this.familiarRepo = familiarRepo;
 	}
 
 }

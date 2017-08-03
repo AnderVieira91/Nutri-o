@@ -3,9 +3,9 @@ package edu.fatec.sjc.tela;
 import java.awt.EventQueue;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
@@ -20,10 +20,11 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import edu.fatec.sjc.model.Crianca;
-import edu.fatec.sjc.repository.CriancaRepositorio;
+import edu.fatec.sjc.service.CriancaService;
 import edu.fatec.sjc.tela.Padrao.CriancaPadrao;
 
 public class TelaCadastro extends JFrame {
@@ -31,8 +32,7 @@ public class TelaCadastro extends JFrame {
 	/**
 	 * 
 	 */
-	@Autowired
-	private CriancaRepositorio criancaRepo;
+	private CriancaService criancaService;
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textNome;
@@ -64,7 +64,6 @@ public class TelaCadastro extends JFrame {
 	 * Create the frame.
 	 */
 	public TelaCadastro() {
-
 		setTitle("Cadastro de criança");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 455, 280);
@@ -177,15 +176,10 @@ public class TelaCadastro extends JFrame {
 		contentPane.setLayout(gl_contentPane);
 	}
 
-	public CriancaRepositorio getCriancaRepo() {
-		return criancaRepo;
-	}
-
-	public void setCriancaRepo(CriancaRepositorio criancaRepo) {
-		this.criancaRepo = criancaRepo;
-	}
-
 	private void cadastrar() {
+		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+		criancaService = (CriancaService) context.getBean("criancaService");
+
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
 		String nome = textNome.getText().toUpperCase();
@@ -196,7 +190,7 @@ public class TelaCadastro extends JFrame {
 		String sexo = cBSexo.getSelectedItem().toString();
 		Date nascimento = new Date(0L);
 		try {
-			Date nascimentoB = (Date) sdf.parse(textNascimento.getText());
+			Date nascimentoB = sdf.parse(textNascimento.getText());
 			nascimento = nascimentoB;
 		} catch (ParseException e1) {
 			e1.printStackTrace();
@@ -211,7 +205,7 @@ public class TelaCadastro extends JFrame {
 		crianca.setSexo(sexo);
 		crianca.setTelefone(telefone);
 
-		criancaRepo.save(crianca);
+		crianca = criancaService.salvarCrianca(crianca);
 		if (crianca.getId() == null) {
 			JOptionPane.showMessageDialog(null, "Usuário não salvo.\nPreencha todos os campos.");
 		} else {

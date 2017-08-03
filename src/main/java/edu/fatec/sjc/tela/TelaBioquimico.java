@@ -16,10 +16,11 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import edu.fatec.sjc.model.Bioquimico;
-import edu.fatec.sjc.repository.BioquimicoRepositorio;
+import edu.fatec.sjc.service.BioquimicoService;
 import edu.fatec.sjc.tela.Padrao.CriancaPadrao;
 
 public class TelaBioquimico extends JFrame {
@@ -28,8 +29,7 @@ public class TelaBioquimico extends JFrame {
 	 * 
 	 */
 
-	@Autowired
-	private BioquimicoRepositorio bioquimicoRepo;
+	private BioquimicoService bioquimicoService;
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textProteinasTotais;
@@ -635,16 +635,10 @@ public class TelaBioquimico extends JFrame {
 		contentPane.setLayout(gl_contentPane);
 	}
 
-	public BioquimicoRepositorio getBioquimicoRepo() {
-		return bioquimicoRepo;
-	}
-
-	public void setBioquimicoRepo(BioquimicoRepositorio bioquimicoRepo) {
-		this.bioquimicoRepo = bioquimicoRepo;
-	}
-
 	private void cadastrar() {
 		if (CriancaPadrao.crianca.getId() != null) {
+			ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+			bioquimicoService = (BioquimicoService) context.getBean("bioquimicoService");
 
 			Bioquimico bioquimico = new Bioquimico();
 
@@ -679,7 +673,7 @@ public class TelaBioquimico extends JFrame {
 			bioquimico.setVcm(Double.valueOf(textVcm.getText()));
 			bioquimico.setCrianca(CriancaPadrao.crianca);
 
-			bioquimicoRepo.save(bioquimico);
+			bioquimico = bioquimicoService.salvarBioquimico(bioquimico);
 
 			if (bioquimico.getId() == null) {
 				JOptionPane.showMessageDialog(null, "Dados bioquímicos não salvos.\nPreencha todos os campos.");

@@ -17,11 +17,12 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import edu.fatec.sjc.model.Clinico;
 import edu.fatec.sjc.model.Crianca;
-import edu.fatec.sjc.repository.ClinicoRepositorio;
+import edu.fatec.sjc.service.ClinicoService;
 import edu.fatec.sjc.tela.Padrao.CriancaPadrao;
 
 public class TelaClinico extends JFrame {
@@ -29,8 +30,7 @@ public class TelaClinico extends JFrame {
 	/**
 	 * 
 	 */
-	@Autowired
-	private ClinicoRepositorio clinicoRepo;
+	private ClinicoService clinicoService;
 	private static final long serialVersionUID = 1L;
 	private List<Clinico> clinicos;
 	private JPanel contentPane;
@@ -119,27 +119,22 @@ public class TelaClinico extends JFrame {
 		contentPane.setLayout(gl_contentPane);
 	}
 	
-	public ClinicoRepositorio getClinicoRepo() {
-		return clinicoRepo;
-	}
-
-	public void setClinicoRepo(ClinicoRepositorio clinicoRepo) {
-		this.clinicoRepo = clinicoRepo;
-	}
-	
 	private void adicionar() {
-
+		
+		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+		clinicoService = (ClinicoService) context.getBean("clinicoService");
+		
 		List<Crianca> crianca = new LinkedList<Crianca>();
 		crianca.add(CriancaPadrao.crianca);
 		String doenca = textDoenca.getText().toUpperCase();
 
-		Clinico c = clinicoRepo.findByDoenca(doenca);
+		Clinico c = clinicoService.buscarDoenca(doenca);
 		if (c.getId() == null) {
 			c.setDoenca(doenca);
 		}
 
 		c.setCriancas(crianca);
-		clinicoRepo.save(c);
+		clinicoService.salvarClinico(c);
 
 		clinicos.add(c);
 
