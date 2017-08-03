@@ -209,7 +209,7 @@ public class TelaCadastro extends JFrame {
 		if (crianca.getId() == null) {
 			JOptionPane.showMessageDialog(null, "Usuário não salvo.\nPreencha todos os campos.");
 		} else {
-			CriancaPadrao.crianca = crianca;
+			this.dispose();
 		}
 	}
 }

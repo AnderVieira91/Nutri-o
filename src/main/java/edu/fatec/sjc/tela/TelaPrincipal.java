@@ -385,8 +385,7 @@ public class TelaPrincipal extends JFrame {
 
 	private void perimetroCefalico() {
 		if (CriancaPadrao.crianca.getId() != null) {
-			ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-			antropometricoService = (AntropometricoService) context.getBean("antropometricoService");
+			
 			if (CriancaPadrao.crianca.getSexo().equals("M")) {
 				if (p.getYears() < 2 || (p.getYears() == 2 && p.getMonths() == 0)) {
 					Menino m = new Menino();
@@ -395,15 +394,16 @@ public class TelaPrincipal extends JFrame {
 
 					Desenho desenho = new Desenho();
 					DefaultCategoryDataset ds = desenho.getDs(0, 2, min, max);
-					List<Antropometrico> antro = antropometricoService.buscarCrianca(CriancaPadrao.crianca);
-					
-					LocalDate nascimento = CriancaPadrao.crianca.getNascimento().toInstant().atZone(ZoneId.systemDefault())
+					List<Antropometrico> antro = CriancaPadrao.crianca.getAntropometricos();
+										
+					java.util.Date d = new Date(CriancaPadrao.crianca.getNascimento().getTime());
+					LocalDate nascimento = d.toInstant().atZone(ZoneId.systemDefault())
 							.toLocalDate();
 					
 					for(Antropometrico a : antro ){
 						
-						java.util.Date d = new Date(a.getData().getTime());
-						LocalDate intervalo = d.toInstant().atZone(ZoneId.systemDefault())
+						java.util.Date e = new Date(a.getData().getTime());
+						LocalDate intervalo = e.toInstant().atZone(ZoneId.systemDefault())
 								.toLocalDate();
 						Period periodo = Period.between(nascimento, intervalo);
 						String data = p.getYears() + "/" + p.getMonths();
@@ -412,6 +412,7 @@ public class TelaPrincipal extends JFrame {
 					
 					Grafico grafico = new Grafico(  "Gráfico" ,
 					         "Perímetro Cefálico X Idade \n0 a 2 anos", "IDADE", "PERÍMETRO CEFÁLICO (cm)", ds);
+					grafico.setVisible(true);
 					
 				}
 			}
@@ -424,14 +425,15 @@ public class TelaPrincipal extends JFrame {
 
 					Desenho desenho = new Desenho();
 					DefaultCategoryDataset ds = desenho.getDs(0, 2, min, max);
-					List<Antropometrico> antro = antropometricoService.buscarCrianca(CriancaPadrao.crianca);
-					
-					LocalDate nascimento = CriancaPadrao.crianca.getNascimento().toInstant().atZone(ZoneId.systemDefault())
+					List<Antropometrico> antro = CriancaPadrao.crianca.getAntropometricos();
+	
+					java.util.Date d = new Date(CriancaPadrao.crianca.getNascimento().getTime());
+					LocalDate nascimento = d.toInstant().atZone(ZoneId.systemDefault())
 							.toLocalDate();
 					
 					for(Antropometrico a : antro ){
-						java.util.Date d = new Date(a.getData().getTime());
-						LocalDate intervalo = d.toInstant().atZone(ZoneId.systemDefault())
+						java.util.Date e = new Date(a.getData().getTime());
+						LocalDate intervalo = e.toInstant().atZone(ZoneId.systemDefault())
 								.toLocalDate();
 						Period periodo = Period.between(nascimento, intervalo);
 						String data = p.getYears() + "/" + p.getMonths();
@@ -440,7 +442,7 @@ public class TelaPrincipal extends JFrame {
 					
 					Grafico grafico = new Grafico(  "Gráfico" ,
 					         "Perímetro Cefálico X Idade \n0 a 2 anos", "IDADE", "PERÍMETRO CEFÁLICO (cm)", ds);
-					
+					grafico.setVisible(true);
 				}
 			}
 

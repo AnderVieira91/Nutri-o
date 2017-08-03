@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.List;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -677,6 +678,14 @@ public class TelaBioquimico extends JFrame {
 
 			if (bioquimico.getId() == null) {
 				JOptionPane.showMessageDialog(null, "Dados bioquímicos não salvos.\nPreencha todos os campos.");
+			} else {
+				List<Bioquimico> bioList = CriancaPadrao.crianca.getBioquimico();
+				bioList.add(bioquimico);
+				
+				CriancaPadrao.crianca.setBioquimico(bioList);
+				
+				this.dispose();
+				
 			}
 		}
 	}

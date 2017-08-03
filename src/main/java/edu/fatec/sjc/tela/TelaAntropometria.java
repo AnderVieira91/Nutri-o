@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.List;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -20,9 +21,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import edu.fatec.sjc.model.Antropometrico;
-import edu.fatec.sjc.repository.AntropometricoRepositorio;
 import edu.fatec.sjc.service.AntropometricoService;
-import edu.fatec.sjc.service.CriancaService;
 import edu.fatec.sjc.tela.Padrao.CriancaPadrao;
 
 public class TelaAntropometria extends JFrame {
@@ -378,6 +377,12 @@ public class TelaAntropometria extends JFrame {
 
 			if (antro.getId() == null) {
 				JOptionPane.showMessageDialog(null, "Dados antropométricos não salvos.\nPreencha todos os campos.");
+			} else {
+				List<Antropometrico> antroList = CriancaPadrao.crianca.getAntropometricos();
+				antroList.add(antro);
+				CriancaPadrao.crianca.setAntropometricos(antroList);
+				
+				this.dispose();
 			}
 		}
 	}
