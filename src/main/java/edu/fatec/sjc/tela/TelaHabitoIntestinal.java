@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
@@ -133,10 +134,10 @@ public class TelaHabitoIntestinal extends JFrame {
 
 	private void cadastrar() {
 		if (CriancaPadrao.crianca.getId() != null) {
-			
+
 			ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 			habitoIntestinalService = (HabitoIntestinalService) context.getBean("habitoIntestinalService");
-			
+
 			HabitoIntestinal intestinal = new HabitoIntestinal();
 
 			intestinal.setBristol(textBristol.getText());
@@ -149,6 +150,13 @@ public class TelaHabitoIntestinal extends JFrame {
 
 			if (intestinal.getId() == null) {
 				JOptionPane.showMessageDialog(null, "Dados Hábito intestinal não salvos.\nPreencha todos os campos.");
+			} else {
+
+				List<HabitoIntestinal> intestinais = CriancaPadrao.crianca.getHabitoIntestinal();
+				intestinais.add(intestinal);
+
+				CriancaPadrao.crianca.setHabitoIntestinal(intestinais);
+
 			}
 
 		}

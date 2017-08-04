@@ -51,12 +51,12 @@ public class Crianca {
 	@Column(name = "CRI_SEXO", unique = false, length = 1, nullable = false)
 	private String sexo;
 
-	@ManyToMany(fetch = FetchType.LAZY)
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "REMEDIO_CRIANCA", joinColumns = { @JoinColumn(name = "CRI_ID") }, inverseJoinColumns = {
 			@JoinColumn(name = "REM_ID") })
 	private List<Remedio> remedios;
 
-	@ManyToMany(fetch = FetchType.LAZY)
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "CLINICO_CRIANCA", joinColumns = { @JoinColumn(name = "CRI_ID") }, inverseJoinColumns = {
 			@JoinColumn(name = "CLI_ID") })
 	private List<Clinico> clinicos;

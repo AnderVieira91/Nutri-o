@@ -29,8 +29,13 @@ public class RemedioServiceImp implements RemedioService {
 
 	
 	public Remedio buscarNome(String nome) {
-		
-		return remedioRepo.findByNome(nome);
+		Remedio r = remedioRepo.findByNome(nome);
+		if(r != null){
+			return r;
+		}
+		r = new Remedio();
+		r.setId(0L);
+		return r;
 	}
 
 }

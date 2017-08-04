@@ -24,6 +24,8 @@ import edu.fatec.sjc.model.Clinico;
 import edu.fatec.sjc.model.Crianca;
 import edu.fatec.sjc.service.ClinicoService;
 import edu.fatec.sjc.tela.Padrao.CriancaPadrao;
+import javax.swing.JTextPane;
+import javax.swing.JTextArea;
 
 public class TelaClinico extends JFrame {
 
@@ -32,10 +34,10 @@ public class TelaClinico extends JFrame {
 	 */
 	private ClinicoService clinicoService;
 	private static final long serialVersionUID = 1L;
-	private List<Clinico> clinicos;
+	private List<Clinico> clinicos = CriancaPadrao.crianca.getClinicos();
 	private JPanel contentPane;
 	private JTextField textDoenca;
-	private JLabel lblDoencas;
+	private JTextArea textDoencas;
 
 	/**
 	 * Launch the application.
@@ -59,7 +61,7 @@ public class TelaClinico extends JFrame {
 	public TelaClinico() {
 		setTitle("Doença");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 450, 405);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -80,11 +82,12 @@ public class TelaClinico extends JFrame {
 			}
 		});
 		
-		lblDoencas = new JLabel("");
-		
+		textDoencas = new JTextArea();
+		escreverDoencas();
+				
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
+			gl_contentPane.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_contentPane.createSequentialGroup()
@@ -97,10 +100,9 @@ public class TelaClinico extends JFrame {
 								.addComponent(btnAdiconar)
 								.addComponent(lblCriancaPadrao))))
 					.addContainerGap(161, Short.MAX_VALUE))
-				.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
-					.addContainerGap(193, Short.MAX_VALUE)
-					.addComponent(lblDoencas)
-					.addGap(185))
+				.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(textDoencas, GroupLayout.DEFAULT_SIZE, 414, Short.MAX_VALUE))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -112,9 +114,8 @@ public class TelaClinico extends JFrame {
 						.addComponent(textDoenca, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(18)
 					.addComponent(btnAdiconar)
-					.addGap(34)
-					.addComponent(lblDoencas)
-					.addContainerGap(103, Short.MAX_VALUE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(textDoencas, GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE))
 		);
 		contentPane.setLayout(gl_contentPane);
 	}
@@ -129,14 +130,16 @@ public class TelaClinico extends JFrame {
 		String doenca = textDoenca.getText().toUpperCase();
 
 		Clinico c = clinicoService.buscarDoenca(doenca);
-		if (c.getId() == null) {
+		if (c.getId() == 0L) {
 			c.setDoenca(doenca);
 		}
 
 		c.setCriancas(crianca);
-		clinicoService.salvarClinico(c);
+		c = clinicoService.salvarClinico(c);
 
 		clinicos.add(c);
+		
+		CriancaPadrao.crianca.setClinicos(clinicos);
 
 		escreverDoencas();
 	}
@@ -145,9 +148,9 @@ public class TelaClinico extends JFrame {
 		StringBuffer a = new StringBuffer();
 		for (Clinico c : clinicos) {
 			a.append(c.getDoenca());
-			a.append("; ");
-		}
-
-		lblDoencas.setText(String.valueOf(a));
+			a.append("\n");
+		};
+		
+		textDoencas.setText(String.valueOf(a));
 	}
 }

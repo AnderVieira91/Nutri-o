@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
@@ -24,6 +25,8 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import edu.fatec.sjc.model.Recordatorio;
 import edu.fatec.sjc.service.RecordatorioService;
 import edu.fatec.sjc.tela.Padrao.CriancaPadrao;
+import javax.swing.JTextPane;
+import javax.swing.JTextArea;
 
 public class TelaRecordatorio extends JFrame {
 
@@ -36,7 +39,8 @@ public class TelaRecordatorio extends JFrame {
 	private JTextField textAlimento;
 	private JTextField textHora;
 	private JComboBox cBRefeicao;
-	private JLabel lblRecordatorio;
+	private String sb = "";
+	private JTextArea textRecordatorio;
 
 	/**
 	 * Launch the application.
@@ -60,7 +64,7 @@ public class TelaRecordatorio extends JFrame {
 	public TelaRecordatorio() {
 		setTitle("Recordatório");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 489, 300);
+		setBounds(100, 100, 489, 433);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -91,14 +95,14 @@ public class TelaRecordatorio extends JFrame {
 				adicionar();
 			}
 		});
-
-		lblRecordatorio = new JLabel("");
+		
+		textRecordatorio = new JTextArea();
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 								.addComponent(lblAlimento)
@@ -109,15 +113,16 @@ public class TelaRecordatorio extends JFrame {
 								.addComponent(textHora, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 								.addComponent(textAlimento, GroupLayout.PREFERRED_SIZE, 153, GroupLayout.PREFERRED_SIZE)
 								.addComponent(cBRefeicao, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addContainerGap(172, Short.MAX_VALUE))
-						.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-								.addComponent(lblCriancaNome)
-								.addGroup(gl_contentPane.createSequentialGroup()
-									.addComponent(lblRecordatorio)
-									.addPreferredGap(ComponentPlacement.RELATED, 194, Short.MAX_VALUE)
-									.addComponent(btnAdicionar)))
+							.addContainerGap(237, Short.MAX_VALUE))
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addPreferredGap(ComponentPlacement.RELATED, 292, Short.MAX_VALUE)
+							.addComponent(lblCriancaNome)
 							.addGap(161))))
+				.addComponent(textRecordatorio, GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addGap(191)
+					.addComponent(btnAdicionar)
+					.addContainerGap(195, Short.MAX_VALUE))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -136,14 +141,10 @@ public class TelaRecordatorio extends JFrame {
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addComponent(lblHora)
 						.addComponent(textHora, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnAdicionar))
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(27)
-							.addComponent(lblRecordatorio)))
-					.addContainerGap(100, Short.MAX_VALUE))
+					.addGap(28)
+					.addComponent(btnAdicionar)
+					.addGap(18)
+					.addComponent(textRecordatorio, GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE))
 		);
 		contentPane.setLayout(gl_contentPane);
 	}
@@ -166,9 +167,14 @@ public class TelaRecordatorio extends JFrame {
 			if (recordatorio.getId() == null) {
 				JOptionPane.showMessageDialog(null, "Dados da orientação não salvos.\nPreencha todos os campos.");
 			} else {
-				String s = lblRecordatorio.getText() + recordatorio.getAlimento() + " no(a) " + recordatorio.getRefeicao()
+				sb = sb + recordatorio.getAlimento() + " no(a) " + recordatorio.getRefeicao()
 						+ " as " + recordatorio.getHorario() + "\n";
-				lblRecordatorio.setText(s);
+				textRecordatorio.setText(sb);
+				
+				List<Recordatorio> recordatorios = CriancaPadrao.crianca.getRecordatorio();
+				recordatorios.add(recordatorio);
+				
+				CriancaPadrao.crianca.setRecordatorio(recordatorios);
 			}
 		}
 	}

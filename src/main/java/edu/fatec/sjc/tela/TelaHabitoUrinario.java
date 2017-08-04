@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
@@ -130,6 +131,11 @@ public class TelaHabitoUrinario extends JFrame {
 
 			if (urinario.getId() == null) {
 				JOptionPane.showMessageDialog(null, "Dados Hábito urinário não salvos.\nPreencha todos os campos.");
+			} else {
+				
+				List<HabitoUrinario> urinarios = CriancaPadrao.crianca.getHabitoUrinario();
+				urinarios.add(urinario);
+				CriancaPadrao.crianca.setHabitoUrinario(urinarios);
 			}
 		}
 

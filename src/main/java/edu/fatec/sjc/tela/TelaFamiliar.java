@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
@@ -131,9 +132,16 @@ public class TelaFamiliar extends JFrame {
 			familiar.setParentesco(cBParentesco.getSelectedItem().toString());
 			familiar.setCrianca(CriancaPadrao.crianca);
 			familiar = familiarService.salvarFamiliar(familiar);
+			
+			
 
 			if (familiar.getId() == null) {
 				JOptionPane.showMessageDialog(null, "Dados bioquímicos não salvos.\nPreencha todos os campos.");
+			} else {
+				List<Familiar> familiares = CriancaPadrao.crianca.getFamiliares();
+				familiares.add(familiar);
+				
+				CriancaPadrao.crianca.setFamiliares(familiares);
 			}
 
 			todasDoencas = todasDoencas + textDoenca.getText() + ", ";

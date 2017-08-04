@@ -24,6 +24,7 @@ import edu.fatec.sjc.model.Crianca;
 import edu.fatec.sjc.model.Remedio;
 import edu.fatec.sjc.service.RemedioService;
 import edu.fatec.sjc.tela.Padrao.CriancaPadrao;
+import javax.swing.JTextArea;
 
 public class TelaRemedio extends JFrame {
 
@@ -31,11 +32,11 @@ public class TelaRemedio extends JFrame {
 	 * 
 	 */
 	private RemedioService remedioService;
-	private List<Remedio> remedios;
+	private List<Remedio> remedios = CriancaPadrao.crianca.getRemedios();
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textRemedio;
-	private JLabel lblRemedios;
+	private JTextArea textRemedios;
 
 	/**
 	 * Launch the application.
@@ -59,7 +60,7 @@ public class TelaRemedio extends JFrame {
 	public TelaRemedio() {
 		setTitle("Remédio");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 450, 375);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -68,63 +69,80 @@ public class TelaRemedio extends JFrame {
 		criancaPadrao.setFont(new Font("Tahoma", Font.PLAIN, 18));
 
 		JLabel lblRemdio = new JLabel("Remédio:");
-
+		textRemedios = new JTextArea();
 		textRemedio = new JTextField();
 		textRemedio.setColumns(10);
-
-		lblRemedios = new JLabel("");
+		escreverRemedios();
 
 		JButton btnAdicionar = new JButton("Adicionar");
 		btnAdicionar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if(CriancaPadrao.crianca != null){
-					
+				if (CriancaPadrao.crianca != null) {
+
 					adicionar();
-					
+
 				}
 			}
 		});
+		
+		
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
-		gl_contentPane.setHorizontalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING).addGroup(gl_contentPane
-				.createSequentialGroup()
-				.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING).addComponent(lblRemedios)
-								.addGroup(gl_contentPane.createSequentialGroup().addComponent(lblRemdio)
-										.addPreferredGap(ComponentPlacement.RELATED).addComponent(textRemedio,
-												GroupLayout.PREFERRED_SIZE, 193, GroupLayout.PREFERRED_SIZE)))
-						.addGroup(gl_contentPane.createSequentialGroup().addGap(175)
-								.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-										.addComponent(btnAdicionar).addComponent(criancaPadrao))))
-				.addContainerGap(158, Short.MAX_VALUE)));
-		gl_contentPane.setVerticalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING).addGroup(gl_contentPane
-				.createSequentialGroup().addComponent(criancaPadrao).addPreferredGap(ComponentPlacement.RELATED)
-				.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE).addComponent(lblRemdio).addComponent(
-						textRemedio, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-				.addGap(18).addComponent(btnAdicionar).addPreferredGap(ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
-				.addComponent(lblRemedios).addGap(84)));
+		gl_contentPane.setHorizontalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addComponent(lblRemdio)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(textRemedio, GroupLayout.PREFERRED_SIZE, 193, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(175)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+								.addComponent(btnAdicionar)
+								.addComponent(criancaPadrao)))
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(textRemedios, GroupLayout.PREFERRED_SIZE, 417, GroupLayout.PREFERRED_SIZE)))
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+		);
+		gl_contentPane.setVerticalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addComponent(criancaPadrao)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblRemdio)
+						.addComponent(textRemedio, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(18)
+					.addComponent(btnAdicionar)
+					.addGap(18)
+					.addComponent(textRemedios, GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE))
+		);
 		contentPane.setLayout(gl_contentPane);
 	}
 
-
 	private void adicionar() {
-		
+
 		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 		remedioService = (RemedioService) context.getBean("remedioService");
-		
+
 		List<Crianca> crianca = new LinkedList<Crianca>();
 		crianca.add(CriancaPadrao.crianca);
 		String remedio = textRemedio.getText().toUpperCase();
 
 		Remedio r = remedioService.buscarNome(remedio);
-		if (r.getId() == null) {
+		if (r.getId() == 0L) {
 			r.setNome(remedio);
 		}
 
 		r.setCriancas(crianca);
-		remedioService.salvarRemedio(r);
+		r = remedioService.salvarRemedio(r);
+
 
 		remedios.add(r);
+		
+		CriancaPadrao.crianca.setRemedios(remedios);
 
 		escreverRemedios();
 	}
@@ -133,9 +151,9 @@ public class TelaRemedio extends JFrame {
 		StringBuffer a = new StringBuffer();
 		for (Remedio r : remedios) {
 			a.append(r.getNome());
-			a.append("; ");
+			a.append("\n");
 		}
-
-		lblRemedios.setText(String.valueOf(a));
+		
+		textRemedios.setText(String.valueOf(a));
 	}
 }

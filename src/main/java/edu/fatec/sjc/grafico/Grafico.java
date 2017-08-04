@@ -42,6 +42,7 @@ public class Grafico extends ApplicationFrame {
 		ChartPanel chartPanel = new ChartPanel(jfreechart);
 		chartPanel.setPreferredSize(new java.awt.Dimension(1280, 720));
 		setContentPane(chartPanel);
+		setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
 	}
 	
 

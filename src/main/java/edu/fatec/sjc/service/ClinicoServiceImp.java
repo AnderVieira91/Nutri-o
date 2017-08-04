@@ -26,8 +26,13 @@ public class ClinicoServiceImp implements ClinicoService {
 	}
 
 	public Clinico buscarDoenca(String doenca) {
-
-		return clinicoRepo.findByDoenca(doenca);
+		Clinico c = clinicoRepo.findByDoenca(doenca);
+		if(c != null){
+			return c;
+		}
+		c = new Clinico();
+		c.setId(0L);
+		return c;
 	}
 
 }

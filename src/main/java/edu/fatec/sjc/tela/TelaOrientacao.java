@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
@@ -24,6 +25,8 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import edu.fatec.sjc.model.Orientacao;
 import edu.fatec.sjc.service.OrientacaoService;
 import edu.fatec.sjc.tela.Padrao.CriancaPadrao;
+import javax.swing.JTextPane;
+import javax.swing.JTextArea;
 
 public class TelaOrientacao extends JFrame {
 
@@ -36,7 +39,8 @@ public class TelaOrientacao extends JFrame {
 	private JTextField textAlimento;
 	private JTextField textHora;
 	private JComboBox cBRefeicao;
-	private JLabel lblOrientacao;
+	private String sb = "";
+	private JTextArea textOrientacao;
 
 	/**
 	 * Launch the application.
@@ -60,7 +64,7 @@ public class TelaOrientacao extends JFrame {
 	public TelaOrientacao() {
 		setTitle("Orientação");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 489, 300);
+		setBounds(100, 100, 489, 370);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -91,14 +95,14 @@ public class TelaOrientacao extends JFrame {
 				adicionar();
 			}
 		});
-
-		lblOrientacao = new JLabel("");
+		
+		textOrientacao = new JTextArea();
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 								.addComponent(lblAlimento)
@@ -109,15 +113,14 @@ public class TelaOrientacao extends JFrame {
 								.addComponent(textHora, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 								.addComponent(textAlimento, GroupLayout.PREFERRED_SIZE, 153, GroupLayout.PREFERRED_SIZE)
 								.addComponent(cBRefeicao, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addContainerGap(172, Short.MAX_VALUE))
-						.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+							.addContainerGap(237, Short.MAX_VALUE))
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addPreferredGap(ComponentPlacement.RELATED, 215, Short.MAX_VALUE)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
 								.addComponent(lblCriancaNome)
-								.addGroup(gl_contentPane.createSequentialGroup()
-									.addComponent(lblOrientacao)
-									.addPreferredGap(ComponentPlacement.RELATED, 194, Short.MAX_VALUE)
-									.addComponent(btnAdicionar)))
+								.addComponent(btnAdicionar))
 							.addGap(161))))
+				.addComponent(textOrientacao, GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE)
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -136,14 +139,10 @@ public class TelaOrientacao extends JFrame {
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addComponent(lblHora)
 						.addComponent(textHora, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnAdicionar))
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(27)
-							.addComponent(lblOrientacao)))
-					.addContainerGap(100, Short.MAX_VALUE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(btnAdicionar)
+					.addGap(49)
+					.addComponent(textOrientacao, GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE))
 		);
 		contentPane.setLayout(gl_contentPane);
 	}
@@ -166,9 +165,16 @@ public class TelaOrientacao extends JFrame {
 			if (orientacao.getId() == null) {
 				JOptionPane.showMessageDialog(null, "Dados da orientação não salvos.\nPreencha todos os campos.");
 			} else {
-				String s = lblOrientacao.getText() + orientacao.getAlimento() + " no(a) " + orientacao.getRefeicao()
+				sb = sb + orientacao.getAlimento() + " no(a) " + orientacao.getRefeicao()
 						+ " as " + orientacao.getHora() + "\n";
-				lblOrientacao.setText(s);
+				
+				textOrientacao.setText(sb);
+				
+				List<Orientacao> orientacoes = CriancaPadrao.crianca.getOrientecao();
+				orientacoes.add(orientacao);
+				
+				CriancaPadrao.crianca.setOrientecao(orientacoes);
+				
 			}
 		}
 	}
