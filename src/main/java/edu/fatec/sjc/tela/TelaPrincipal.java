@@ -443,6 +443,7 @@ public class TelaPrincipal extends JFrame {
 					Grafico grafico = new Grafico(  "Gráfico" ,
 					         "Perímetro Cefálico X Idade \n0 a 2 anos", "IDADE", "PERÍMETRO CEFÁLICO (cm)", ds);
 					grafico.setVisible(true);
+					
 				}
 			}
 

@@ -3,6 +3,8 @@ package edu.fatec.sjc.grafico;
 import java.awt.BasicStroke;
 import java.awt.Color;
 
+import javax.swing.JFrame;
+
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.ChartUtilities;
@@ -11,11 +13,10 @@ import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.LineAndShapeRenderer;
 import org.jfree.data.category.DefaultCategoryDataset;
-import org.jfree.ui.ApplicationFrame;
 import org.jfree.ui.RefineryUtilities;
 
 @SuppressWarnings("serial")
-public class Grafico extends ApplicationFrame {
+public class Grafico extends JFrame {
 
 	public Grafico(String applicationTitle, String chartTitle, String x, String y, DefaultCategoryDataset ds ) {
 		super(applicationTitle);
@@ -43,6 +44,7 @@ public class Grafico extends ApplicationFrame {
 		chartPanel.setPreferredSize(new java.awt.Dimension(1280, 720));
 		setContentPane(chartPanel);
 		setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
 	
 
