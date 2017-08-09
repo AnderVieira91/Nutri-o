@@ -15,6 +15,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
@@ -25,8 +26,6 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import edu.fatec.sjc.model.Recordatorio;
 import edu.fatec.sjc.service.RecordatorioService;
 import edu.fatec.sjc.tela.Padrao.CriancaPadrao;
-import javax.swing.JTextPane;
-import javax.swing.JTextArea;
 
 public class TelaRecordatorio extends JFrame {
 
@@ -147,6 +146,7 @@ public class TelaRecordatorio extends JFrame {
 					.addComponent(textRecordatorio, GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE))
 		);
 		contentPane.setLayout(gl_contentPane);
+		
 	}
 
 	private void adicionar() {
@@ -178,4 +178,5 @@ public class TelaRecordatorio extends JFrame {
 			}
 		}
 	}
+	
 }

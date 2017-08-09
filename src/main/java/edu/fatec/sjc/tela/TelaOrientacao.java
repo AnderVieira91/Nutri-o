@@ -15,6 +15,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
@@ -25,8 +26,6 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import edu.fatec.sjc.model.Orientacao;
 import edu.fatec.sjc.service.OrientacaoService;
 import edu.fatec.sjc.tela.Padrao.CriancaPadrao;
-import javax.swing.JTextPane;
-import javax.swing.JTextArea;
 
 public class TelaOrientacao extends JFrame {
 
@@ -95,65 +94,55 @@ public class TelaOrientacao extends JFrame {
 				adicionar();
 			}
 		});
-		
+
 		textOrientacao = new JTextArea();
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
-		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblAlimento)
-								.addComponent(lblRefeio)
-								.addComponent(lblHora))
-							.addGap(18)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addComponent(textHora, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+		gl_contentPane.setHorizontalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING).addGroup(gl_contentPane
+				.createSequentialGroup().addContainerGap()
+				.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING).addGroup(gl_contentPane
+						.createSequentialGroup()
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING).addComponent(lblAlimento)
+								.addComponent(lblRefeio).addComponent(lblHora))
+						.addGap(18)
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+								.addComponent(textHora, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+										GroupLayout.PREFERRED_SIZE)
 								.addComponent(textAlimento, GroupLayout.PREFERRED_SIZE, 153, GroupLayout.PREFERRED_SIZE)
-								.addComponent(cBRefeicao, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addContainerGap(237, Short.MAX_VALUE))
+								.addComponent(cBRefeicao, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+										GroupLayout.PREFERRED_SIZE))
+						.addContainerGap(237, Short.MAX_VALUE))
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addPreferredGap(ComponentPlacement.RELATED, 215, Short.MAX_VALUE)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-								.addComponent(lblCriancaNome)
-								.addComponent(btnAdicionar))
-							.addGap(161))))
-				.addComponent(textOrientacao, GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE)
-		);
-		gl_contentPane.setVerticalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(lblCriancaNome)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblAlimento)
-						.addComponent(textAlimento, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(cBRefeicao, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addPreferredGap(ComponentPlacement.RELATED, 215, Short.MAX_VALUE)
+								.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+										.addComponent(lblCriancaNome).addComponent(btnAdicionar))
+								.addGap(161))))
+				.addComponent(textOrientacao, GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE));
+		gl_contentPane.setVerticalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING).addGroup(gl_contentPane
+				.createSequentialGroup().addContainerGap().addComponent(lblCriancaNome)
+				.addPreferredGap(ComponentPlacement.RELATED)
+				.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE).addComponent(lblAlimento).addComponent(
+						textAlimento, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+				.addPreferredGap(ComponentPlacement.RELATED)
+				.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(cBRefeicao, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+								GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblRefeio))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblHora)
-						.addComponent(textHora, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(btnAdicionar)
-					.addGap(49)
-					.addComponent(textOrientacao, GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE))
-		);
+				.addPreferredGap(ComponentPlacement.RELATED)
+				.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING).addComponent(lblHora).addComponent(
+						textHora, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+				.addPreferredGap(ComponentPlacement.RELATED).addComponent(btnAdicionar).addGap(49)
+				.addComponent(textOrientacao, GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)));
 		contentPane.setLayout(gl_contentPane);
+
 	}
 
 	private void adicionar() {
 
 		if (CriancaPadrao.crianca.getId() != null) {
-			
+
 			ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 			orientacaoService = (OrientacaoService) context.getBean("orientacaoService");
-			
+
 			Orientacao orientacao = new Orientacao();
 			orientacao.setCrianca(CriancaPadrao.crianca);
 			orientacao.setAlimento(textAlimento.getText());
@@ -165,17 +154,19 @@ public class TelaOrientacao extends JFrame {
 			if (orientacao.getId() == null) {
 				JOptionPane.showMessageDialog(null, "Dados da orientação não salvos.\nPreencha todos os campos.");
 			} else {
-				sb = sb + orientacao.getAlimento() + " no(a) " + orientacao.getRefeicao()
-						+ " as " + orientacao.getHora() + "\n";
-				
+				sb = sb + orientacao.getAlimento() + " no(a) " + orientacao.getRefeicao() + " as "
+						+ orientacao.getHora() + "\n";
+
 				textOrientacao.setText(sb);
-				
+
 				List<Orientacao> orientacoes = CriancaPadrao.crianca.getOrientecao();
 				orientacoes.add(orientacao);
-				
+
 				CriancaPadrao.crianca.setOrientecao(orientacoes);
-				
+
 			}
+
 		}
 	}
+
 }
