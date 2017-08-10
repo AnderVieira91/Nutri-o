@@ -25,7 +25,6 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import edu.fatec.sjc.model.Crianca;
 import edu.fatec.sjc.service.CriancaService;
-import edu.fatec.sjc.tela.Padrao.CriancaPadrao;
 
 public class TelaCadastro extends JFrame {
 

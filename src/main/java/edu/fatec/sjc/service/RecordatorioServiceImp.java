@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import edu.fatec.sjc.model.Crianca;
-import edu.fatec.sjc.model.Orientacao;
 import edu.fatec.sjc.model.Recordatorio;
 import edu.fatec.sjc.repository.RecordatorioRepositorio;
 

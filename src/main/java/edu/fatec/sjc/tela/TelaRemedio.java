@@ -13,6 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
@@ -24,7 +25,6 @@ import edu.fatec.sjc.model.Crianca;
 import edu.fatec.sjc.model.Remedio;
 import edu.fatec.sjc.service.RemedioService;
 import edu.fatec.sjc.tela.Padrao.CriancaPadrao;
-import javax.swing.JTextArea;
 
 public class TelaRemedio extends JFrame {
 

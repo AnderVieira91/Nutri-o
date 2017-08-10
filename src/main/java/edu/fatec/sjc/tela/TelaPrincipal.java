@@ -37,7 +37,6 @@ import edu.fatec.sjc.grafico.Menina;
 import edu.fatec.sjc.grafico.Menino;
 import edu.fatec.sjc.model.Antropometrico;
 import edu.fatec.sjc.model.Crianca;
-import edu.fatec.sjc.repository.AntropometricoRepositorio;
 import edu.fatec.sjc.service.AntropometricoService;
 import edu.fatec.sjc.service.CriancaService;
 import edu.fatec.sjc.tela.Padrao.CriancaPadrao;
@@ -62,8 +61,11 @@ public class TelaPrincipal extends JFrame {
 	private JMenuItem dadosHabInt = new JMenuItem("Hábito intestinal");
 	private JMenuItem dadosOrientacao = new JMenuItem("Orientação");
 	private JMenuItem dadosRecordatorio = new JMenuItem("Recordatório");
+	private JMenuItem exibirOrientacao = new JMenuItem("Orientação");
+	private JMenuItem exibirRecordatorio = new JMenuItem("Recordatório");
 	private JMenuItem dadosRemedios = new JMenuItem("Remédio");
 	private JMenu mnCadastrarDados = new JMenu("Cadastrar Dados");
+	private JMenu mnExibirDados = new JMenu("Exibir Dados");
 	private JTextField textBusca;
 	private JComboBox listaBusca;
 	private JLabel lblCrianca;
@@ -102,6 +104,7 @@ public class TelaPrincipal extends JFrame {
 		setJMenuBar(menuBar);
 
 		menuBar.add(mnCadastrarDados);
+		menuBar.add(mnExibirDados);
 		novoPaciente.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
@@ -180,6 +183,23 @@ public class TelaPrincipal extends JFrame {
 		mnCadastrarDados.add(dadosOrientacao);
 		mnCadastrarDados.add(dadosRecordatorio);
 		mnCadastrarDados.add(dadosRemedios);
+		
+		exibirOrientacao.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				eOri();
+			}
+		});
+		
+		exibirRecordatorio.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				eRec();
+			}
+		});
+		
+		mnExibirDados.add(exibirOrientacao);
+		mnExibirDados.add(exibirRecordatorio);
 
 		contentPane = new JPanel();
 		contentPane.setToolTipText("");
@@ -338,6 +358,20 @@ public class TelaPrincipal extends JFrame {
 	private void rem() {
 		if (CriancaPadrao.crianca.getId() != null) {
 			TelaRemedio frame = new TelaRemedio();
+			frame.setVisible(true);
+		}
+	}
+	
+	private void eRec() {
+		if (CriancaPadrao.crianca.getId() != null) {
+			TelaExibicaoRecordatorio frame = new TelaExibicaoRecordatorio();
+			frame.setVisible(true);
+		}
+	}
+	
+	private void eOri() {
+		if (CriancaPadrao.crianca.getId() != null) {
+			TelaExibicaoOrientacao frame = new TelaExibicaoOrientacao();
 			frame.setVisible(true);
 		}
 	}

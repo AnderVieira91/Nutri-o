@@ -1,12 +1,5 @@
 package edu.fatec.sjc.grafico;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.Period;
-import java.time.ZoneId;
-import java.util.Date;
-
 public class Menina {
 	private double[] perimetroCefalicoMinimo = { 31.5, 34.2, 35.8, 37.1, 38.1, 38.9, 39.6, 40.2, 40.7, 41.2, 41.5, 41.9,
 			42.2, 42.4, 42.7, 42.9, 43.1, 43.3, 43.5, 43.6, 43.8, 44, 44.1, 44.3, 44.4 };

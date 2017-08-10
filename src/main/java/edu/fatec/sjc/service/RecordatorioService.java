@@ -1,6 +1,5 @@
 package edu.fatec.sjc.service;
 
-import java.sql.Date;
 import java.util.List;
 
 import edu.fatec.sjc.model.Crianca;
