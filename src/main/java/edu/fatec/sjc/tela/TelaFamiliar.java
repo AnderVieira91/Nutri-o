@@ -25,6 +25,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import edu.fatec.sjc.model.Familiar;
 import edu.fatec.sjc.service.FamiliarService;
 import edu.fatec.sjc.tela.Padrao.CriancaPadrao;
+import javax.swing.JTextArea;
 
 public class TelaFamiliar extends JFrame {
 	/**
@@ -34,9 +35,10 @@ public class TelaFamiliar extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textDoenca;
-	private JLabel lblDoencas;
 	private String todasDoencas;
 	private JComboBox cBParentesco;
+	private List<Familiar> familiares = CriancaPadrao.crianca.getFamiliares();
+	private JTextArea textDoencas;
 
 	/**
 	 * Launch the application.
@@ -60,7 +62,7 @@ public class TelaFamiliar extends JFrame {
 	public TelaFamiliar() {
 		setTitle("Histórico Familiar");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 450, 387);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -85,39 +87,49 @@ public class TelaFamiliar extends JFrame {
 				adicionarDoenca();
 			}
 		});
-
-		lblDoencas = new JLabel("");
+		
+		textDoencas = new JTextArea();
+		escrever();
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
-		gl_contentPane.setHorizontalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING).addGroup(gl_contentPane
-				.createSequentialGroup()
-				.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPane.createSequentialGroup().addGap(162).addComponent(lblCriancaNome))
-						.addGroup(
-								gl_contentPane
-										.createSequentialGroup().addContainerGap()
-										.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-												.addComponent(lblParentesco).addComponent(lblDoena))
-										.addPreferredGap(ComponentPlacement.RELATED)
-										.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-												.addComponent(cBParentesco, GroupLayout.PREFERRED_SIZE,
-														GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-												.addComponent(textDoenca, GroupLayout.PREFERRED_SIZE, 305,
-														GroupLayout.PREFERRED_SIZE)
-												.addComponent(lblDoencas)))
-						.addGroup(gl_contentPane.createSequentialGroup().addGap(168).addComponent(btnAdicionar)))
-				.addContainerGap(45, Short.MAX_VALUE)));
-		gl_contentPane.setVerticalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup().addComponent(lblCriancaNome).addGap(18)
-						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(textDoenca, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-										GroupLayout.PREFERRED_SIZE)
+		gl_contentPane.setHorizontalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addContainerGap()
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblParentesco)
 								.addComponent(lblDoena))
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE).addComponent(lblParentesco)
-								.addComponent(cBParentesco, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-										GroupLayout.PREFERRED_SIZE))
-						.addPreferredGap(ComponentPlacement.RELATED).addComponent(btnAdicionar).addGap(60)
-						.addComponent(lblDoencas).addContainerGap(79, Short.MAX_VALUE)));
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+								.addComponent(cBParentesco, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(textDoenca, GroupLayout.PREFERRED_SIZE, 305, GroupLayout.PREFERRED_SIZE)))
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(162)
+							.addComponent(lblCriancaNome))
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(168)
+							.addComponent(btnAdicionar))
+						.addComponent(textDoencas, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 426, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+		);
+		gl_contentPane.setVerticalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addComponent(lblCriancaNome)
+					.addGap(18)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(textDoenca, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblDoena))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblParentesco)
+						.addComponent(cBParentesco, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(btnAdicionar)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(textDoencas, GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE))
+		);
 		contentPane.setLayout(gl_contentPane);
 	}
 
@@ -144,9 +156,16 @@ public class TelaFamiliar extends JFrame {
 				CriancaPadrao.crianca.setFamiliares(familiares);
 			}
 
-			todasDoencas = todasDoencas + textDoenca.getText() + ", ";
-			lblDoencas.setText(todasDoencas);
+			this.familiares = CriancaPadrao.crianca.getFamiliares();
+			escrever();
 		}
 	}
-
+	
+	private void escrever(){
+		StringBuffer a = new StringBuffer();
+		for(Familiar f : familiares){
+			a.append("Doença: " + f.getDoenca() +  " por parte de " + f.getParentesco() + System.getProperty("line.separator"));
+		}
+		textDoencas.setText(a.toString());
+	}
 }

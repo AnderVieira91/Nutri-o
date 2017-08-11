@@ -1,5 +1,6 @@
 package edu.fatec.sjc.model;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -13,6 +14,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.GenericGenerator;
+
+import edu.fatec.sjc.tela.Padrao.CriancaPadrao;
 
 @Entity
 @Table(name = "ANT_ANTROPOMETRICO")
@@ -79,6 +82,36 @@ public class Antropometrico {
 	@ManyToOne
 	@JoinColumn(name = "CRI_ID")
 	private Crianca crianca;
+	
+	
+	public String escrever(){
+		StringBuffer a = new StringBuffer();
+		a.append("Paciente: " + CriancaPadrao.crianca.getNome() + System.getProperty("line.separator"));
+		a.append("Peso habitual: " + pesoHabitual +  System.getProperty("line.separator"));
+		a.append("Peso atual: " + pesoAtual +  System.getProperty("line.separator"));
+		a.append("Peso estimado: " + pesoEstimado +  System.getProperty("line.separator"));
+		a.append("Alteração peso recente: " + alteracaoPesoRecente +  System.getProperty("line.separator"));
+		a.append("Comprimento/Estatura: " + estatura +  System.getProperty("line.separator"));
+		a.append("Perímetro craniano: " + perimetroCraniano +  System.getProperty("line.separator"));
+		a.append("Perímetro torácico: " + perimetroToracico +  System.getProperty("line.separator"));
+		a.append("Perímetro torácico: " + perimetroToracico +  System.getProperty("line.separator"));
+		a.append("Circunferência abdominal: " + circunferenciaAbdominal +  System.getProperty("line.separator"));
+		a.append("Circunferência da coxa: " + circunferenciaCoxa +  System.getProperty("line.separator"));
+		a.append("Circunferência da panturrilha: " + circunferenciaPanturrilha +  System.getProperty("line.separator"));
+		a.append("Circunferência do pescoço: " + circunferenciaPescoco +  System.getProperty("line.separator"));
+		a.append("Dobra cutânea tricipital: " + dobraCutaneaTricipital +  System.getProperty("line.separator"));
+		a.append("Dobra cutânea subescalar: " + dobraCutaneaSubescalar +  System.getProperty("line.separator"));
+		a.append("Área muscular do polegar: " + areaMuscularPolegar +  System.getProperty("line.separator"));
+		
+		Date dataPadrao = data;
+		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+		String dataFormatada = formato.format(data);
+		
+		a.append("Data da consulta: " + dataFormatada +  System.getProperty("line.separator"));
+		
+		return a.toString();
+		
+	}
 
 	public Date getData() {
 		return data;

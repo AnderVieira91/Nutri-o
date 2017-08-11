@@ -1,5 +1,6 @@
 package edu.fatec.sjc.model;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -13,6 +14,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.GenericGenerator;
+
+import edu.fatec.sjc.tela.Padrao.CriancaPadrao;
 
 @Entity
 @Table(name = "BIO_BIOQUIMICO")
@@ -118,6 +121,48 @@ public class Bioquimico {
 	@ManyToOne
 	@JoinColumn(name = "CRI_ID")
 	private Crianca crianca;
+	
+	public String escrever(){
+		StringBuffer a = new StringBuffer();
+		a.append("Paciente: " + CriancaPadrao.crianca.getNome() + System.getProperty("line.separator"));
+		a.append("Proteinas Totais: " + proteinasTotais + System.getProperty("line.separator"));
+		a.append("Albumina: " + albumina + System.getProperty("line.separator"));
+		a.append("Pré albumina: " + preAlbumina + System.getProperty("line.separator"));
+		a.append("Ferretina: " + ferretina + System.getProperty("line.separator"));
+		a.append("Ferro: " + ferro + System.getProperty("line.separator"));
+		a.append("Ácido fólico: " + acidoFolico + System.getProperty("line.separator"));
+		a.append("Creatinina: " + creatinina + System.getProperty("line.separator"));
+		a.append("Creatinina na urina: " + creatininaUrina + System.getProperty("line.separator"));
+		a.append("Ácido úrico: " + acidoUrico + System.getProperty("line.separator"));
+		a.append("PCR: " + pcr + System.getProperty("line.separator"));
+		a.append("TGO: " + tgo + System.getProperty("line.separator"));
+		a.append("TGP: " + tgp + System.getProperty("line.separator"));
+		a.append("DHL: " + dhl + System.getProperty("line.separator"));
+		a.append("VCM: " + vcm + System.getProperty("line.separator"));
+		a.append("HCM: " + hcm + System.getProperty("line.separator"));
+		a.append("CHCM: " + chcm + System.getProperty("line.separator"));
+		a.append("RDW: " + rdw + System.getProperty("line.separator"));
+		a.append("Hemoglobina: " + hemoglobina + System.getProperty("line.separator"));
+		a.append("Hematócrito: " + hematocrito + System.getProperty("line.separator"));
+		a.append("Plaqueta: " + plaqueta + System.getProperty("line.separator"));
+		a.append("Leucócito: " + leucocito + System.getProperty("line.separator"));
+		a.append("Linfócito: " + linfocito + System.getProperty("line.separator"));
+		a.append("Neutrófilo: " + neutrofilo + System.getProperty("line.separator"));
+		a.append("Glicemia: " + glicemia + System.getProperty("line.separator"));
+		a.append("Insulinemia: " + insulenimia + System.getProperty("line.separator"));
+		a.append("T4Livre: " + t4Livre + System.getProperty("line.separator"));
+		a.append("Cálcio: " + calcio + System.getProperty("line.separator"));
+		a.append("Sódio: " + sodio + System.getProperty("line.separator"));
+		a.append("Potássio: " + pcr + System.getProperty("line.separator"));
+		
+		Date dataPadrao = data;
+		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+		String dataFormatada = formato.format(data);
+		
+		a.append("Data da consulta: " + dataFormatada +  System.getProperty("line.separator"));
+		
+		return a.toString();
+	}
 
 	public Long getId() {
 		return id;

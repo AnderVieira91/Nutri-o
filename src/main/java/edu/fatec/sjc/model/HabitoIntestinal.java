@@ -1,5 +1,6 @@
 package edu.fatec.sjc.model;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -13,6 +14,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.GenericGenerator;
+
+import edu.fatec.sjc.tela.Padrao.CriancaPadrao;
 
 @Entity
 @Table(name = "HABITO_INTESTINAL")
@@ -43,6 +46,28 @@ public class HabitoIntestinal {
 	@ManyToOne
 	@JoinColumn(name = "CRI_ID")
 	private Crianca crianca;
+	
+	public String escrever(){
+		StringBuffer a = new StringBuffer();
+		a.append("Paciente: " + CriancaPadrao.crianca.getNome() + System.getProperty("line.separator"));
+		a.append(numero +  "vez(es) por" + frequencia + CriancaPadrao.crianca.getNome() + System.getProperty("line.separator"));
+		a.append("Bristol: " + bristol + System.getProperty("line.separator"));
+		String s = "";
+		if(melena){
+			s = "positivo";
+		} else {
+			s = "negativo";
+		}
+		a.append("Melena: " + s + System.getProperty("line.separator"));
+		
+		Date dataPadrao = data;
+		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+		String dataFormatada = formato.format(data);
+		
+		a.append("Data da consulta: " + dataFormatada +  System.getProperty("line.separator"));
+		
+		return a.toString();
+	}
 
 	public Long getId() {
 		return id;

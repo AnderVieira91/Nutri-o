@@ -61,9 +61,13 @@ public class TelaPrincipal extends JFrame {
 	private JMenuItem dadosHabInt = new JMenuItem("Hábito intestinal");
 	private JMenuItem dadosOrientacao = new JMenuItem("Orientação");
 	private JMenuItem dadosRecordatorio = new JMenuItem("Recordatório");
+	private JMenuItem dadosRemedios = new JMenuItem("Remédio");
 	private JMenuItem exibirOrientacao = new JMenuItem("Orientação");
 	private JMenuItem exibirRecordatorio = new JMenuItem("Recordatório");
-	private JMenuItem dadosRemedios = new JMenuItem("Remédio");
+	private JMenuItem exibirAntropometrico = new JMenuItem("Antropometria");
+	private JMenuItem exibirBioquimico = new JMenuItem("Bioquímico");
+	private JMenuItem exibirHabInt = new JMenuItem("Hábito intestinal");
+	private JMenuItem exibirHabUri = new JMenuItem("Hábito urinário");
 	private JMenu mnCadastrarDados = new JMenu("Cadastrar Dados");
 	private JMenu mnExibirDados = new JMenu("Exibir Dados");
 	private JTextField textBusca;
@@ -198,8 +202,41 @@ public class TelaPrincipal extends JFrame {
 			}
 		});
 		
+		exibirAntropometrico.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				eAnt();
+			}
+		});
+		
+		exibirBioquimico.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				eBio();
+			}
+		});
+		
+		exibirHabInt.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				eInt();
+			}
+		});
+		
+		exibirHabUri.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				eUri();
+			}
+		});
+		
+		mnExibirDados.add(exibirAntropometrico);
+		mnExibirDados.add(exibirBioquimico);
+		mnExibirDados.add(exibirHabInt);
+		mnExibirDados.add(exibirHabUri);
 		mnExibirDados.add(exibirOrientacao);
 		mnExibirDados.add(exibirRecordatorio);
+		
 
 		contentPane = new JPanel();
 		contentPane.setToolTipText("");
@@ -372,6 +409,42 @@ public class TelaPrincipal extends JFrame {
 	private void eOri() {
 		if (CriancaPadrao.crianca.getId() != null) {
 			TelaExibicaoOrientacao frame = new TelaExibicaoOrientacao();
+			frame.setVisible(true);
+		}
+	}
+	
+	private void eAnt() {
+		if (CriancaPadrao.crianca.getId() != null) {
+			int tamanho = CriancaPadrao.crianca.getAntropometricos().size();
+			String texto = CriancaPadrao.crianca.getAntropometricos().get(tamanho - 1).escrever();
+			TelaExibicaoDados frame = new TelaExibicaoDados(texto);
+			frame.setVisible(true);
+		}
+	}
+	
+	private void eBio() {
+		if (CriancaPadrao.crianca.getId() != null) {
+			int tamanho = CriancaPadrao.crianca.getBioquimico().size();
+			String texto = CriancaPadrao.crianca.getBioquimico().get(tamanho - 1).escrever();
+			TelaExibicaoDados frame = new TelaExibicaoDados(texto);
+			frame.setVisible(true);
+		}
+	}
+	
+	private void eUri() {
+		if (CriancaPadrao.crianca.getId() != null) {
+			int tamanho = CriancaPadrao.crianca.getHabitoUrinario().size();
+			String texto = CriancaPadrao.crianca.getHabitoUrinario().get(tamanho - 1).escrever();
+			TelaExibicaoDados frame = new TelaExibicaoDados(texto);
+			frame.setVisible(true);
+		}
+	}
+	
+	private void eInt() {
+		if (CriancaPadrao.crianca.getId() != null) {
+			int tamanho = CriancaPadrao.crianca.getHabitoIntestinal().size();
+			String texto = CriancaPadrao.crianca.getHabitoIntestinal().get(tamanho - 1).escrever();
+			TelaExibicaoDados frame = new TelaExibicaoDados(texto);
 			frame.setVisible(true);
 		}
 	}
