@@ -1,107 +1,155 @@
 package edu.fatec.sjc.envio;
 
+import java.awt.print.PrinterJob;
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.print.Doc;
 import javax.print.DocFlavor;
 import javax.print.DocPrintJob;
 import javax.print.PrintException;
 import javax.print.PrintService;
 import javax.print.PrintServiceLookup;
 import javax.print.SimpleDoc;
-import javax.print.attribute.HashPrintRequestAttributeSet;
-import javax.print.attribute.PrintRequestAttributeSet;
-import javax.print.attribute.standard.JobName;
-import javax.print.attribute.standard.MediaSizeName;
-import javax.print.attribute.standard.OrientationRequested;
-import javax.swing.JOptionPane;
+import javax.print.event.PrintJobAdapter;
+import javax.print.event.PrintJobEvent;
+
+// https://www.google.com/settings/security/lesssecureapps
 
 public class Envio {
 
-	public void impressao(String textoimp) {
-
-		// /n/r para novas linhas e /f para fim da pagina
+	public void impressao(String texto) {
 		try {
-			InputStream prin = new ByteArrayInputStream(textoimp.getBytes());
-			DocFlavor docFlavor = DocFlavor.INPUT_STREAM.AUTOSENSE;
-			SimpleDoc documentoTexto = new SimpleDoc(prin, docFlavor, null);
-			PrintService impressora = PrintServiceLookup.lookupDefaultPrintService(); // pega
-																						// a
-																						// //impressora
-																						// padrao
-			PrintRequestAttributeSet printerAttributes = new HashPrintRequestAttributeSet();
-			printerAttributes.add(new JobName("Impressao", null));
-			printerAttributes.add(OrientationRequested.PORTRAIT);
-			printerAttributes.add(MediaSizeName.ISO_A4); // informa o tipo de
-															// folha
-			DocPrintJob printJob = impressora.createPrintJob();
+			PrintService mPrinter = null;
+			Boolean bFoundPrinter = false;
 
-			try {
-				printJob.print(documentoTexto, (PrintRequestAttributeSet) printerAttributes); // tenta
-																								// imprimir
-			} catch (PrintException e) {
-				JOptionPane.showMessageDialog(null, "Não foi possível realizar a impressão !!", "Erro",
-						JOptionPane.ERROR_MESSAGE); // mostra //mensagem de erro
+			PrintService[] printServices = PrinterJob.lookupPrintServices();
+
+			//
+			// Iterates the print services and print out its name.
+			//
+			for (PrintService printService : printServices) {
+				String sPrinterName = printService.getName();
+				if (sPrinterName.equals("DTC4000 Card Printer")) {
+					mPrinter = printService;
+					bFoundPrinter = true;
+				}
 			}
-			prin.close();
-		} catch (Exception e) {
+
+			
+			String testData = texto + "\f";
+			InputStream is = new ByteArrayInputStream(testData.getBytes());
+			DocFlavor flavor = DocFlavor.INPUT_STREAM.AUTOSENSE;
+
+			// Find the default service
+			PrintService service = PrintServiceLookup.lookupDefaultPrintService();
+			System.out.println(service);
+
+			// Create the print job
+			DocPrintJob job = service.createPrintJob();
+			Doc doc = new SimpleDoc(is, flavor, null);
+
+			// Monitor print job events; for the implementation of
+			// PrintJobWatcher,
+			PrintJobWatcher pjDone = new PrintJobWatcher(job);
+
+			// Print it
+			job.print(doc, null);
+
+			// Wait for the print job to be done
+			pjDone.waitForDone();
+
+			// It is now safe to close the input stream
+			is.close();
+		} catch (PrintException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
+	
+	public static void enviarEmail(String from, String password, String to, String sub, String msg) {
+		// Get properties object
+		final String de = from;
+		final String senha = password;
+		Properties props = new Properties();
+		props.put("mail.smtp.host", "smtp.gmail.com");
+		props.put("mail.smtp.socketFactory.port", "465");
+		props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.port", "465");
+		// get Session
+		Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication(de, senha);
+			}
+		});
+		// compose message
+		try {
+			MimeMessage message = new MimeMessage(session);
+			message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+			message.setSubject(sub);
+			message.setText(msg);
+			// send message
+			Transport.send(message);
+			System.out.println("message sent successfully");
+		} catch (MessagingException e) {
+			throw new RuntimeException(e);
+		}
 
-	public void enviarEmail(String emailRemetenteA, String senhaA, String emailDestinatarioA, String textoA){
-		// Recipient's email ID needs to be mentioned.
-	      String to = emailDestinatarioA;
-
-	      // Sender's email ID needs to be mentioned
-	      String from = "nutricional@nutricao";
-
-	      // Assuming you are sending email from localhost
-	      String host = "localhost";
-
-	      // Get system propertiese
-	      Properties properties = System.getProperties();
-
-	      // Setup mail server
-	      properties.setProperty("mail.smtp.host", host);
-
-	      // Get the default Session object.
-	      Session session = Session.getDefaultInstance(properties);
-
-	      try {
-	         // Create a default MimeMessage object.
-	         MimeMessage message = new MimeMessage(session);
-
-	         // Set From: header field of the header.
-	         message.setFrom(new InternetAddress(from));
-
-	         // Set To: header field of the header.
-	         message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
-
-	         // Set Subject: header field
-	         message.setSubject("Orientação Nutricional");
-
-	         // Now set the actual message
-	         message.setText(textoA);
-
-	         // Send message
-	         Transport.send(message);
-	         System.out.println("Sent message successfully....");
-	      }catch (MessagingException mex) {
-	         mex.printStackTrace();
-	      }
-  }
-
-	public static void main(String[] args){
-		Envio e = new Envio();
-		e.enviarEmail("a", "a", "arthurr.sa@hotmail.com", "teste");
 	}
+
+	static class PrintJobWatcher {
+		// true iff it is safe to close the print job's input stream
+		boolean done = false;
+
+		PrintJobWatcher(DocPrintJob job) {
+			// Add a listener to the print job
+			job.addPrintJobListener(new PrintJobAdapter() {
+				public void printJobCanceled(PrintJobEvent pje) {
+					allDone();
+				}
+
+				public void printJobCompleted(PrintJobEvent pje) {
+					allDone();
+				}
+
+				public void printJobFailed(PrintJobEvent pje) {
+					allDone();
+				}
+
+				public void printJobNoMoreEvents(PrintJobEvent pje) {
+					allDone();
+				}
+
+				void allDone() {
+					synchronized (PrintJobWatcher.this) {
+						done = true;
+						PrintJobWatcher.this.notify();
+					}
+				}
+			});
+		}
+
+		public synchronized void waitForDone() {
+			try {
+				while (!done) {
+					wait();
+				}
+			} catch (InterruptedException e) {
+			}
+		}
+	}
+	
 	
 
 }

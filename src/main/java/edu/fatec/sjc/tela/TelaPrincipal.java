@@ -187,56 +187,55 @@ public class TelaPrincipal extends JFrame {
 		mnCadastrarDados.add(dadosOrientacao);
 		mnCadastrarDados.add(dadosRecordatorio);
 		mnCadastrarDados.add(dadosRemedios);
-		
+
 		exibirOrientacao.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				eOri();
 			}
 		});
-		
+
 		exibirRecordatorio.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				eRec();
 			}
 		});
-		
+
 		exibirAntropometrico.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				eAnt();
 			}
 		});
-		
+
 		exibirBioquimico.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				eBio();
 			}
 		});
-		
+
 		exibirHabInt.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				eInt();
 			}
 		});
-		
+
 		exibirHabUri.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				eUri();
 			}
 		});
-		
+
 		mnExibirDados.add(exibirAntropometrico);
 		mnExibirDados.add(exibirBioquimico);
 		mnExibirDados.add(exibirHabInt);
 		mnExibirDados.add(exibirHabUri);
 		mnExibirDados.add(exibirOrientacao);
 		mnExibirDados.add(exibirRecordatorio);
-		
 
 		contentPane = new JPanel();
 		contentPane.setToolTipText("");
@@ -272,8 +271,20 @@ public class TelaPrincipal extends JFrame {
 		lblCrianca.setFont(new Font("Tahoma", Font.PLAIN, 18));
 
 		JButton btnPesoXIdade = new JButton("PESO X IDADE");
+		btnPesoXIdade.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				pesoCrianca();
+			}
+		});
 
 		JButton btnAlturaXIdade = new JButton("ALTURA X IDADE");
+		btnAlturaXIdade.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				alturaCrianca();
+			}
+		});
 
 		JButton btnPermetroCeflico = new JButton("PERÍMETRO CEFÁLICO");
 		btnPermetroCeflico.addMouseListener(new MouseAdapter() {
@@ -398,21 +409,21 @@ public class TelaPrincipal extends JFrame {
 			frame.setVisible(true);
 		}
 	}
-	
+
 	private void eRec() {
 		if (CriancaPadrao.crianca.getId() != null) {
 			TelaExibicaoRecordatorio frame = new TelaExibicaoRecordatorio();
 			frame.setVisible(true);
 		}
 	}
-	
+
 	private void eOri() {
 		if (CriancaPadrao.crianca.getId() != null) {
 			TelaExibicaoOrientacao frame = new TelaExibicaoOrientacao();
 			frame.setVisible(true);
 		}
 	}
-	
+
 	private void eAnt() {
 		if (CriancaPadrao.crianca.getId() != null) {
 			int tamanho = CriancaPadrao.crianca.getAntropometricos().size();
@@ -421,7 +432,7 @@ public class TelaPrincipal extends JFrame {
 			frame.setVisible(true);
 		}
 	}
-	
+
 	private void eBio() {
 		if (CriancaPadrao.crianca.getId() != null) {
 			int tamanho = CriancaPadrao.crianca.getBioquimico().size();
@@ -430,7 +441,7 @@ public class TelaPrincipal extends JFrame {
 			frame.setVisible(true);
 		}
 	}
-	
+
 	private void eUri() {
 		if (CriancaPadrao.crianca.getId() != null) {
 			int tamanho = CriancaPadrao.crianca.getHabitoUrinario().size();
@@ -439,7 +450,7 @@ public class TelaPrincipal extends JFrame {
 			frame.setVisible(true);
 		}
 	}
-	
+
 	private void eInt() {
 		if (CriancaPadrao.crianca.getId() != null) {
 			int tamanho = CriancaPadrao.crianca.getHabitoIntestinal().size();
@@ -450,10 +461,10 @@ public class TelaPrincipal extends JFrame {
 	}
 
 	private void buscarCriancas() {
-		
+
 		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 		criancaService = (CriancaService) context.getBean("criancaService");
-		
+
 		int a = 0;
 		String nome = textBusca.getText().toUpperCase();
 		if (!nome.equals("") && nome != null) {
@@ -470,10 +481,10 @@ public class TelaPrincipal extends JFrame {
 	}
 
 	private void setCrianca() {
-		
+
 		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 		criancaService = (CriancaService) context.getBean("criancaService");
-		
+
 		String a = listaBusca.getSelectedItem().toString();
 		String[] buscaId = a.split(" ");
 		Long id = Long.valueOf(buscaId[0].replaceAll("ID:", ""));
@@ -482,8 +493,7 @@ public class TelaPrincipal extends JFrame {
 			lblCrianca.setText(CriancaPadrao.crianca.getNome());
 			LocalDate hoje = LocalDate.now();
 			java.util.Date d = new Date(CriancaPadrao.crianca.getNascimento().getTime());
-			LocalDate nascimento = d.toInstant().atZone(ZoneId.systemDefault())
-					.toLocalDate();
+			LocalDate nascimento = d.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 			p = Period.between(nascimento, hoje);
 			String idade = p.getYears() + " ANOS " + p.getMonths() + " MESES E " + p.getDays() + " DIAS";
 			lblIdadeCalculada.setText(idade);
@@ -492,7 +502,7 @@ public class TelaPrincipal extends JFrame {
 
 	private void perimetroCefalico() {
 		if (CriancaPadrao.crianca.getId() != null) {
-			
+
 			if (CriancaPadrao.crianca.getSexo().equals("M")) {
 				if (p.getYears() < 2 || (p.getYears() == 2 && p.getMonths() == 0)) {
 					Menino m = new Menino();
@@ -502,28 +512,26 @@ public class TelaPrincipal extends JFrame {
 					Desenho desenho = new Desenho();
 					DefaultCategoryDataset ds = desenho.getDs(0, 2, min, max);
 					List<Antropometrico> antro = CriancaPadrao.crianca.getAntropometricos();
-										
+
 					java.util.Date d = new Date(CriancaPadrao.crianca.getNascimento().getTime());
-					LocalDate nascimento = d.toInstant().atZone(ZoneId.systemDefault())
-							.toLocalDate();
-					
-					for(Antropometrico a : antro ){
-						
+					LocalDate nascimento = d.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+					for (Antropometrico a : antro) {
+
 						java.util.Date e = new Date(a.getData().getTime());
-						LocalDate intervalo = e.toInstant().atZone(ZoneId.systemDefault())
-								.toLocalDate();
+						LocalDate intervalo = e.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 						Period periodo = Period.between(nascimento, intervalo);
-						String data = p.getYears() + "/" + p.getMonths();
-						ds.addValue(a.getPerimetroCraniano(), "paciente", data);	
+						String data = periodo.getYears() + "/" + periodo.getMonths();
+						ds.addValue(a.getPerimetroCraniano(), "paciente", data);
 					}
-					
-					Grafico grafico = new Grafico(  "Gráfico" ,
-					         "Perímetro Cefálico X Idade \n0 a 2 anos", "IDADE", "PERÍMETRO CEFÁLICO (cm)", ds);
+
+					Grafico grafico = new Grafico("Gráfico", "Perímetro Cefálico X Idade \n0 a 2 anos", "IDADE",
+							"PERÍMETRO CEFÁLICO (cm)", ds);
 					grafico.setVisible(true);
-					
+
 				}
 			}
-			
+
 			if (CriancaPadrao.crianca.getSexo().equals("F")) {
 				if (p.getYears() < 2 || (p.getYears() == 2 && p.getMonths() == 0)) {
 					Menina m = new Menina();
@@ -533,27 +541,208 @@ public class TelaPrincipal extends JFrame {
 					Desenho desenho = new Desenho();
 					DefaultCategoryDataset ds = desenho.getDs(0, 2, min, max);
 					List<Antropometrico> antro = CriancaPadrao.crianca.getAntropometricos();
-	
+
 					java.util.Date d = new Date(CriancaPadrao.crianca.getNascimento().getTime());
-					LocalDate nascimento = d.toInstant().atZone(ZoneId.systemDefault())
-							.toLocalDate();
-					
-					for(Antropometrico a : antro ){
+					LocalDate nascimento = d.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+					for (Antropometrico a : antro) {
 						java.util.Date e = new Date(a.getData().getTime());
-						LocalDate intervalo = e.toInstant().atZone(ZoneId.systemDefault())
-								.toLocalDate();
+						LocalDate intervalo = e.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 						Period periodo = Period.between(nascimento, intervalo);
-						String data = p.getYears() + "/" + p.getMonths();
-						ds.addValue(a.getPerimetroCraniano(), "paciente", data);	
+						String data = periodo.getYears() + "/" + periodo.getMonths();
+						ds.addValue(a.getPerimetroCraniano(), "paciente", data);
 					}
-					
-					Grafico grafico = new Grafico(  "Gráfico" ,
-					         "Perímetro Cefálico X Idade \n0 a 2 anos", "IDADE", "PERÍMETRO CEFÁLICO (cm)", ds);
+
+					Grafico grafico = new Grafico("Gráfico", "Perímetro Cefálico X Idade \n0 a 2 anos", "IDADE",
+							"PERÍMETRO CEFÁLICO (cm)", ds);
 					grafico.setVisible(true);
-					
+
 				}
 			}
 
+		}
+	}
+
+	public void pesoCrianca() {
+		if (CriancaPadrao.crianca.getId() != null) {
+			if (CriancaPadrao.crianca.getSexo().equals("M")) {
+
+				if (p.getYears() < 2 || (p.getYears() == 2 && p.getMonths() == 0)) {
+
+					Menino m = new Menino();
+					double[] min = m.getPesoMin0a2();
+					double[] max = m.getPesoMax0a2();
+
+					Desenho desenho = new Desenho();
+					DefaultCategoryDataset ds = desenho.getDs(0, 2, min, max);
+					List<Antropometrico> antro = CriancaPadrao.crianca.getAntropometricos();
+
+					java.util.Date d = new Date(CriancaPadrao.crianca.getNascimento().getTime());
+					LocalDate nascimento = d.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+					for (Antropometrico a : antro) {
+						java.util.Date e = new Date(a.getData().getTime());
+						LocalDate intervalo = e.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+						Period periodo = Period.between(nascimento, intervalo);
+						String data = periodo.getYears() + "/" + periodo.getMonths();
+						ds.addValue(a.getPesoAtual(), "paciente", data);
+					}
+
+					Grafico grafico = new Grafico("Gráfico", "Peso X Idade \n0 a 2 anos", "IDADE", "PESO (cm)", ds);
+					grafico.setVisible(true);
+
+				}
+
+				if ((p.getYears() >= 2 && p.getYears() < 5) || (p.getYears() == 5 && p.getMonths() == 0)) {
+
+					Menino m = new Menino();
+					double[] min = m.getPesoMin0a2();
+					double[] max = m.getPesoMax0a2();
+
+					Desenho desenho = new Desenho();
+					DefaultCategoryDataset ds = desenho.getDs(2, 5, min, max);
+					List<Antropometrico> antro = CriancaPadrao.crianca.getAntropometricos();
+
+					java.util.Date d = new Date(CriancaPadrao.crianca.getNascimento().getTime());
+					LocalDate nascimento = d.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+					for (Antropometrico a : antro) {
+						java.util.Date e = new Date(a.getData().getTime());
+						LocalDate intervalo = e.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+						Period periodo = Period.between(nascimento, intervalo);
+						if (periodo.getYears() >= 2) {
+							String data = periodo.getYears() + "/" + periodo.getMonths();
+							ds.addValue(a.getPesoAtual(), "paciente", data);
+						}
+					}
+
+					Grafico grafico = new Grafico("Gráfico", "Peso X Idade \n2 a 5 anos", "IDADE", "PESO (cm)", ds);
+					grafico.setVisible(true);
+
+				}
+
+			} else {
+
+				if (p.getYears() < 2 || (p.getYears() == 2 && p.getMonths() == 0)) {
+
+					Menina m = new Menina();
+					double[] min = m.getPesoMin0a2();
+					double[] max = m.getPesoMax0a2();
+
+					Desenho desenho = new Desenho();
+					DefaultCategoryDataset ds = desenho.getDs(0, 2, min, max);
+					List<Antropometrico> antro = CriancaPadrao.crianca.getAntropometricos();
+
+					java.util.Date d = new Date(CriancaPadrao.crianca.getNascimento().getTime());
+					LocalDate nascimento = d.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+					for (Antropometrico a : antro) {
+						java.util.Date e = new Date(a.getData().getTime());
+						LocalDate intervalo = e.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+						Period periodo = Period.between(nascimento, intervalo);
+						String data = periodo.getYears() + "/" + periodo.getMonths();
+						ds.addValue(a.getPesoAtual(), "paciente", data);
+					}
+
+					Grafico grafico = new Grafico("Gráfico", "Peso X Idade \n0 a 2 anos", "IDADE", "PESO (cm)", ds);
+					grafico.setVisible(true);
+
+				}
+
+				if ((p.getYears() >= 2 && p.getYears() < 5) || (p.getYears() == 5 && p.getMonths() == 0)) {
+
+					Menina m = new Menina();
+					double[] min = m.getPesoMin0a2();
+					double[] max = m.getPesoMax0a2();
+
+					Desenho desenho = new Desenho();
+					DefaultCategoryDataset ds = desenho.getDs(2, 5, min, max);
+					List<Antropometrico> antro = CriancaPadrao.crianca.getAntropometricos();
+
+					java.util.Date d = new Date(CriancaPadrao.crianca.getNascimento().getTime());
+					LocalDate nascimento = d.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+					for (Antropometrico a : antro) {
+						java.util.Date e = new Date(a.getData().getTime());
+						LocalDate intervalo = e.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+						Period periodo = Period.between(nascimento, intervalo);
+						if (periodo.getYears() >= 2) {
+							String data = periodo.getYears() + "/" + periodo.getMonths();
+							ds.addValue(a.getPesoAtual(), "paciente", data);
+						}
+					}
+
+					Grafico grafico = new Grafico("Gráfico", "Peso X Idade \n2 a 5 anos", "IDADE", "PESO (cm)", ds);
+					grafico.setVisible(true);
+
+				}
+			}
+
+		}
+	}
+
+	public void alturaCrianca() {
+		if (CriancaPadrao.crianca.getId() != null) {
+			if (CriancaPadrao.crianca.getSexo().equals("M")) {
+
+				if ((p.getYears() >= 2 && p.getYears() < 5) || (p.getYears() == 5 && p.getMonths() == 0)) {
+
+					Menino m = new Menino();
+					double[] min = m.getAlturaMin2a5Anos();
+					double[] max = m.getAlturaMax2a5Anos();
+
+					Desenho desenho = new Desenho();
+					DefaultCategoryDataset ds = desenho.getDs(2, 5, min, max);
+					List<Antropometrico> antro = CriancaPadrao.crianca.getAntropometricos();
+
+					java.util.Date d = new Date(CriancaPadrao.crianca.getNascimento().getTime());
+					LocalDate nascimento = d.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+					for (Antropometrico a : antro) {
+						java.util.Date e = new Date(a.getData().getTime());
+						LocalDate intervalo = e.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+						Period periodo = Period.between(nascimento, intervalo);
+						if (periodo.getYears() >= 2) {
+							String data = periodo.getYears() + "/" + periodo.getMonths();
+							ds.addValue(a.getEstatura(), "paciente", data);
+						}
+					}
+
+					Grafico grafico = new Grafico("Gráfico", "Altura X Idade \n2 a 5 anos", "IDADE", "ALTURA (cm)", ds);
+					grafico.setVisible(true);
+
+				}
+
+			} else {
+
+				if ((p.getYears() >= 2 && p.getYears() < 5) || (p.getYears() == 5 && p.getMonths() == 0)) {
+
+					Menina m = new Menina();
+					double[] min = m.getAlturaMin2a5Anos();
+					double[] max = m.getAlturaMax2a5Anos();
+
+					Desenho desenho = new Desenho();
+					DefaultCategoryDataset ds = desenho.getDs(2, 5, min, max);
+					List<Antropometrico> antro = CriancaPadrao.crianca.getAntropometricos();
+
+					java.util.Date d = new Date(CriancaPadrao.crianca.getNascimento().getTime());
+					LocalDate nascimento = d.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+					for (Antropometrico a : antro) {
+						java.util.Date e = new Date(a.getData().getTime());
+						LocalDate intervalo = e.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+						Period periodo = Period.between(nascimento, intervalo);
+						if (periodo.getYears() >= 2) {
+							String data = periodo.getYears() + "/" + periodo.getMonths();
+							ds.addValue(a.getEstatura(), "paciente", data);
+						}
+					}
+
+					Grafico grafico = new Grafico("Gráfico", "Altura X Idade \n2 a 5 anos", "IDADE", "ALTURA (cm)", ds);
+					grafico.setVisible(true);
+				}
+
+			}
 		}
 	}
 }

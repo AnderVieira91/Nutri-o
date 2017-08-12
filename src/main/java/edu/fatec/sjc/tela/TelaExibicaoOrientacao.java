@@ -1,15 +1,19 @@
 package edu.fatec.sjc.tela;
 
 import java.awt.EventQueue;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.List;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 
@@ -20,10 +24,6 @@ import edu.fatec.sjc.envio.Envio;
 import edu.fatec.sjc.model.Orientacao;
 import edu.fatec.sjc.service.OrientacaoService;
 import edu.fatec.sjc.tela.Padrao.CriancaPadrao;
-import javax.swing.JTextField;
-import javax.swing.JLabel;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 public class TelaExibicaoOrientacao extends JFrame {
 
@@ -73,7 +73,7 @@ public class TelaExibicaoOrientacao extends JFrame {
 		textSenha.setColumns(10);
 		textDestinatario = new JTextField();
 		textDestinatario.setColumns(10);
-		
+
 		preencherTexto();
 
 		JButton btnImprimir = new JButton("IMPRIMIR");
@@ -93,17 +93,12 @@ public class TelaExibicaoOrientacao extends JFrame {
 			}
 		});
 
-		
-
 		JLabel lblEmail = new JLabel("Email:");
 
 		JLabel lblSenha = new JLabel("Senha:");
 
-		
-
 		JLabel lblDestinatrio = new JLabel("Destinatário:");
 
-		
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup().addContainerGap().addComponent(textOrientacao,
@@ -149,7 +144,6 @@ public class TelaExibicaoOrientacao extends JFrame {
 		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 		orientacaoService = (OrientacaoService) context.getBean("orientacaoService");
 
-		
 		a.append("");
 		List<Orientacao> orientacoes = orientacaoService.retornarOrientacoes(CriancaPadrao.crianca);
 
@@ -165,12 +159,12 @@ public class TelaExibicaoOrientacao extends JFrame {
 	}
 
 	private void enviarEmail() {
-		
-			envio.enviarEmail(textEmail.getText(), textSenha.getText(), textDestinatario.getText(),
-					a.toString());
+
+		Envio.enviarEmail(textEmail.getText(), textSenha.getText(), textDestinatario.getText(),
+				"Orientacão Nutricionla de " + CriancaPadrao.crianca.getNome(), a.toString());
 	}
-	
-	private void imprimir(){
+
+	private void imprimir() {
 		envio.impressao(textOrientacao.getText());
 	}
 }
