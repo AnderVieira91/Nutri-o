@@ -425,7 +425,7 @@ public class TelaPrincipal extends JFrame {
 	}
 
 	private void eAnt() {
-		if (CriancaPadrao.crianca.getId() != null) {
+		if (CriancaPadrao.crianca.getId() != null && !(CriancaPadrao.crianca.getAntropometricos().isEmpty())) {
 			int tamanho = CriancaPadrao.crianca.getAntropometricos().size();
 			String texto = CriancaPadrao.crianca.getAntropometricos().get(tamanho - 1).escrever();
 			TelaExibicaoDados frame = new TelaExibicaoDados(texto);
@@ -434,7 +434,7 @@ public class TelaPrincipal extends JFrame {
 	}
 
 	private void eBio() {
-		if (CriancaPadrao.crianca.getId() != null) {
+		if (CriancaPadrao.crianca.getId() != null && !(CriancaPadrao.crianca.getBioquimico().isEmpty())) {
 			int tamanho = CriancaPadrao.crianca.getBioquimico().size();
 			String texto = CriancaPadrao.crianca.getBioquimico().get(tamanho - 1).escrever();
 			TelaExibicaoDados frame = new TelaExibicaoDados(texto);
@@ -443,7 +443,7 @@ public class TelaPrincipal extends JFrame {
 	}
 
 	private void eUri() {
-		if (CriancaPadrao.crianca.getId() != null) {
+		if (CriancaPadrao.crianca.getId() != null && !(CriancaPadrao.crianca.getHabitoUrinario().isEmpty())) {
 			int tamanho = CriancaPadrao.crianca.getHabitoUrinario().size();
 			String texto = CriancaPadrao.crianca.getHabitoUrinario().get(tamanho - 1).escrever();
 			TelaExibicaoDados frame = new TelaExibicaoDados(texto);
@@ -452,7 +452,7 @@ public class TelaPrincipal extends JFrame {
 	}
 
 	private void eInt() {
-		if (CriancaPadrao.crianca.getId() != null) {
+		if (CriancaPadrao.crianca.getId() != null && !(CriancaPadrao.crianca.getHabitoIntestinal().isEmpty())) {
 			int tamanho = CriancaPadrao.crianca.getHabitoIntestinal().size();
 			String texto = CriancaPadrao.crianca.getHabitoIntestinal().get(tamanho - 1).escrever();
 			TelaExibicaoDados frame = new TelaExibicaoDados(texto);
