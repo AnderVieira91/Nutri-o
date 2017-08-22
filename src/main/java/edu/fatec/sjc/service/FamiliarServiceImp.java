@@ -24,4 +24,9 @@ public class FamiliarServiceImp implements FamiliarService {
 		return familiarRepo.save(familiar);
 	}
 
+
+	public Familiar buscarFamiliar(String doenca) {
+		return familiarRepo.findByDoenca(doenca);
+	}
+
 }

@@ -29,46 +29,40 @@ public class Envio {
 
 	public void impressao(String texto) {
 		try {
-			PrintService mPrinter = null;
-			Boolean bFoundPrinter = false;
-
+			PrintService impressora = null;
+			Boolean encontrou = false;
 			PrintService[] printServices = PrinterJob.lookupPrintServices();
 
-			//
-			// Iterates the print services and print out its name.
-			//
 			for (PrintService printService : printServices) {
-				String sPrinterName = printService.getName();
-				if (sPrinterName.equals("DTC4000 Card Printer")) {
-					mPrinter = printService;
-					bFoundPrinter = true;
+				String nomeImpressora = printService.getName();
+				if (nomeImpressora.equals("DTC4000 Card Printer")) {
+					impressora = printService;
+					encontrou = true;
 				}
 			}
-
-			
-			String testData = texto + "\f";
-			InputStream is = new ByteArrayInputStream(testData.getBytes());
+	
+			String textoImpressao = texto + "\f";
+			InputStream is = new ByteArrayInputStream(textoImpressao.getBytes());
 			DocFlavor flavor = DocFlavor.INPUT_STREAM.AUTOSENSE;
 
-			// Find the default service
+			// Procurar o serviço de impressora padrão
 			PrintService service = PrintServiceLookup.lookupDefaultPrintService();
 			System.out.println(service);
 
-			// Create the print job
+			// Criar um serviço de impressao
 			DocPrintJob job = service.createPrintJob();
 			Doc doc = new SimpleDoc(is, flavor, null);
 
-			// Monitor print job events; for the implementation of
-			// PrintJobWatcher,
-			PrintJobWatcher pjDone = new PrintJobWatcher(job);
+			//Monitorar eventos de impressora
+			PrintJobWatcher printJob = new PrintJobWatcher(job);
 
-			// Print it
+			// Imprimir
 			job.print(doc, null);
 
-			// Wait for the print job to be done
-			pjDone.waitForDone();
+			// Esperar terminar de imprimir
+			printJob.waitForDone();
 
-			// It is now safe to close the input stream
+			// fechar input stream
 			is.close();
 		} catch (PrintException e) {
 			e.printStackTrace();
@@ -78,7 +72,7 @@ public class Envio {
 	}
 	
 	public static void enviarEmail(String from, String password, String to, String sub, String msg) {
-		// Get properties object
+		//Propriedades do servidor
 		final String de = from;
 		final String senha = password;
 		Properties props = new Properties();
@@ -87,13 +81,13 @@ public class Envio {
 		props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
 		props.put("mail.smtp.auth", "true");
 		props.put("mail.smtp.port", "465");
-		// get Session
+		// Sessao
 		Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
 			protected PasswordAuthentication getPasswordAuthentication() {
 				return new PasswordAuthentication(de, senha);
 			}
 		});
-		// compose message
+		// Compor mensagem
 		try {
 			MimeMessage message = new MimeMessage(session);
 			message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
@@ -101,7 +95,6 @@ public class Envio {
 			message.setText(msg);
 			// send message
 			Transport.send(message);
-			System.out.println("message sent successfully");
 		} catch (MessagingException e) {
 			throw new RuntimeException(e);
 		}

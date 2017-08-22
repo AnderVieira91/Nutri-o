@@ -87,72 +87,62 @@ public class TelaFamiliar extends JFrame {
 				adicionarDoenca();
 			}
 		});
-		
+
 		textDoencas = new JTextArea();
 		escrever();
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
-		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addContainerGap()
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblParentesco)
+		gl_contentPane.setHorizontalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING).addGroup(gl_contentPane
+				.createSequentialGroup()
+				.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING).addGroup(gl_contentPane
+						.createSequentialGroup().addContainerGap()
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING).addComponent(lblParentesco)
 								.addComponent(lblDoena))
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addComponent(cBParentesco, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+								.addComponent(cBParentesco, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+										GroupLayout.PREFERRED_SIZE)
 								.addComponent(textDoenca, GroupLayout.PREFERRED_SIZE, 305, GroupLayout.PREFERRED_SIZE)))
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(162)
-							.addComponent(lblCriancaNome))
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(168)
-							.addComponent(btnAdicionar))
-						.addComponent(textDoencas, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 426, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-		);
-		gl_contentPane.setVerticalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addComponent(lblCriancaNome)
-					.addGap(18)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(textDoenca, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblDoena))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblParentesco)
-						.addComponent(cBParentesco, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(btnAdicionar)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(textDoencas, GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE))
-		);
+						.addGroup(gl_contentPane.createSequentialGroup().addGap(162).addComponent(lblCriancaNome))
+						.addGroup(gl_contentPane.createSequentialGroup().addGap(168).addComponent(btnAdicionar))
+						.addComponent(textDoencas, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 426,
+								GroupLayout.PREFERRED_SIZE))
+				.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+		gl_contentPane.setVerticalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup().addComponent(lblCriancaNome).addGap(18)
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+								.addComponent(textDoenca, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+										GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblDoena))
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE).addComponent(lblParentesco)
+								.addComponent(cBParentesco, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+										GroupLayout.PREFERRED_SIZE))
+						.addPreferredGap(ComponentPlacement.RELATED).addComponent(btnAdicionar)
+						.addPreferredGap(ComponentPlacement.UNRELATED)
+						.addComponent(textDoencas, GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE)));
 		contentPane.setLayout(gl_contentPane);
 	}
 
 	private void adicionarDoenca() {
 		if (CriancaPadrao.crianca.getId() != null) {
-			
+
 			ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 			familiarService = (FamiliarService) context.getBean("familiarService");
+
+			String doenca = textDoenca.getText().toUpperCase();
 			
 			Familiar familiar = new Familiar();
-			familiar.setDoenca(textDoenca.getText());
+			familiar.setDoenca(doenca);
 			familiar.setParentesco(cBParentesco.getSelectedItem().toString());
 			familiar.setCrianca(CriancaPadrao.crianca);
 			familiar = familiarService.salvarFamiliar(familiar);
-			
-			
 
 			if (familiar.getId() == null) {
 				JOptionPane.showMessageDialog(null, "Dados bioquímicos não salvos.\nPreencha todos os campos.");
 			} else {
 				List<Familiar> familiares = CriancaPadrao.crianca.getFamiliares();
 				familiares.add(familiar);
-				
+
 				CriancaPadrao.crianca.setFamiliares(familiares);
 			}
 
@@ -160,11 +150,12 @@ public class TelaFamiliar extends JFrame {
 			escrever();
 		}
 	}
-	
-	private void escrever(){
+
+	private void escrever() {
 		StringBuffer a = new StringBuffer();
-		for(Familiar f : familiares){
-			a.append("Doença: " + f.getDoenca() +  " por parte de " + f.getParentesco() + System.getProperty("line.separator"));
+		for (Familiar f : familiares) {
+			a.append("Doença: " + f.getDoenca() + " por parte de " + f.getParentesco()
+					+ System.getProperty("line.separator"));
 		}
 		textDoencas.setText(a.toString());
 	}
