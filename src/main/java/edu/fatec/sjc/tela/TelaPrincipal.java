@@ -596,8 +596,8 @@ public class TelaPrincipal extends JFrame {
 				if ((p.getYears() >= 2 && p.getYears() < 5) || (p.getYears() == 5 && p.getMonths() == 0)) {
 
 					Menino m = new Menino();
-					double[] min = m.getPesoMin0a2();
-					double[] max = m.getPesoMax0a2();
+					double[] min = m.getPesoMin2a5();
+					double[] max = m.getPesoMax2a5();
 
 					Desenho desenho = new Desenho();
 					DefaultCategoryDataset ds = desenho.getDs(2, 5, min, max);
@@ -652,8 +652,8 @@ public class TelaPrincipal extends JFrame {
 				if ((p.getYears() >= 2 && p.getYears() < 5) || (p.getYears() == 5 && p.getMonths() == 0)) {
 
 					Menina m = new Menina();
-					double[] min = m.getPesoMin0a2();
-					double[] max = m.getPesoMax0a2();
+					double[] min = m.getPesoMin2a5();
+					double[] max = m.getPesoMax2a5();
 
 					Desenho desenho = new Desenho();
 					DefaultCategoryDataset ds = desenho.getDs(2, 5, min, max);
