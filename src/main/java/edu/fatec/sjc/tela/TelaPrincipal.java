@@ -6,6 +6,8 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZoneId;
@@ -101,8 +103,7 @@ public class TelaPrincipal extends JFrame {
 		lblIdade.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		setTitle("Tela Principal");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 1280, 720);
-		setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
+		setBounds(100, 100, 597, 430);
 
 		menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -293,44 +294,73 @@ public class TelaPrincipal extends JFrame {
 				perimetroCefalico();
 			}
 		});
+		
+		JButton btnBula = new JButton("BULA");
+		btnBula.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				try {
+					java.awt.Desktop.getDesktop().browse( new java.net.URI( "http://www.anvisa.gov.br/datavisa/fila_bula/index.asp" ) );
+				} catch (IOException | URISyntaxException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
 
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
-		gl_contentPane.setHorizontalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING).addGroup(gl_contentPane
-				.createSequentialGroup()
-				.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+		gl_contentPane.setHorizontalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addComponent(listaBusca, GroupLayout.PREFERRED_SIZE, 475, GroupLayout.PREFERRED_SIZE)
 						.addGroup(gl_contentPane.createSequentialGroup()
-								.addComponent(textBusca, GroupLayout.PREFERRED_SIZE, 475, GroupLayout.PREFERRED_SIZE)
-								.addPreferredGap(ComponentPlacement.RELATED).addComponent(btnBuscar))
-						.addGroup(gl_contentPane.createSequentialGroup().addContainerGap()
-								.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-										.addComponent(lblPaciente).addComponent(lblIdade))
-								.addGap(64)
-								.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-										.addComponent(lblIdadeCalculada).addComponent(lblCrianca)))
-						.addGroup(gl_contentPane.createSequentialGroup().addComponent(btnPesoXIdade)
-								.addPreferredGap(ComponentPlacement.RELATED).addComponent(btnAlturaXIdade)
-								.addPreferredGap(ComponentPlacement.RELATED).addComponent(btnPermetroCeflico)))
-				.addContainerGap(700, Short.MAX_VALUE)));
-		gl_contentPane.setVerticalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup().addGap(23)
-						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE).addComponent(lblPaciente)
-								.addComponent(lblCrianca))
-						.addGap(22)
-						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE).addComponent(lblIdade)
-								.addComponent(lblIdadeCalculada))
-						.addGap(18)
-						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(textBusca, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-										GroupLayout.PREFERRED_SIZE)
-								.addComponent(btnBuscar))
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(listaBusca, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-								GroupLayout.PREFERRED_SIZE)
-						.addGap(26)
-						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE).addComponent(btnPesoXIdade)
-								.addComponent(btnAlturaXIdade).addComponent(btnPermetroCeflico))
-						.addContainerGap(446, Short.MAX_VALUE)));
+							.addComponent(textBusca, GroupLayout.PREFERRED_SIZE, 475, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(btnBuscar))
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addContainerGap()
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblPaciente)
+								.addComponent(lblIdade))
+							.addGap(64)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblIdadeCalculada)
+								.addComponent(lblCrianca)))
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addComponent(btnPesoXIdade)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(btnAlturaXIdade)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(btnPermetroCeflico)
+							.addGap(18)
+							.addComponent(btnBula)))
+					.addContainerGap(802, Short.MAX_VALUE))
+		);
+		gl_contentPane.setVerticalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addGap(23)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblPaciente)
+						.addComponent(lblCrianca))
+					.addGap(22)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblIdade)
+						.addComponent(lblIdadeCalculada))
+					.addGap(18)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(textBusca, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnBuscar))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(listaBusca, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addGap(26)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btnPesoXIdade)
+						.addComponent(btnAlturaXIdade)
+						.addComponent(btnPermetroCeflico)
+						.addComponent(btnBula))
+					.addContainerGap(156, Short.MAX_VALUE))
+		);
 		contentPane.setLayout(gl_contentPane);
 
 	}
