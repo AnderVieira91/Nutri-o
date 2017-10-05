@@ -26,6 +26,7 @@ public class TelaExibicaoRecordatorio extends JFrame {
 	private JPanel contentPane;
 	private RecordatorioService recordatorioService;
 	JTextArea textRecordatorios;
+
 	/**
 	 * Launch the application.
 	 */
@@ -51,44 +52,44 @@ public class TelaExibicaoRecordatorio extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		
+
 		textRecordatorios = new JTextArea();
 		textRecordatorios.setText("");
 		preencherTexto();
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
-		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
+		gl_contentPane.setHorizontalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addComponent(textRecordatorios, GroupLayout.PREFERRED_SIZE, 432, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-		);
-		gl_contentPane.setVerticalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addComponent(textRecordatorios, GroupLayout.PREFERRED_SIZE, 432, GroupLayout.PREFERRED_SIZE)
+						.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+		gl_contentPane.setVerticalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addComponent(textRecordatorios, GroupLayout.PREFERRED_SIZE, 261, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-		);
+						.addComponent(textRecordatorios, GroupLayout.PREFERRED_SIZE, 261, GroupLayout.PREFERRED_SIZE)
+						.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 		contentPane.setLayout(gl_contentPane);
+
 	}
-	
+
 	private void preencherTexto() {
 
-		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-		recordatorioService = (RecordatorioService) context.getBean("recordatorioService");
+		if (!CriancaPadrao.crianca.getRecordatorio().isEmpty()) {
 
-		StringBuffer a = new StringBuffer();
-		a.append("");
-		List<Recordatorio> recordatorios = recordatorioService.buscarRecordatorios(CriancaPadrao.crianca);
+			ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+			recordatorioService = (RecordatorioService) context.getBean("recordatorioService");
 
-		for (Recordatorio r : recordatorios) {
-			a.append("Alimento: " + r.getAlimento() + System.getProperty("line.separator"));
-			a.append("Refeição: " + r.getRefeicao() + System.getProperty("line.separator"));
-			a.append("Hora: " + r.getHorario() + System.getProperty("line.separator")
-					+ System.getProperty("line.separator"));
+			StringBuffer a = new StringBuffer();
+			a.append("");
+			List<Recordatorio> recordatorios = recordatorioService.buscarRecordatorios(CriancaPadrao.crianca);
+
+			for (Recordatorio r : recordatorios) {
+				a.append("Alimento: " + r.getAlimento() + System.getProperty("line.separator"));
+				a.append("Refeição: " + r.getRefeicao() + System.getProperty("line.separator"));
+				a.append("Hora: " + r.getHorario() + System.getProperty("line.separator")
+						+ System.getProperty("line.separator"));
+			}
+
+			textRecordatorios.setText(a.toString());
+			textRecordatorios.setEditable(false);
 		}
-
-		textRecordatorios.setText(a.toString());
-		textRecordatorios.setEditable(false);
 	}
 
 }

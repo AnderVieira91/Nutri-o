@@ -137,25 +137,30 @@ public class TelaExibicaoOrientacao extends JFrame {
 										GroupLayout.PREFERRED_SIZE))
 						.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 		contentPane.setLayout(gl_contentPane);
+
+		
 	}
 
 	private void preencherTexto() {
 
-		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-		orientacaoService = (OrientacaoService) context.getBean("orientacaoService");
+		if (!CriancaPadrao.crianca.getOrientecao().isEmpty()) {
+			
+			ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+			orientacaoService = (OrientacaoService) context.getBean("orientacaoService");
 
-		a.append("");
-		List<Orientacao> orientacoes = orientacaoService.retornarOrientacoes(CriancaPadrao.crianca);
+			a.append("");
+			List<Orientacao> orientacoes = orientacaoService.retornarOrientacoes(CriancaPadrao.crianca);
 
-		for (Orientacao o : orientacoes) {
-			a.append("Alimento: " + o.getAlimento() + System.getProperty("line.separator"));
-			a.append("Refeição: " + o.getRefeicao() + System.getProperty("line.separator"));
-			a.append("Hora: " + o.getHora() + System.getProperty("line.separator")
-					+ System.getProperty("line.separator"));
+			for (Orientacao o : orientacoes) {
+				a.append("Alimento: " + o.getAlimento() + System.getProperty("line.separator"));
+				a.append("Refeição: " + o.getRefeicao() + System.getProperty("line.separator"));
+				a.append("Hora: " + o.getHora() + System.getProperty("line.separator")
+						+ System.getProperty("line.separator"));
+			}
+
+			textOrientacao.setText(a.toString());
+			textOrientacao.setEditable(false);
 		}
-
-		textOrientacao.setText(a.toString());
-		textOrientacao.setEditable(false);
 	}
 
 	private void enviarEmail() {

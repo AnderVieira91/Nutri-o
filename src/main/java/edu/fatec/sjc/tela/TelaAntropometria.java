@@ -17,6 +17,7 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -29,6 +30,7 @@ public class TelaAntropometria extends JFrame {
 	/**
 	 * 
 	 */
+	@Autowired
 	private AntropometricoService antropometricoService;
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -345,14 +347,15 @@ public class TelaAntropometria extends JFrame {
 								.addComponent(lblreaMuscularDo))
 						.addPreferredGap(ComponentPlacement.RELATED, 13, Short.MAX_VALUE).addComponent(btnSalvar)));
 		contentPane.setLayout(gl_contentPane);
+		
+		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+		antropometricoService = (AntropometricoService) context.getBean("antropometricoService");
 	}
 
 
 	private void cadastrar() {
 		if (CriancaPadrao.crianca.getId() != null) {
-			ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-			antropometricoService = (AntropometricoService) context.getBean("antropometricoService");
-
+			
 			Antropometrico antro = new Antropometrico();
 			antro.setAlteracaoPesoRecente(Double.valueOf(txtAlteracaoPesoRecente.getText().replaceAll(",", ".")));
 			antro.setAreaMuscularPolegar(Double.valueOf(txtAreaMuscularPolegar.getText().replaceAll(",", ".")));

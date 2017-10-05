@@ -30,6 +30,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 
 import org.jfree.data.category.DefaultCategoryDataset;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -49,7 +50,9 @@ public class TelaPrincipal extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Autowired
 	private CriancaService criancaService;
+	@Autowired
 	private AntropometricoService antropometricoService;
 	private JPanel contentPane;
 	private JMenuBar menuBar;
@@ -362,6 +365,9 @@ public class TelaPrincipal extends JFrame {
 					.addContainerGap(156, Short.MAX_VALUE))
 		);
 		contentPane.setLayout(gl_contentPane);
+		
+		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+		criancaService = (CriancaService) context.getBean("criancaService");
 
 	}
 
@@ -492,8 +498,7 @@ public class TelaPrincipal extends JFrame {
 
 	private void buscarCriancas() {
 
-		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-		criancaService = (CriancaService) context.getBean("criancaService");
+		
 
 		int a = 0;
 		String nome = textBusca.getText().toUpperCase();
@@ -511,9 +516,6 @@ public class TelaPrincipal extends JFrame {
 	}
 
 	private void setCrianca() {
-
-		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-		criancaService = (CriancaService) context.getBean("criancaService");
 
 		String a = listaBusca.getSelectedItem().toString();
 		String[] buscaId = a.split(" ");
