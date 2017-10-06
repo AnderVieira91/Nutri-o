@@ -20,6 +20,7 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -31,6 +32,7 @@ public class TelaCadastro extends JFrame {
 	/**
 	 * 
 	 */
+	@Autowired
 	private CriancaService criancaService;
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -173,11 +175,13 @@ public class TelaCadastro extends JFrame {
 				.addPreferredGap(ComponentPlacement.RELATED, 17, Short.MAX_VALUE).addComponent(btnCadastrar)
 				.addContainerGap()));
 		contentPane.setLayout(gl_contentPane);
+		
+		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+		criancaService = (CriancaService) context.getBean("criancaService");
 	}
 
 	private void cadastrar() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-		criancaService = (CriancaService) context.getBean("criancaService");
+		
 
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 

@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -24,6 +25,7 @@ public class TelaExibicaoRecordatorio extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	@Autowired
 	private RecordatorioService recordatorioService;
 	JTextArea textRecordatorios;
 
@@ -67,14 +69,14 @@ public class TelaExibicaoRecordatorio extends JFrame {
 						.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 		contentPane.setLayout(gl_contentPane);
 
+		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+		recordatorioService = (RecordatorioService) context.getBean("recordatorioService");
+
 	}
 
 	private void preencherTexto() {
 
 		if (!CriancaPadrao.crianca.getRecordatorio().isEmpty()) {
-
-			ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-			recordatorioService = (RecordatorioService) context.getBean("recordatorioService");
 
 			StringBuffer a = new StringBuffer();
 			a.append("");

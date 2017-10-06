@@ -24,6 +24,8 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import edu.fatec.sjc.model.Antropometrico;
 import edu.fatec.sjc.service.AntropometricoService;
 import edu.fatec.sjc.tela.Padrao.CriancaPadrao;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class TelaAntropometria extends JFrame {
 
@@ -81,81 +83,225 @@ public class TelaAntropometria extends JFrame {
 		JLabel lblPesoHabitual = new JLabel("Peso habitual:");
 
 		txtPesoHabitual = new JTextField();
+		txtPesoHabitual.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				String caracteres="0987654321,";
+				if(!caracteres.contains(e.getKeyChar()+"")){
+				e.consume();
+				}
+			}
+		});
 		txtPesoHabitual.setColumns(10);
 
 		JLabel lblPesoAtual = new JLabel("Peso atual:");
 
 		txtPesoAtual = new JTextField();
+		txtPesoAtual.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				String caracteres="0987654321,";
+				if(!caracteres.contains(e.getKeyChar()+"")){
+				e.consume();
+				}
+			}
+		});
 		txtPesoAtual.setColumns(10);
 
 		JLabel lblPesoEstimado = new JLabel("Peso estimado:");
 
 		txtPesoEstimado = new JTextField();
+		txtPesoEstimado.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				String caracteres="0987654321,";
+				if(!caracteres.contains(e.getKeyChar()+"")){
+				e.consume();
+				}
+			}
+		});
 		txtPesoEstimado.setColumns(10);
 
 		JLabel lblEstatura = new JLabel("Estatura:");
 
 		txtEstatura = new JTextField();
+		txtEstatura.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				String caracteres="0987654321,";
+				if(!caracteres.contains(e.getKeyChar()+"")){
+				e.consume();
+				}
+			}
+		});
 		txtEstatura.setColumns(10);
 
 		JLabel lblPerimetroCraniano = new JLabel("Perímetro craniano:");
 
 		txtPerimetroCraniano = new JTextField();
+		txtPerimetroCraniano.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				String caracteres="0987654321,";
+				if(!caracteres.contains(e.getKeyChar()+"")){
+				e.consume();
+				}
+			}
+		});
 		txtPerimetroCraniano.setColumns(10);
 
 		JLabel lblPermetroTorcico = new JLabel("Perímetro torácico:");
 
 		txtPerimetroToracico = new JTextField();
+		txtPerimetroToracico.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				String caracteres="0987654321,";
+				if(!caracteres.contains(e.getKeyChar()+"")){
+				e.consume();
+				}
+			}
+		});
 		txtPerimetroToracico.setColumns(10);
 
 		JLabel lblAlteraoDePeso = new JLabel("Alteração de peso recente:");
 
 		txtAlteracaoPesoRecente = new JTextField();
+		txtAlteracaoPesoRecente.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				String caracteres="0987654321,";
+				if(!caracteres.contains(e.getKeyChar()+"")){
+				e.consume();
+				}
+			}
+		});
 		txtAlteracaoPesoRecente.setColumns(10);
 
 		JLabel lblCircunfernciaAbdominal = new JLabel("Circunferência abdominal:");
 
 		txtCircunferenciaAbdominal = new JTextField();
+		txtCircunferenciaAbdominal.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				String caracteres="0987654321,";
+				if(!caracteres.contains(e.getKeyChar()+"")){
+				e.consume();
+				}
+			}
+		});
 		txtCircunferenciaAbdominal.setColumns(10);
 
 		JLabel lblCircunfernciaCoxa = new JLabel("Circunferência coxa:");
 
 		txtCircunferenciaCoxa = new JTextField();
+		txtCircunferenciaCoxa.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				String caracteres="0987654321,";
+				if(!caracteres.contains(e.getKeyChar()+"")){
+				e.consume();
+				}
+			}
+		});
 		txtCircunferenciaCoxa.setColumns(10);
 
 		JLabel lblCircunfernciaPanturrilha = new JLabel("Circunferência panturrilha:");
 
 		txtCircunferenciaPanturrilha = new JTextField();
+		txtCircunferenciaPanturrilha.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				String caracteres="0987654321,";
+				if(!caracteres.contains(e.getKeyChar()+"")){
+				e.consume();
+				}
+			}
+		});
 		txtCircunferenciaPanturrilha.setColumns(10);
 
 		JLabel lblCircunfernciaPescoo = new JLabel("Circunferência pescoço:");
 
 		txtCircunferenciaPescoco = new JTextField();
+		txtCircunferenciaPescoco.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				String caracteres="0987654321,";
+				if(!caracteres.contains(e.getKeyChar()+"")){
+				e.consume();
+				}
+			}
+		});
 		txtCircunferenciaPescoco.setColumns(10);
 
 		JLabel lblDobraCutneaTricipital = new JLabel("Dobra cutânea tricipital:");
 
 		txtDobraCutaneaTricipital = new JTextField();
+		txtDobraCutaneaTricipital.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				String caracteres="0987654321,";
+				if(!caracteres.contains(e.getKeyChar()+"")){
+				e.consume();
+				}
+			}
+		});
 		txtDobraCutaneaTricipital.setColumns(10);
 
 		JLabel lblDobraCutneaSubescalar = new JLabel("Dobra cutânea subescalar:");
 
 		txtDobraCutaneaSubescalar = new JTextField();
+		txtDobraCutaneaSubescalar.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				String caracteres="0987654321,";
+				if(!caracteres.contains(e.getKeyChar()+"")){
+				e.consume();
+				}
+			}
+		});
 		txtDobraCutaneaSubescalar.setColumns(10);
 
 		JLabel lblDobraCuttneaBicibital = new JLabel("Dobra cuttânea bicibital:");
 
 		txtDobraCutaneaBicibital = new JTextField();
+		txtDobraCutaneaBicibital.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				String caracteres="0987654321,";
+				if(!caracteres.contains(e.getKeyChar()+"")){
+				e.consume();
+				}
+			}
+		});
 		txtDobraCutaneaBicibital.setColumns(10);
 
 		JLabel lblDobraCutneaSupra = new JLabel("Dobra cutânea supra iliaca:");
 
 		txtDobraCutaneaSupraIliaca = new JTextField();
+		txtDobraCutaneaSupraIliaca.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				String caracteres="0987654321,";
+				if(!caracteres.contains(e.getKeyChar()+"")){
+				e.consume();
+				}
+			}
+		});
 		txtDobraCutaneaSupraIliaca.setColumns(10);
 
 		JLabel lblreaMuscularDo = new JLabel("Área muscular do polegar:");
 
 		txtAreaMuscularPolegar = new JTextField();
+		txtAreaMuscularPolegar.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				String caracteres="0987654321,";
+				if(!caracteres.contains(e.getKeyChar()+"")){
+				e.consume();
+				}
+			}
+		});
 		txtAreaMuscularPolegar.setColumns(10);
 
 		JButton btnSalvar = new JButton("Cadastrar");

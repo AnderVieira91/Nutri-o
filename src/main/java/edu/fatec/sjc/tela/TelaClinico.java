@@ -18,6 +18,7 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -31,6 +32,7 @@ public class TelaClinico extends JFrame {
 	/**
 	 * 
 	 */
+	@Autowired
 	private ClinicoService clinicoService;
 	private static final long serialVersionUID = 1L;
 	private List<Clinico> clinicos = CriancaPadrao.crianca.getClinicos();
@@ -117,12 +119,12 @@ public class TelaClinico extends JFrame {
 					.addComponent(textDoencas, GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE))
 		);
 		contentPane.setLayout(gl_contentPane);
-	}
-	
-	private void adicionar() {
 		
 		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 		clinicoService = (ClinicoService) context.getBean("clinicoService");
+	}
+	
+	private void adicionar() {
 		
 		List<Crianca> crianca = new LinkedList<Crianca>();
 		crianca.add(CriancaPadrao.crianca);

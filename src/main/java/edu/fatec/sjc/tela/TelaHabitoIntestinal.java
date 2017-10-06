@@ -2,6 +2,8 @@ package edu.fatec.sjc.tela;
 
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
@@ -21,6 +23,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -33,6 +36,7 @@ public class TelaHabitoIntestinal extends JFrame {
 	/**
 	 * 
 	 */
+	@Autowired
 	private HabitoIntestinalService habitoIntestinalService;
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -74,6 +78,15 @@ public class TelaHabitoIntestinal extends JFrame {
 		JLabel lblFrequncia = new JLabel("Frequência:");
 
 		textFrequencia = new JTextField();
+		textFrequencia.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				String caracteres="0987654321";
+				if(!caracteres.contains(e.getKeyChar()+"")){
+				e.consume();
+				}
+			}
+		});
 		textFrequencia.setColumns(10);
 
 		cBFrequencia = new JComboBox();
@@ -155,13 +168,13 @@ public class TelaHabitoIntestinal extends JFrame {
 					.addContainerGap(23, Short.MAX_VALUE))
 		);
 		contentPane.setLayout(gl_contentPane);
+		
+		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+		habitoIntestinalService = (HabitoIntestinalService) context.getBean("habitoIntestinalService");
 	}
 
 	private void cadastrar() {
 		if (CriancaPadrao.crianca.getId() != null) {
-
-			ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-			habitoIntestinalService = (HabitoIntestinalService) context.getBean("habitoIntestinalService");
 
 			HabitoIntestinal intestinal = new HabitoIntestinal();
 

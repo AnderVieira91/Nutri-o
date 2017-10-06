@@ -2,6 +2,8 @@ package edu.fatec.sjc.tela;
 
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
@@ -17,6 +19,7 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -29,7 +32,7 @@ public class TelaBioquimico extends JFrame {
 	/**
 	 * 
 	 */
-
+	@Autowired
 	private BioquimicoService bioquimicoService;
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -98,7 +101,7 @@ public class TelaBioquimico extends JFrame {
 	public TelaBioquimico() {
 		setTitle("Bioquímico");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 450, 487);
+		setBounds(100, 100, 500, 487);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -106,146 +109,407 @@ public class TelaBioquimico extends JFrame {
 		JLabel lblProteinasTotais = new JLabel("Proteinas Totais:");
 
 		textProteinasTotais = new JTextField();
+		textProteinasTotais.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				String caracteres="0987654321,";
+				if(!caracteres.contains(e.getKeyChar()+"")){
+				e.consume();
+				}
+			}
+		});
 		textProteinasTotais.setColumns(10);
 
 		JLabel lblAlbumina = new JLabel("Albumina:");
 
 		textAlbumina = new JTextField();
+		textAlbumina.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				String caracteres="0987654321,";
+				if(!caracteres.contains(e.getKeyChar()+"")){
+				e.consume();
+				}
+			}
+		});
 		textAlbumina.setColumns(10);
 
 		JLabel lblPralbumina = new JLabel("Pré-Albumina:");
 
 		textPreAlbumina = new JTextField();
+		textPreAlbumina.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				String caracteres="0987654321,";
+				if(!caracteres.contains(e.getKeyChar()+"")){
+				e.consume();
+				}
+			}
+		});
 		textPreAlbumina.setColumns(10);
 
 		JLabel lblPcr = new JLabel("PCR:");
 
 		textPcr = new JTextField();
+		textPcr.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				String caracteres="0987654321,";
+				if(!caracteres.contains(e.getKeyChar()+"")){
+				e.consume();
+				}
+			}
+		});
 		textPcr.setColumns(10);
 
 		JLabel lblFerretina = new JLabel("Ferretina:");
 
 		textFerretina = new JTextField();
+		textFerretina.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				String caracteres="0987654321,";
+				if(!caracteres.contains(e.getKeyChar()+"")){
+				e.consume();
+				}
+			}
+		});
 		textFerretina.setColumns(10);
 
 		JLabel lblFerro = new JLabel("Ferro:");
 
 		textFerro = new JTextField();
+		textFerro.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				String caracteres="0987654321,";
+				if(!caracteres.contains(e.getKeyChar()+"")){
+				e.consume();
+				}
+			}
+		});
 		textFerro.setColumns(10);
 
 		JLabel lblcidoFlico = new JLabel("Ácido Fólico:");
 
 		textAcidoFolico = new JTextField();
+		textAcidoFolico.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				String caracteres="0987654321,";
+				if(!caracteres.contains(e.getKeyChar()+"")){
+				e.consume();
+				}
+			}
+		});
 		textAcidoFolico.setColumns(10);
 
 		JLabel lblCreatinina = new JLabel("Creatinina:");
 
 		textCreatinina = new JTextField();
+		textCreatinina.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				String caracteres="0987654321,";
+				if(!caracteres.contains(e.getKeyChar()+"")){
+				e.consume();
+				}
+			}
+		});
 		textCreatinina.setColumns(10);
 
 		JLabel lblCreatininaNaUrina = new JLabel("Creatinina na Urina:");
 
 		textCreatininaUrina = new JTextField();
+		textCreatininaUrina.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				String caracteres="0987654321,";
+				if(!caracteres.contains(e.getKeyChar()+"")){
+				e.consume();
+				}
+			}
+		});
 		textCreatininaUrina.setColumns(10);
 
 		JLabel lblcidoUrico = new JLabel("Ácido Urico:");
 
 		textAcidoUrico = new JTextField();
+		textAcidoUrico.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				String caracteres="0987654321,";
+				if(!caracteres.contains(e.getKeyChar()+"")){
+				e.consume();
+				}
+			}
+		});
 		textAcidoUrico.setColumns(10);
 
 		JLabel lblTgo = new JLabel("TGO:");
 
 		textTgo = new JTextField();
+		textTgo.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				String caracteres="0987654321,";
+				if(!caracteres.contains(e.getKeyChar()+"")){
+				e.consume();
+				}
+			}
+		});
 		textTgo.setColumns(10);
 
 		JLabel lblTgp = new JLabel("TGP:");
 
 		textTgp = new JTextField();
+		textTgp.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				String caracteres="0987654321,";
+				if(!caracteres.contains(e.getKeyChar()+"")){
+				e.consume();
+				}
+			}
+		});
 		textTgp.setColumns(10);
 
 		JLabel lblDhl = new JLabel("DHL:");
 
 		textDhl = new JTextField();
+		textDhl.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				String caracteres="0987654321,";
+				if(!caracteres.contains(e.getKeyChar()+"")){
+				e.consume();
+				}
+			}
+		});
 		textDhl.setColumns(10);
 
 		JLabel lblVcm = new JLabel("VCM:");
 
 		textVcm = new JTextField();
+		textVcm.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				String caracteres="0987654321,";
+				if(!caracteres.contains(e.getKeyChar()+"")){
+				e.consume();
+				}
+			}
+		});
 		textVcm.setColumns(10);
 
 		JLabel lblHcm = new JLabel("HCM:");
 
 		textHcm = new JTextField();
+		textHcm.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				String caracteres="0987654321,";
+				if(!caracteres.contains(e.getKeyChar()+"")){
+				e.consume();
+				}
+			}
+		});
 		textHcm.setColumns(10);
 
 		JLabel lblChcm = new JLabel("CHCM:");
 
 		textChcm = new JTextField();
+		textChcm.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				String caracteres="0987654321,";
+				if(!caracteres.contains(e.getKeyChar()+"")){
+				e.consume();
+				}
+			}
+		});
 		textChcm.setColumns(10);
 
 		JLabel lblRdw = new JLabel("RDW:");
 
 		textRdw = new JTextField();
+		textRdw.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				String caracteres="0987654321,";
+				if(!caracteres.contains(e.getKeyChar()+"")){
+				e.consume();
+				}
+			}
+		});
 		textRdw.setColumns(10);
 
 		lblHemoglobina = new JLabel("Hemoglobina:");
 
 		textHemoglobina = new JTextField();
+		textHemoglobina.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				String caracteres="0987654321,";
+				if(!caracteres.contains(e.getKeyChar()+"")){
+				e.consume();
+				}
+			}
+		});
 		textHemoglobina.setColumns(10);
 
 		lblHematcrito = new JLabel("Hematócrito:");
 
 		textHematocrito = new JTextField();
+		textHematocrito.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				String caracteres="0987654321,";
+				if(!caracteres.contains(e.getKeyChar()+"")){
+				e.consume();
+				}
+			}
+		});
 		textHematocrito.setColumns(10);
 
 		lblPlaqueta = new JLabel("Plaqueta:");
 
 		textPlaqueta = new JTextField();
+		textPlaqueta.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				String caracteres="0987654321,";
+				if(!caracteres.contains(e.getKeyChar()+"")){
+				e.consume();
+				}
+			}
+		});
 		textPlaqueta.setColumns(10);
 
 		lblLeuccito = new JLabel("Leucócito:");
 
 		textLeucocito = new JTextField();
+		textLeucocito.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				String caracteres="0987654321,";
+				if(!caracteres.contains(e.getKeyChar()+"")){
+				e.consume();
+				}
+			}
+		});
 		textLeucocito.setColumns(10);
 
 		lblLinfcito = new JLabel("Linfócito:");
 
 		textLinfocito = new JTextField();
+		textLinfocito.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				String caracteres="0987654321,";
+				if(!caracteres.contains(e.getKeyChar()+"")){
+				e.consume();
+				}
+			}
+		});
 		textLinfocito.setColumns(10);
 
 		lblNeutrfilo = new JLabel("Neutrófilo:");
 
 		textNeutrofilo = new JTextField();
+		textNeutrofilo.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				String caracteres="0987654321,";
+				if(!caracteres.contains(e.getKeyChar()+"")){
+				e.consume();
+				}
+			}
+		});
 		textNeutrofilo.setColumns(10);
 
 		lblGlicemia = new JLabel("Glicemia:");
 
 		textGlicemia = new JTextField();
+		textGlicemia.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				String caracteres="0987654321,";
+				if(!caracteres.contains(e.getKeyChar()+"")){
+				e.consume();
+				}
+			}
+		});
 		textGlicemia.setColumns(10);
 
 		lblInsulenimia = new JLabel("Insulenimia:");
 
 		textInsulenimia = new JTextField();
+		textInsulenimia.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				String caracteres="0987654321,";
+				if(!caracteres.contains(e.getKeyChar()+"")){
+				e.consume();
+				}
+			}
+		});
 		textInsulenimia.setColumns(10);
 
 		lblT4Livre = new JLabel("T4 Livre:");
 
 		textT4Livre = new JTextField();
+		textT4Livre.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				String caracteres="0987654321,";
+				if(!caracteres.contains(e.getKeyChar()+"")){
+				e.consume();
+				}
+			}
+		});
 		textT4Livre.setColumns(10);
 
 		lblClcio = new JLabel("Cálcio:");
 
 		textCalcio = new JTextField();
+		textCalcio.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				String caracteres="0987654321,";
+				if(!caracteres.contains(e.getKeyChar()+"")){
+				e.consume();
+				}
+			}
+		});
 		textCalcio.setColumns(10);
 
 		lblSdio = new JLabel("Sódio:");
 
 		textSodio = new JTextField();
+		textSodio.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				String caracteres="0987654321,";
+				if(!caracteres.contains(e.getKeyChar()+"")){
+				e.consume();
+				}
+			}
+		});
 		textSodio.setColumns(10);
 
 		lblPotssio = new JLabel("Potássio:");
 
 		textPotassio = new JTextField();
+		textPotassio.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				String caracteres="0987654321,";
+				if(!caracteres.contains(e.getKeyChar()+"")){
+				e.consume();
+				}
+			}
+		});
 		textPotassio.setColumns(10);
 
 		JButton btnCadastrar = new JButton("Cadastrar");
@@ -634,12 +898,14 @@ public class TelaBioquimico extends JFrame {
 												GroupLayout.PREFERRED_SIZE)))
 						.addPreferredGap(ComponentPlacement.RELATED, 21, Short.MAX_VALUE).addComponent(btnCadastrar)));
 		contentPane.setLayout(gl_contentPane);
+		
+		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+		bioquimicoService = (BioquimicoService) context.getBean("bioquimicoService");
 	}
 
 	private void cadastrar() {
 		if (CriancaPadrao.crianca.getId() != null) {
-			ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-			bioquimicoService = (BioquimicoService) context.getBean("bioquimicoService");
+			
 
 			Bioquimico bioquimico = new Bioquimico();
 

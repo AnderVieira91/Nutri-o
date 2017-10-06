@@ -18,6 +18,7 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -31,6 +32,7 @@ public class TelaRemedio extends JFrame {
 	/**
 	 * 
 	 */
+	@Autowired
 	private RemedioService remedioService;
 	private List<Remedio> remedios = CriancaPadrao.crianca.getRemedios();
 	private static final long serialVersionUID = 1L;
@@ -120,12 +122,12 @@ public class TelaRemedio extends JFrame {
 					.addComponent(textRemedios, GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE))
 		);
 		contentPane.setLayout(gl_contentPane);
+		
+		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+		remedioService = (RemedioService) context.getBean("remedioService");
 	}
 
 	private void adicionar() {
-
-		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-		remedioService = (RemedioService) context.getBean("remedioService");
 
 		List<Crianca> crianca = new LinkedList<Crianca>();
 		crianca.add(CriancaPadrao.crianca);

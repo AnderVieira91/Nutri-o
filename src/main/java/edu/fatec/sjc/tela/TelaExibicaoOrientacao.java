@@ -17,6 +17,7 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -33,6 +34,7 @@ public class TelaExibicaoOrientacao extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextArea textOrientacao;
+	@Autowired
 	private OrientacaoService orientacaoService;
 	private Envio envio;
 	private JTextField textEmail;
@@ -138,16 +140,15 @@ public class TelaExibicaoOrientacao extends JFrame {
 						.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 		contentPane.setLayout(gl_contentPane);
 
-		
+		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+		orientacaoService = (OrientacaoService) context.getBean("orientacaoService");
+
 	}
 
 	private void preencherTexto() {
 
 		if (!CriancaPadrao.crianca.getOrientecao().isEmpty()) {
 			
-			ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-			orientacaoService = (OrientacaoService) context.getBean("orientacaoService");
-
 			a.append("");
 			List<Orientacao> orientacoes = orientacaoService.retornarOrientacoes(CriancaPadrao.crianca);
 

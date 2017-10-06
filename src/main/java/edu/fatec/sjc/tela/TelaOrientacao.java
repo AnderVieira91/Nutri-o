@@ -20,18 +20,22 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import edu.fatec.sjc.model.Orientacao;
 import edu.fatec.sjc.service.OrientacaoService;
 import edu.fatec.sjc.tela.Padrao.CriancaPadrao;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class TelaOrientacao extends JFrame {
 
 	/**
 	 * 
 	 */
+	@Autowired
 	private OrientacaoService orientacaoService;
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -85,6 +89,15 @@ public class TelaOrientacao extends JFrame {
 		JLabel lblHora = new JLabel("Hora:");
 
 		textHora = new JTextField();
+		textHora.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				String caracteres="0987654321:";
+				if(!caracteres.contains(e.getKeyChar()+"")){
+				e.consume();
+				}
+			}
+		});
 		textHora.setColumns(10);
 
 		JButton btnAdicionar = new JButton("Adicionar");
@@ -133,15 +146,15 @@ public class TelaOrientacao extends JFrame {
 				.addPreferredGap(ComponentPlacement.RELATED).addComponent(btnAdicionar).addGap(49)
 				.addComponent(textOrientacao, GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)));
 		contentPane.setLayout(gl_contentPane);
+		
+		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+		orientacaoService = (OrientacaoService) context.getBean("orientacaoService");
 
 	}
 
 	private void adicionar() {
 
 		if (CriancaPadrao.crianca.getId() != null) {
-
-			ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-			orientacaoService = (OrientacaoService) context.getBean("orientacaoService");
 
 			Orientacao orientacao = new Orientacao();
 			orientacao.setCrianca(CriancaPadrao.crianca);

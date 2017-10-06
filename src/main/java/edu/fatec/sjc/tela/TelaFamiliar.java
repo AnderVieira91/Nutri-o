@@ -15,22 +15,24 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import edu.fatec.sjc.model.Familiar;
 import edu.fatec.sjc.service.FamiliarService;
 import edu.fatec.sjc.tela.Padrao.CriancaPadrao;
-import javax.swing.JTextArea;
 
 public class TelaFamiliar extends JFrame {
 	/**
 	 * 
 	 */
+	@Autowired
 	private FamiliarService familiarService;
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -121,13 +123,13 @@ public class TelaFamiliar extends JFrame {
 						.addPreferredGap(ComponentPlacement.UNRELATED)
 						.addComponent(textDoencas, GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE)));
 		contentPane.setLayout(gl_contentPane);
+		
+		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+		familiarService = (FamiliarService) context.getBean("familiarService");
 	}
 
 	private void adicionarDoenca() {
 		if (CriancaPadrao.crianca.getId() != null) {
-
-			ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-			familiarService = (FamiliarService) context.getBean("familiarService");
 
 			String doenca = textDoenca.getText().toUpperCase();
 			

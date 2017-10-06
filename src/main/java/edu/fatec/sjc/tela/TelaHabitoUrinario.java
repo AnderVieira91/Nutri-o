@@ -2,6 +2,8 @@ package edu.fatec.sjc.tela;
 
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
@@ -20,6 +22,7 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -32,6 +35,7 @@ public class TelaHabitoUrinario extends JFrame {
 	/**
 	 * 
 	 */
+	@Autowired
 	private HabitoUrinarioService habitoUrinarioService;
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -72,6 +76,15 @@ public class TelaHabitoUrinario extends JFrame {
 		JLabel lblFrequncia = new JLabel("Frequência:");
 
 		textFequencia = new JTextField();
+		textFequencia.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				String caracteres="0987654321";
+				if(!caracteres.contains(e.getKeyChar()+"")){
+				e.consume();
+				}
+			}
+		});
 		textFequencia.setColumns(10);
 
 		cBFrequencia = new JComboBox();
@@ -112,13 +125,13 @@ public class TelaHabitoUrinario extends JFrame {
 				.addGap(18).addComponent(checkHematuria).addPreferredGap(ComponentPlacement.UNRELATED)
 				.addComponent(btnSalvar).addContainerGap(20, Short.MAX_VALUE)));
 		contentPane.setLayout(gl_contentPane);
+		
+		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+		habitoUrinarioService = (HabitoUrinarioService) context.getBean("habitoUrinarioService");
 	}
 
 	private void salvar() {
 		if (CriancaPadrao.crianca.getId() != null) {
-			
-			ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-			habitoUrinarioService = (HabitoUrinarioService) context.getBean("habitoUrinarioService");
 			
 			HabitoUrinario urinario = new HabitoUrinario();
 

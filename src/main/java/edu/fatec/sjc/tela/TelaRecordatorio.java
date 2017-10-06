@@ -2,6 +2,8 @@ package edu.fatec.sjc.tela;
 
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
@@ -20,6 +22,7 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -32,6 +35,7 @@ public class TelaRecordatorio extends JFrame {
 	/**
 	 * 
 	 */
+	@Autowired
 	private RecordatorioService recordatorioService;
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -85,6 +89,15 @@ public class TelaRecordatorio extends JFrame {
 		JLabel lblHora = new JLabel("Hora:");
 
 		textHora = new JTextField();
+		textHora.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				String caracteres="0987654321:";
+				if(!caracteres.contains(e.getKeyChar()+"")){
+				e.consume();
+				}
+			}
+		});
 		textHora.setColumns(10);
 
 		JButton btnAdicionar = new JButton("Adicionar");
@@ -147,14 +160,14 @@ public class TelaRecordatorio extends JFrame {
 		);
 		contentPane.setLayout(gl_contentPane);
 		
+		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+		recordatorioService = (RecordatorioService) context.getBean("recordatorioService");
+		
 	}
 
 	private void adicionar() {
 
 		if (CriancaPadrao.crianca.getId() != null) {
-			
-			ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-			recordatorioService = (RecordatorioService) context.getBean("recordatorioService");
 			
 			Recordatorio recordatorio = new Recordatorio();
 			recordatorio.setCrianca(CriancaPadrao.crianca);
