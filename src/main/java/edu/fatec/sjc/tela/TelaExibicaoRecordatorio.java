@@ -57,7 +57,6 @@ public class TelaExibicaoRecordatorio extends JFrame {
 
 		textRecordatorios = new JTextArea();
 		textRecordatorios.setText("");
-		preencherTexto();
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
@@ -68,9 +67,11 @@ public class TelaExibicaoRecordatorio extends JFrame {
 						.addComponent(textRecordatorios, GroupLayout.PREFERRED_SIZE, 261, GroupLayout.PREFERRED_SIZE)
 						.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 		contentPane.setLayout(gl_contentPane);
-
+		
 		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 		recordatorioService = (RecordatorioService) context.getBean("recordatorioService");
+		
+		preencherTexto();
 
 	}
 

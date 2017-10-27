@@ -92,9 +92,9 @@ public class TelaRecordatorio extends JFrame {
 		textHora.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
-				String caracteres="0987654321:";
-				if(!caracteres.contains(e.getKeyChar()+"")){
-				e.consume();
+				String caracteres = "0987654321:";
+				if (!caracteres.contains(e.getKeyChar() + "")) {
+					e.consume();
 				}
 			}
 		});
@@ -107,68 +107,55 @@ public class TelaRecordatorio extends JFrame {
 				adicionar();
 			}
 		});
-		
+
 		textRecordatorio = new JTextArea();
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
-		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblAlimento)
-								.addComponent(lblRefeio)
-								.addComponent(lblHora))
-							.addGap(18)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addComponent(textHora, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+		gl_contentPane.setHorizontalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING).addGroup(gl_contentPane
+				.createSequentialGroup().addContainerGap()
+				.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING).addGroup(gl_contentPane
+						.createSequentialGroup()
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING).addComponent(lblAlimento)
+								.addComponent(lblRefeio).addComponent(lblHora))
+						.addGap(18)
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+								.addComponent(textHora, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+										GroupLayout.PREFERRED_SIZE)
 								.addComponent(textAlimento, GroupLayout.PREFERRED_SIZE, 153, GroupLayout.PREFERRED_SIZE)
-								.addComponent(cBRefeicao, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addContainerGap(237, Short.MAX_VALUE))
+								.addComponent(cBRefeicao, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+										GroupLayout.PREFERRED_SIZE))
+						.addContainerGap(237, Short.MAX_VALUE))
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addPreferredGap(ComponentPlacement.RELATED, 292, Short.MAX_VALUE)
-							.addComponent(lblCriancaNome)
-							.addGap(161))))
+								.addPreferredGap(ComponentPlacement.RELATED, 292, Short.MAX_VALUE)
+								.addComponent(lblCriancaNome).addGap(161))))
 				.addComponent(textRecordatorio, GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(191)
-					.addComponent(btnAdicionar)
-					.addContainerGap(195, Short.MAX_VALUE))
-		);
-		gl_contentPane.setVerticalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(lblCriancaNome)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblAlimento)
-						.addComponent(textAlimento, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(cBRefeicao, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+				.addGroup(gl_contentPane.createSequentialGroup().addGap(191).addComponent(btnAdicionar)
+						.addContainerGap(195, Short.MAX_VALUE)));
+		gl_contentPane.setVerticalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING).addGroup(gl_contentPane
+				.createSequentialGroup().addContainerGap().addComponent(lblCriancaNome)
+				.addPreferredGap(ComponentPlacement.RELATED)
+				.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE).addComponent(lblAlimento).addComponent(
+						textAlimento, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+				.addPreferredGap(ComponentPlacement.RELATED)
+				.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(cBRefeicao, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+								GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblRefeio))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblHora)
-						.addComponent(textHora, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(28)
-					.addComponent(btnAdicionar)
-					.addGap(18)
-					.addComponent(textRecordatorio, GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE))
-		);
+				.addPreferredGap(ComponentPlacement.RELATED)
+				.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING).addComponent(lblHora).addComponent(
+						textHora, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+				.addGap(28).addComponent(btnAdicionar).addGap(18)
+				.addComponent(textRecordatorio, GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE)));
 		contentPane.setLayout(gl_contentPane);
-		
+
 		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 		recordatorioService = (RecordatorioService) context.getBean("recordatorioService");
-		
+
 	}
 
 	private void adicionar() {
 
 		if (CriancaPadrao.crianca.getId() != null) {
-			
+
 			Recordatorio recordatorio = new Recordatorio();
 			recordatorio.setCrianca(CriancaPadrao.crianca);
 			recordatorio.setAlimento(textAlimento.getText());
@@ -180,16 +167,16 @@ public class TelaRecordatorio extends JFrame {
 			if (recordatorio.getId() == null) {
 				JOptionPane.showMessageDialog(null, "Dados da orientação não salvos.\nPreencha todos os campos.");
 			} else {
-				sb = sb + recordatorio.getAlimento() + " no(a) " + recordatorio.getRefeicao()
-						+ " as " + recordatorio.getHorario() + "\n";
+				sb = sb + recordatorio.getAlimento() + " no(a) " + recordatorio.getRefeicao() + " as "
+						+ recordatorio.getHorario() + "\n";
 				textRecordatorio.setText(sb);
-				
+
 				List<Recordatorio> recordatorios = CriancaPadrao.crianca.getRecordatorio();
 				recordatorios.add(recordatorio);
-				
+
 				CriancaPadrao.crianca.setRecordatorio(recordatorios);
 			}
 		}
 	}
-	
+
 }

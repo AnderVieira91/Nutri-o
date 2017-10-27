@@ -557,7 +557,7 @@ public class TelaPrincipal extends JFrame {
 						ds.addValue(a.getPerimetroCraniano(), "paciente", data);
 					}
 
-					Grafico grafico = new Grafico("Gráfico", "Perímetro Cefálico X Idade \n0 a 2 anos", "IDADE",
+					Grafico grafico = new Grafico("Gráfico", "Perímetro Cefálico X Idade " + CriancaPadrao.crianca.getNome().toUpperCase() + "\n0 a 2 anos", "IDADE",
 							"PERÍMETRO CEFÁLICO (cm)", ds);
 					grafico.setVisible(true);
 
@@ -585,7 +585,7 @@ public class TelaPrincipal extends JFrame {
 						ds.addValue(a.getPerimetroCraniano(), "paciente", data);
 					}
 
-					Grafico grafico = new Grafico("Gráfico", "Perímetro Cefálico X Idade \n0 a 2 anos", "IDADE",
+					Grafico grafico = new Grafico("Gráfico", "Perímetro Cefálico X Idade "  + CriancaPadrao.crianca.getNome().toUpperCase() + "\n0 a 2 anos", "IDADE",
 							"PERÍMETRO CEFÁLICO (cm)", ds);
 					grafico.setVisible(true);
 
@@ -620,7 +620,7 @@ public class TelaPrincipal extends JFrame {
 						ds.addValue(a.getPesoAtual(), "paciente", data);
 					}
 
-					Grafico grafico = new Grafico("Gráfico", "Peso X Idade \n0 a 2 anos", "IDADE", "PESO (cm)", ds);
+					Grafico grafico = new Grafico("Gráfico", "Peso X Idade "  + CriancaPadrao.crianca.getNome().toUpperCase() + "\n0 a 2 anos", "IDADE", "PESO (cm)", ds);
 					grafico.setVisible(true);
 
 				}
@@ -648,7 +648,7 @@ public class TelaPrincipal extends JFrame {
 						}
 					}
 
-					Grafico grafico = new Grafico("Gráfico", "Peso X Idade \n2 a 5 anos", "IDADE", "PESO (cm)", ds);
+					Grafico grafico = new Grafico("Gráfico", "Peso X Idade " + CriancaPadrao.crianca.getNome().toUpperCase() +  "\n2 a 5 anos", "IDADE", "PESO (cm)", ds);
 					grafico.setVisible(true);
 
 				}
@@ -676,7 +676,7 @@ public class TelaPrincipal extends JFrame {
 						ds.addValue(a.getPesoAtual(), "paciente", data);
 					}
 
-					Grafico grafico = new Grafico("Gráfico", "Peso X Idade \n0 a 2 anos", "IDADE", "PESO (cm)", ds);
+					Grafico grafico = new Grafico("Gráfico", "Peso X Idade "  + CriancaPadrao.crianca.getNome().toUpperCase() + "\n0 a 2 anos", "IDADE", "PESO (cm)", ds);
 					grafico.setVisible(true);
 
 				}
@@ -704,7 +704,7 @@ public class TelaPrincipal extends JFrame {
 						}
 					}
 
-					Grafico grafico = new Grafico("Gráfico", "Peso X Idade \n2 a 5 anos", "IDADE", "PESO (cm)", ds);
+					Grafico grafico = new Grafico("Gráfico", "Peso X Idade "  + CriancaPadrao.crianca.getNome().toUpperCase() + "\n2 a 5 anos", "IDADE", "PESO (cm)", ds);
 					grafico.setVisible(true);
 
 				}
@@ -740,7 +740,7 @@ public class TelaPrincipal extends JFrame {
 						}
 					}
 
-					Grafico grafico = new Grafico("Gráfico", "Altura X Idade \n2 a 5 anos", "IDADE", "ALTURA (cm)", ds);
+					Grafico grafico = new Grafico("Gráfico", "Altura X Idade "  + CriancaPadrao.crianca.getNome().toUpperCase() + "\n2 a 5 anos", "IDADE", "ALTURA (cm)", ds);
 					grafico.setVisible(true);
 
 				}
@@ -770,7 +770,7 @@ public class TelaPrincipal extends JFrame {
 						}
 					}
 
-					Grafico grafico = new Grafico("Gráfico", "Altura X Idade \n2 a 5 anos", "IDADE", "ALTURA (cm)", ds);
+					Grafico grafico = new Grafico("Gráfico", "Altura X Idade "  + CriancaPadrao.crianca.getNome().toUpperCase() + "\n2 a 5 anos", "IDADE", "ALTURA (cm)", ds);
 					grafico.setVisible(true);
 				}
 

@@ -76,8 +76,6 @@ public class TelaExibicaoOrientacao extends JFrame {
 		textDestinatario = new JTextField();
 		textDestinatario.setColumns(10);
 
-		preencherTexto();
-
 		JButton btnImprimir = new JButton("IMPRIMIR");
 		btnImprimir.addMouseListener(new MouseAdapter() {
 			@Override
@@ -139,10 +137,11 @@ public class TelaExibicaoOrientacao extends JFrame {
 										GroupLayout.PREFERRED_SIZE))
 						.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 		contentPane.setLayout(gl_contentPane);
-
+		
 		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 		orientacaoService = (OrientacaoService) context.getBean("orientacaoService");
 
+		preencherTexto();
 	}
 
 	private void preencherTexto() {

@@ -30,15 +30,16 @@ public class RecordatorioServiceImp implements RecordatorioService {
 
 	public List<Recordatorio> buscarRecordatorios(Crianca crianca) {
 		List<Recordatorio> recordatorios = recordatorioRepo.findByCriancaOrderByDataDesc(crianca);
-		Date data;
+		
 		try {
-			data = (Date) recordatorios.get(0).getData();
+			Date data = Date.valueOf(String.valueOf(recordatorios.get(0).getData()));
+			return recordatorioRepo.retornarRecordatorios(data, crianca);
+
 		} catch (Exception e) {
 
 			return null;
 
 		}
-		return recordatorioRepo.retornarRecordatorios(data, crianca);
 	}
 
 }

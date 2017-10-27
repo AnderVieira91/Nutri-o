@@ -30,15 +30,16 @@ public class OrientacaoServiceImp implements OrientacaoService{
 
 	public List<Orientacao> retornarOrientacoes(Crianca crianca) {
 		List<Orientacao> orientacoes = orientacaoRepo.findByCriancaOrderByDataDesc(crianca);
-		Date data;
+		
 		try{
-		  data = (Date) orientacoes.get(0).getData();
+		  Date data =  Date.valueOf(String.valueOf(orientacoes.get(0).getData()));
+		  return orientacaoRepo.retornarOrientacoes(data, crianca);
 		} catch(Exception e) {
 			
 			return null;
 			
 		}
-		return orientacaoRepo.retornarOrientacoes(data, crianca);
+		
 	}
 
 }
